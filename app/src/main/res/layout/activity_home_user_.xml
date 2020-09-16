@@ -8,164 +8,126 @@
     android:background="@color/white"
     tools:context=".Home_User_Activity">
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_below="@+id/Drawaernav"
         android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/FramProfile"
-            android:visibility="gone"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="@dimen/_200sdp">
 
-
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/Layout1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/dashcourese"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp">
+                android:background="@drawable/homescrren"
+                android:layout_height="@dimen/_200sdp"
+                tools:ignore="NotSibling">
+                <TextView
+                    android:id="@+id/Tv_Home_LearnAt"
+                    android:textColor="@color/white"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:textSize="@dimen/_16sdp"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:scrollbarStyle="insideInset"
+                    android:textColorHighlight="@color/white"
+                    android:textStyle="italic"
+                    android:scrollHorizontally="true"
+                    android:layout_marginTop="@dimen/_80sdp"
+                    android:text="Learn at your convenience! and learnig you can any time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <Button
+                    android:id="@+id/Btn_Home_ViewCourse"
+                    android:layout_marginTop="@dimen/_120sdp"
+                    android:layout_width="match_parent"
+                    android:text="view courses"
+                    android:textColor="@color/white"
+                    android:background="@color/colorPrimaryDark1"
+                    android:layout_marginLeft="@dimen/_50sdp"
+                    android:layout_marginRight="@dimen/_50sdp"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/Layout2"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/Layout1"
+                android:layout_height="wrap_content">
 
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="" />
-
-                    <TextView
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
-                        android:background="@color/red"
-                        android:gravity="center" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
+                        android:id="@+id/Tv_Home_COURSES"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_30sdp"
                         android:gravity="center"
-                        android:text="Course"
-                        android:textColor="@color/black" />
+                        android:text="COURSES"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_20sdp" />
 
                     <TextView
-                        android:id="@+id/Tv_mycc"
+                        android:id="@+id/Tv_Home_Something"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_below="@+id/Tv_Home_COURSES"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:text="12 th stander" />
+                        android:text="Something For Everybody" />
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
+                    <FrameLayout
+                        android:id="@+id/Fram_Courses"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/Tv_Home_Something" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/Layout3"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/Layout2"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/Tv_Home_Vision"
+                        android:text="VISION"
+                        android:textSize="@dimen/_20sdp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_30sdp"
                         android:gravity="center"
-                        android:text="Description"
-                        android:textColor="@color/black" />
-
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
                     <TextView
-                        android:id="@+id/Tv_mydd"
+                        android:id="@+id/Tv_Home_VisionIdea"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="The online courses makes ideas come true."
+                        android:layout_below="@+id/Tv_Home_Vision"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="12 th stander" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="@dimen/_50sdp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
+                        android:layout_height="wrap_content"/>
+                    <FrameLayout
+                        android:id="@+id/Fra_Vision"
+                        android:layout_below="@+id/Tv_Home_VisionIdea"
+                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Price"
-                        android:textColor="@color/black" />
+                        android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/Tv_mypp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="5" />
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
 
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Course group"
-                        android:textColor="@color/black" />
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/Tv_myAA"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Accademic" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="" />
-
-                    <ImageView
-                        android:id="@+id/Im_EditCo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:background="@drawable/ic_edit"
-                        android:backgroundTint="@color/blue"
-                        android:gravity="center"
-                        android:scaleType="centerCrop" />
-                </LinearLayout>
-            </LinearLayout>
-        </FrameLayout>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:id="@+id/Fram_coursesUser"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="NotSibling" />
-    </RelativeLayout>
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
     <com.google.android.material.navigation.NavigationView

@@ -11,10 +11,13 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +31,10 @@ public class Home_User_Activity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle adt;
-    ImageView tvedit;
-    TextView tvcourse, tvdescription, tvprice, tvcoursegroup;
-    String course, description, price, coursegroup;
+
+    Button btnviewcurses;
+    TextView tvcourses, tvmarquee;
+    FrameLayout frameLayoutCourses, frameLayoutVision;
 
     //Toolbar toolbar;
     @Override
@@ -39,12 +43,16 @@ public class Home_User_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_home_user_);
         drawerLayout = findViewById(R.id.DrawerLyout);
         navigationView = findViewById(R.id.NaviGation);
-        tvedit = findViewById(R.id.Im_EditCo);
-        tvcourse = findViewById(R.id.Tv_mycc);
-        tvdescription = findViewById(R.id.Tv_mydd);
-        tvprice = findViewById(R.id.Tv_mypp);
-        tvcoursegroup = findViewById(R.id.Tv_myAA);
 
+        btnviewcurses = findViewById(R.id.Btn_Home_ViewCourse);
+        tvcourses = findViewById(R.id.Tv_Home_COURSES);
+        tvmarquee = findViewById(R.id.Tv_Home_LearnAt);
+        frameLayoutCourses = findViewById(R.id.Fram_Courses);
+        frameLayoutVision = findViewById(R.id.Fra_Vision);
+
+        tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+
+        tvmarquee.setSelected(true);
 
         adt = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.setDrawerListener(adt);
@@ -53,22 +61,25 @@ public class Home_User_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        tvedit.setOnClickListener(new View.OnClickListener() {
+        Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
+        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
+        fragmentTransaction.commit();
+        btnviewcurses.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
-                course = tvcourse.getText().toString();
-                description = tvdescription.getText().toString();
-                price = tvprice.getText().toString();
-                coursegroup = tvcoursegroup.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), ViewDetail_Activity.class);
-                intent.putExtra("course", course);
-                intent.putExtra("description", description);
-                intent.putExtra("price", price);
-                intent.putExtra("coursegroup", coursegroup);
+                tvcourses.setText("All COURSES");
+                frameLayoutCourses.setVisibility(View.VISIBLE);
+                Course_Fragment courseFragment = new Course_Fragment();
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
+                fragmentTransaction.commit();
 
-                startActivity(intent);
+
             }
         });
+
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -80,16 +91,17 @@ public class Home_User_Activity extends AppCompatActivity {
                 if (id == R.id.MenuHome) {
                     Course_Fragment courseListFragment = new Course_Fragment();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Fram_coursesUser, courseListFragment);
+                    fragmentTransaction.replace(R.id.Fram_Courses, courseListFragment);
                     drawerLayout.closeDrawer(Gravity.START);
                     getSupportActionBar().setTitle("Madhvi Vision");
+                    tvcourses.setText("COURSES");
 
                     fragmentTransaction.commit();
                 }
                 if (id == R.id.MenuMycoursedashboard) {
                     MyCourse_Fragment myCourseFragment = new MyCourse_Fragment();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Fram_coursesUser, myCourseFragment);
+                    fragmentTransaction.replace(R.id.Fram_Courses, myCourseFragment);
                     getSupportActionBar().setTitle("Madhvi Vision");
                     drawerLayout.closeDrawer(Gravity.START);
                     fragmentTransaction.commit();
@@ -100,8 +112,10 @@ public class Home_User_Activity extends AppCompatActivity {
 
                     My_Purchase_course_Fragment fragment=new My_Purchase_course_Fragment();
                     FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Fram_coursesUser,fragment);
+                    fragmentTransaction.replace(R.id.Fram_Courses,fragment);
+                    tvcourses.setText("PURCHASE COURSES");
                     fragmentTransaction.commit();
+
 //                    Intent intent=new Intent(getApplicationContext(),Tutorial_Details_Activity.class);
 //                    startActivity(intent);
                     drawerLayout.closeDrawer(Gravity.START);
