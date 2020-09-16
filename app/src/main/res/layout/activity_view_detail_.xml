@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ViewDetail_Activity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/_5sdp"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TableLayout
+                    android:id="@+id/Tbale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:background="@drawable/dashcourese"
+                        android:padding="@dimen/_5sdp">
+
+                        <TextView
+                            android:id="@+id/Tv_Myc"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="wrap_content"
+                            android:text="Course"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:id="@+id/Tv_mycc"
+                            android:layout_width="@dimen/_200sdp"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            tools:ignore="RtlCompat" />
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/dashcourese"
+                        android:padding="@dimen/_5sdp">
+
+                        <TextView
+                            android:id="@+id/Tv_myd"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Tv_mycc"
+                            android:text="Detail"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:id="@+id/Tv_mydd"
+                            android:layout_width="@dimen/_200sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Tv_mycc"
+                            android:text=""
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp"
+                            tools:ignore="RtlCompat" />
+                    </TableRow>
+
+                    <TableRow
+                        android:background="@drawable/dashcourese"
+                        android:padding="@dimen/_5sdp">
+
+                        <TextView
+                            android:id="@+id/Tv_myp"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/Tv_myd"
+                            android:text="Price ₹"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:id="@+id/Tv_mypp"
+                            android:layout_width="@dimen/_200sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Tv_mydd"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+                    </TableRow>
+
+
+                    <TableRow
+                        android:background="@drawable/dashcourese"
+                        android:padding="@dimen/_5sdp">
+
+                        <TextView
+                            android:id="@+id/Tv_myA"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Tv_mypp"
+                            android:text="Course Group"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:id="@+id/Tv_myAA"
+                            android:layout_width="@dimen/_200sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/Tv_mypp"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+                    </TableRow>
+                    <TextView
+                        android:id="@+id/Tv_SubjectDetail"
+                        android:text="View Subject"
+                        android:background="@drawable/dashcourese"
+                        android:textSize="@dimen/_12sdp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark1"
+                        android:padding="@dimen/_10sdp"
+                        android:layout_below="@id/Tbale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </TableLayout>
+
+
+                <RelativeLayout
+                    android:background="@drawable/dashcourese"
+                    android:layout_below="@+id/Tbale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/Tv_Subjecttit"
+                        android:text="Subject"
+                        android:textSize="@dimen/_11sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+
+                        android:id="@+id/Tv_subjectdescrrrr"
+                        android:textSize="@dimen/_11sdp"
+                        android:text="Description"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:padding="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_100sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/Rv_Subject"
+                        android:layout_below="@+id/Tv_Subjecttit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+<Button
+    android:id="@+id/Btn_Purchase"
+    android:text="purchase now"
+    android:textColor="@color/white"
+    android:background="@color/colorPrimaryDark1"
+    android:layout_alignParentBottom="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+
+</RelativeLayout>

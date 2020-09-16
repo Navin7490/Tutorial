@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    app:cardElevation="@dimen/_20sdp"
+    android:clickable="true"
+    app:cardCornerRadius="@dimen/_10sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/Im_Home_visionlist"
+            android:layout_width="@dimen/_50sdp"
+            android:src="@drawable/catdigm"
+            android:layout_height="@dimen/_50sdp"/>
+        <TextView
+            android:id="@+id/Tv_Home_visionTitle"
+            android:layout_width="match_parent"
+            android:text="Career advancement and hobbies"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_55sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/Tv_Home_visionDescription"
+            android:layout_below="@+id/Tv_Home_visionTitle"
+            android:layout_width="match_parent"
+            android:text="Studying online gives you more flexibility"
+            android:layout_marginLeft="@dimen/_55sdp"
+            android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:background="@color/black"
+                android:visibility="visible"
+                android:layout_below="@+id/Im_Home_visionlist"
+                android:layout_height="@dimen/_100sdp"/>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile_Activity">
+
+    <RelativeLayout
+        android:id="@+id/layprofile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:background="@color/colorAccent">
+
+    </RelativeLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/lacartpro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layprofile"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="-85dp"
+        android:layout_marginRight="@dimen/_20sdp"
+        app:cardCornerRadius="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/Im_Profile"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_100sdp"
+                android:src="@drawable/ic_user" />
+
+            <TextView
+                android:id="@+id/Tv_ProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Im_Profile"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="Navin Solanki"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/Tv_ProMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Tv_ProfileName"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="7490967163"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:id="@+id/Et_proFristName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/Tv_ProMobile"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/edit_text_profile"
+                android:gravity="center"
+                android:hint="First Name"
+                android:textColorHint="@color/black" />
+
+            <EditText
+                android:id="@+id/Et_ProLastName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/Et_proFristName"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/edit_text_profile"
+                android:gravity="center"
+                android:hint="Last Name"
+                android:textColorHint="@color/black" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_below="@+id/Et_ProLastName"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/edit_text_profile"
+                android:gravity="center"
+                android:hint="City"
+                android:textColorHint="@color/black" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp">
+
+            <Button
+                android:id="@+id/Btn_ProfileLogout"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/_160sdp"
+                android:background="@color/colorPrimaryDark1"
+                android:text="sign out" />
+
+            <Button
+                android:id="@+id/Btn_ProfileUpdate"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@color/colorPrimaryDark1"
+                android:text="update" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</RelativeLayout>

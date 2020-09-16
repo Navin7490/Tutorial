@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Select_Paymen_Methode_Activity">
+    <RelativeLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_140sdp"
+            app:cardCornerRadius="@dimen/_1sdp"
+            android:layout_height="@dimen/_140sdp">
+            <ImageButton
+                android:id="@+id/Btn_CardGpay"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gpay"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="@dimen/_140sdp"
+            android:layout_marginLeft="@dimen/_150sdp"
+            app:cardCornerRadius="@dimen/_1sdp"
+            android:layout_height="@dimen/_140sdp">
+            <ImageButton
+                android:id="@+id/Btn_CardPaytmpay"
+                android:scaleType="centerCrop"
+                android:src="@drawable/patmbutton"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

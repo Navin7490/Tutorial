@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<group android:checkableBehavior="single">
+
+    <item android:id="@+id/MenuHome_courses"
+        android:title="COURSES"/>
+    <item android:id="@+id/MenuHome_vision"
+        android:title="VISION"/>
+    <item android:id="@+id/MenuHome_Login"
+        android:title="LOGIN"/>
+    <item android:id="@+id/MenuHome_signup"
+        android:title="SIGN UP"/>
+
+</group>
+</menu>

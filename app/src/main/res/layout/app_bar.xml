@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/black"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:id="@+id/MyToolbar"
+    tools:ignore="ResAuto"
+    app:logo="@drawable/ic_menu"
+    >
+<!--<TextView-->
+<!--    android:text="MADHVI VISION"-->
+<!--    android:gravity="center"-->
+<!--    android:textColor="@color/white"-->
+<!--    android:textSize="@dimen/_16sdp"-->
+<!--    android:layout_marginStart="@dimen/_10sdp"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_marginLeft="@dimen/_10sdp" />-->
+</androidx.appcompat.widget.Toolbar>
