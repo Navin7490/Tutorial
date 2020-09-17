@@ -49,5 +49,19 @@ public class Course_Modal {
         this.coursePrice = coursePrice;
     }
 
-    String courseId,coursename,coursedescription,coursePrice,courseimage;
+    String courseId;
+    String coursename;
+    String coursedescription;
+    String coursePrice;
+    String courseimage;
+
+    public String getCourseGroupId() {
+        return courseGroupId;
+    }
+
+    public void setCourseGroupId(String courseGroupId) {
+        this.courseGroupId = courseGroupId;
+    }
+
+    String courseGroupId;
 }

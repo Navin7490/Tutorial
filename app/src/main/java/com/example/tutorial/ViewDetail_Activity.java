@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,7 +53,11 @@ public class ViewDetail_Activity extends AppCompatActivity {
     TextView tvsubjectdetail, tvcourse, tvdescription, tvprice, tvcourseGroup,tvsubtitle,tvsubdes;
     String courseid;
     String courseId, coursename, coursedescription, courseprice, coursegroup;
-    String VIEWCOURSEDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewCourseDetail.php";
+
+    String VIEWCOURSEDETAIL_URL = "http://103.207.169.120:8891/api/Subject/1";
+
+
+   // String VIEWCOURSEDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewCourseDetail.php";
     String VIEWSUBJECTDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewSubjectbyCourse.php";
     Button btnpurchase;
     ProgressDialog progressDialog;
@@ -66,7 +72,8 @@ public class ViewDetail_Activity extends AppCompatActivity {
     String note = "Madhvi vision Trasaction";
     String staus;
     Toast toast;
-
+    Snackbar snackbar;
+    View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,68 +91,79 @@ public class ViewDetail_Activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Course Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btnpurchase.setVisibility(View.GONE);
+        btnpurchase.setVisibility(View.VISIBLE);
         final Intent intent = getIntent();
-        courseid = intent.getStringExtra("courseid");
+        courseid=intent.getStringExtra("courseid");
+        coursename = intent.getStringExtra("coursename");
+        coursedescription=intent.getStringExtra("description");
+        courseprice=intent.getStringExtra("price");
+        coursegroup=intent.getStringExtra("coursegroup");
+
+       tvcourse.setText(coursename);
+       tvdescription.setText(coursedescription);
+       tvprice.setText(courseprice);
+       tvcourseGroup.setText(coursegroup);
+
+
         progressDialog = new ProgressDialog(ViewDetail_Activity.this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please Waiting..");
-        progressDialog.show();
+       // progressDialog.show();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         product = new ArrayList<>();
         //// view course  detail ______________///
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progressDialog.dismiss();
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    // String status=jsonObject.getString("status");
-                    JSONArray jsonArray = jsonObject.getJSONArray("product_detail");
-                    // if (status.equals("success")){
-                    for (int is = 0; is < jsonArray.length(); is++) {
-                        JSONObject productv = jsonArray.getJSONObject(is);
-                        courseId = productv.getString("id");
-                        coursename = productv.getString("course_name");
-
-                        coursedescription = productv.getString("course_description");
-                        courseprice = productv.getString("course_price");
-                        coursegroup = productv.getString("course_group");
-
-                        tvcourse.setText(coursename);
-                        tvdescription.setText(coursedescription);
-                        tvprice.setText(courseprice);
-                        tvcourseGroup.setText(coursegroup);
-                        if (!courseprice.isEmpty()) {
-                            btnpurchase.setVisibility(View.VISIBLE);
-                        }
-
-                    }
-
-                    // }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(ViewDetail_Activity.this, "connectin Fail", Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parm = new HashMap<>();
-                parm.put("id", courseid);
-                return parm;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(stringRequest);
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                progressDialog.dismiss();
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    // String status=jsonObject.getString("status");
+//                    JSONArray jsonArray = jsonObject.getJSONArray("product_detail");
+//                    // if (status.equals("success")){
+//                    for (int is = 0; is < jsonArray.length(); is++) {
+//                        JSONObject productv = jsonArray.getJSONObject(is);
+//                        courseId = productv.getString("id");
+//                        coursename = productv.getString("course_name");
+//
+//                        coursedescription = productv.getString("course_description");
+//                        courseprice = productv.getString("course_price");
+//                        coursegroup = productv.getString("course_group");
+//
+//                        tvcourse.setText(coursename);
+//                        tvdescription.setText(coursedescription);
+//                        tvprice.setText(courseprice);
+//                        tvcourseGroup.setText(coursegroup);
+//                        if (!courseprice.isEmpty()) {
+//                            btnpurchase.setVisibility(View.VISIBLE);
+//                        }
+//
+//                    }
+//
+//                    // }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                progressDialog.dismiss();
+//                Toast.makeText(ViewDetail_Activity.this, "connectin Fail", Toast.LENGTH_SHORT).show();
+//            }
+//        }) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> parm = new HashMap<>();
+//                parm.put("id", courseid);
+//                return parm;
+//            }
+//        };
+//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+//        requestQueue.add(stringRequest);
 
         //// view course  detail end ______________///
 
@@ -153,8 +171,9 @@ public class ViewDetail_Activity extends AppCompatActivity {
 
   tvsubjectdetail.setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View view) {
-          StringRequest stringRequestsub = new StringRequest(Request.Method.POST, VIEWSUBJECTDETAIL_URL, new Response.Listener<String>() {
+      public void onClick(final View view) {
+          progressDialog.show();
+          StringRequest stringRequestsub = new StringRequest(Request.Method.POST, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
               @Override
               public void onResponse(String response) {
                    progressDialog.dismiss();
@@ -165,15 +184,15 @@ public class ViewDetail_Activity extends AppCompatActivity {
                   try {
                       JSONObject jsonObjects = new JSONObject(response);
                       // String status=jsonObject.getString("status");
-                      JSONArray jsonArrays = jsonObjects.getJSONArray("product_detail");
+                      JSONArray jsonArrays = jsonObjects.getJSONArray("subjects");
                       // if (status.equals("success")){
                       for (int i = 0; i < jsonArrays.length(); i++) {
                           JSONObject subject = jsonArrays.getJSONObject(i);
                           //courseId = productv.getString("id");
                           //coursename = subject.getString("course_name");
 
-                          subname = subject.getString("subject_name");
-                          subdescription = subject.getString("subject_description");
+                          subname = subject.getString("SubjectName");
+                          subdescription = subject.getString("Description");
 
                           SubjectDeatail_Modal subjectDeatailModal = new SubjectDeatail_Modal();
 
@@ -196,13 +215,20 @@ public class ViewDetail_Activity extends AppCompatActivity {
               @Override
               public void onErrorResponse(VolleyError error) {
                    progressDialog.dismiss();
-                  Toast.makeText(ViewDetail_Activity.this, "connectin Fail" , Toast.LENGTH_SHORT).show();
+                  snackbar = Snackbar.make(findViewById(R.id.View_detail_A), "   No Internet Connection !", Snackbar.LENGTH_LONG)
+                          .setAction("View Detail", new View.OnClickListener() {
+                              @Override
+                              public void onClick(View view) {
+
+                              }
+                          });
+                  snackbar.show();
               }
           }) {
               @Override
               protected Map<String, String> getParams() throws AuthFailureError {
                   Map<String, String> parms = new HashMap<>();
-                  parms.put("course_name", coursename);
+                  parms.put("CourseId", courseid);
                   return parms;
               }
           };
@@ -256,3 +282,61 @@ public class ViewDetail_Activity extends AppCompatActivity {
 
 
 }
+
+
+/// subject//
+//StringRequest stringRequestsub = new StringRequest(Request.Method.POST, VIEWSUBJECTDETAIL_URL, new Response.Listener<String>() {
+//    @Override
+//    public void onResponse(String response) {
+//        progressDialog.dismiss();
+//        tvsubjectdetail.setEnabled(false);
+//        tvsubtitle.setVisibility(View.VISIBLE);
+//        tvsubdes.setVisibility(View.VISIBLE);
+//
+//        try {
+//            JSONObject jsonObjects = new JSONObject(response);
+//            // String status=jsonObject.getString("status");
+//            JSONArray jsonArrays = jsonObjects.getJSONArray("product_detail");
+//            // if (status.equals("success")){
+//            for (int i = 0; i < jsonArrays.length(); i++) {
+//                JSONObject subject = jsonArrays.getJSONObject(i);
+//                //courseId = productv.getString("id");
+//                //coursename = subject.getString("course_name");
+//
+//                subname = subject.getString("subject_name");
+//                subdescription = subject.getString("subject_description");
+//
+//                SubjectDeatail_Modal subjectDeatailModal = new SubjectDeatail_Modal();
+//
+//                subjectDeatailModal.setSubname(subname);
+//                subjectDeatailModal.setSubdescription(subdescription);
+//                product.add(subjectDeatailModal);
+//
+//                SubjectDetail_Adapter adapter = new SubjectDetail_Adapter(ViewDetail_Activity.this, product);
+//                recyclerView.setAdapter(adapter);
+//
+//            }
+//
+//            // }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+//}, new Response.ErrorListener() {
+//    @Override
+//    public void onErrorResponse(VolleyError error) {
+//        progressDialog.dismiss();
+//        Toast.makeText(ViewDetail_Activity.this, "connectin Fail" , Toast.LENGTH_SHORT).show();
+//    }
+//}) {
+//    @Override
+//    protected Map<String, String> getParams() throws AuthFailureError {
+//        Map<String, String> parms = new HashMap<>();
+//        parms.put("course_name", coursename);
+//        return parms;
+//    }
+//};
+//    RequestQueue requestQueuesub = Volley.newRequestQueue(ViewDetail_Activity.this);
+//          requestQueuesub.add(stringRequestsub);
+// end//

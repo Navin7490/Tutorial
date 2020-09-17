@@ -23,6 +23,7 @@
             android:drawableLeft="@drawable/usericonn2"
             android:drawableTint="@color/blue"
             android:layout_marginTop="@dimen/_50sdp"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:background="@drawable/edit_text"
             android:layout_height="@dimen/_40sdp"

@@ -233,8 +233,8 @@ public class Home_User_Activity extends AppCompatActivity {
             drawerLayout.closeDrawer(Gravity.START);
         }
         else {
-            ShowalertDialog();
-           // super.onBackPressed();
+            //ShowalertDialog();
+           super.onBackPressed();
         }
     }
 }

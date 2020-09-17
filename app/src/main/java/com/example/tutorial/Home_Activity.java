@@ -147,8 +147,8 @@ public class Home_Activity extends AppCompatActivity {
         if (drawerLayout.isDrawerOpen(Gravity.START)) {
             drawerLayout.closeDrawer(Gravity.START);
         } else {
-            ShowalertDialog();
-            //super.onBackPressed();
+            //ShowalertDialog();
+            super.onBackPressed();
         }
     }
 

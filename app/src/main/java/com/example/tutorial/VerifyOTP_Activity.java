@@ -36,9 +36,10 @@ public class VerifyOTP_Activity extends AppCompatActivity {
   EditText etname,etmobile,etotp;
   Button btnsend,btnverify;
   int randomnumber;
-  String course,name,email,mobile,password;
+  String course,name,email,mobile,password,otp;
   String SIGNUP_URL="http://192.168.43.65/tutorial/api/user_signUp.php";
   Toast toast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,7 @@ public class VerifyOTP_Activity extends AppCompatActivity {
        mobile=intent.getStringExtra("mobile");
        email=intent.getStringExtra("email");
        password=intent.getStringExtra("password");
+       otp=intent.getStringExtra("otp");
 //        btnsend.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -102,27 +104,29 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         btnverify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (etotp.getText().toString().isEmpty()){
+                String votp=etotp.getText().toString();
+                if (votp.isEmpty()){
                     etotp.requestFocus();
                     etotp.setError("Enter OTP");
                 }
-                else {
-                  SignUpUserData();
+//                else {
+//                  SignUpUserData();
+//
+//                }
+              else   if (votp==otp){
+                    Intent intent=new Intent(getApplicationContext(),Home_Activity.class);
+                    startActivity(intent);
+                    finish();
+                    SignUpUserData();
+                    Toast.makeText(VerifyOTP_Activity.this, "Verify Successfully", Toast.LENGTH_SHORT).show();
 
                 }
-//              else   if (randomnumber==Integer.valueOf(etotp.getText().toString())){
-//                    Intent intent=new Intent(getApplicationContext(),Home_Activity.class);
-//                    startActivity(intent);
-//                    finish();
-//                    Toast.makeText(VerifyOTP_Activity.this, "Verify Successfully", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                else {
-//                    etotp.requestFocus();
-//                    etotp.setError("OTP is Wrong");
-//                    //Toast.makeText(VerifyOTP_Activity.this, "Wrong OTP", Toast.LENGTH_SHORT).show();
-//
-//                }
+                else {
+                    etotp.requestFocus();
+                    etotp.setError("OTP is Wrong");
+                    //Toast.makeText(VerifyOTP_Activity.this, "Wrong OTP", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 

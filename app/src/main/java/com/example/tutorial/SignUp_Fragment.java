@@ -33,9 +33,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +63,7 @@ public class SignUp_Fragment extends Fragment {
     TextView tvcourse;
     Context context;
     Spinner spinner;
-    String name, email, mobile, password, cpassword;
+    String name, email, mobile, password, cpassword,radomotp;
     String viewcoursedeta;
     String viewcourse, cours;
     String select = "select course";
@@ -69,6 +74,7 @@ public class SignUp_Fragment extends Fragment {
     Snackbar snackbar;
     Toast toast;
     int randomnumber;
+    String OtpMess="Dear Customer of Madhvi Vision ";
 
     public SignUp_Fragment() {
         // Required empty public constructor
@@ -99,6 +105,8 @@ public class SignUp_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     @Override
@@ -154,8 +162,8 @@ public class SignUp_Fragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 // progressDialog.dismiss();
-                snackbar = Snackbar.make(v.findViewById(R.id.Layout_Sigup), "           No Connection", Snackbar.LENGTH_LONG)
-                        .setAction("", new View.OnClickListener() {
+                snackbar = Snackbar.make(v.findViewById(R.id.Layout_Sigup), "   No Connection", Snackbar.LENGTH_LONG)
+                        .setAction("View", new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
 
@@ -199,10 +207,10 @@ public class SignUp_Fragment extends Fragment {
                 password = etpassword.getText().toString();
                 cpassword = etcpassword.getText().toString();
                 cours = tvcourse.getText().toString();
-                 if (cours.matches(select)){
-                     Toast.makeText(getActivity(), "Select Course", Toast.LENGTH_SHORT).show();
-                 }
-               else if (name.isEmpty()) {
+//                 if (cours.matches(select)){
+//                     Toast.makeText(getActivity(), "Select Course", Toast.LENGTH_SHORT).show();
+//                 }
+                if (name.isEmpty()) {
                     etname.requestFocus();
                     etname.setError("Enter Name");
                 } else if (name.length() < 4) {
@@ -279,15 +287,16 @@ public class SignUp_Fragment extends Fragment {
                         etmobile.setText("");
                         etpassword.setText("");
                         etcpassword.setText("");
-                        toast = Toast.makeText(getContext(), "OTP Send Successful..", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                        SendOtp();
+                        radomotp= String.valueOf(randomnumber);
                         Intent intent = new Intent(getContext(), VerifyOTP_Activity.class);
-                        intent.putExtra("course",cours);
+                       // intent.putExtra("course",cours);
                         intent.putExtra("name",name);
                         intent.putExtra("email",email);
                         intent.putExtra("mobile",mobile);
                         intent.putExtra("password",password);
+                        intent.putExtra("otp",radomotp);
+
                         startActivity(intent);
                         getActivity().finish();
 
@@ -322,6 +331,43 @@ public class SignUp_Fragment extends Fragment {
         };
         RequestQueue requestQueue=Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequestsigup);
+    }
+
+    public void SendOtp(){
+        try {
+                    // Construct data
+                    String apiKey = "apikey=" + "eo/1x8BBlAs-re18SbJlYoNTVIxqlGk0PRx15h48iB";
+                    Random random=new Random();
+                    randomnumber=random.nextInt(999999);
+                    String message = "&message=" + "Hey "+OtpMess+" your OTP is "+randomnumber;
+                    String sender = "&sender=" + "TXTLCL";
+                    String numbers = "&numbers=" +mobile;
+
+                    // Send data
+                    HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
+                    String data = apiKey + numbers + message + sender;
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+                    conn.getOutputStream().write(data.getBytes("UTF-8"));
+                    final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    final StringBuffer stringBuffer = new StringBuffer();
+                    String line;
+                    while ((line = rd.readLine()) != null) {
+                        stringBuffer.append(line);
+                    }
+                    rd.close();
+                  toast=  Toast.makeText(getContext(), "OTP Send Successfully", Toast.LENGTH_SHORT);
+                  toast.setGravity(Gravity.CENTER,0,0);
+                  toast.show();
+                   // return stringBuffer.toString();
+                } catch (Exception e) {
+                    //System.out.println("Error SMS "+e);
+                   // return "Error "+e;
+                    Toast.makeText(getContext(), "Error SMS"+e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "ERROR"+e, Toast.LENGTH_SHORT).show();
+
+                }
     }
 
 }

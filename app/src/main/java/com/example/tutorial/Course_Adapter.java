@@ -18,18 +18,18 @@ import java.util.ArrayList;
 
 public class Course_Adapter extends RecyclerView.Adapter<Course_Adapter.Viewholder> {
     private Context context;
+    private ArrayList<Course_Modal> product;
 
     public Course_Adapter(Context context, ArrayList<Course_Modal> product) {
         this.context = context;
         this.product = product;
     }
 
-    private ArrayList<Course_Modal>product;
     @NonNull
     @Override
     public Course_Adapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
-        View viewlist=layoutInflater.inflate(R.layout.home_courses_listitem,parent,false);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View viewlist = layoutInflater.inflate(R.layout.home_courses_listitem, parent, false);
         return new Viewholder(viewlist);
     }
 
@@ -48,31 +48,42 @@ public class Course_Adapter extends RecyclerView.Adapter<Course_Adapter.Viewhold
     }
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        TextView tvcoursId, tvcoursename,tvcoursedescription;
+        TextView tvcoursId, tvcoursename, tvcoursedescription;
         ImageView imageView;
-        String courseid,coursename,description;
+        String courseid, coursename, description, courseprice, courseGroupId;
+
         public Viewholder(@NonNull View itemView) {
             super(itemView);
-            tvcoursId=itemView.findViewById(R.id.Tv_Home_courseId);
-            tvcoursename=itemView.findViewById(R.id.Tv_CourseName);
-            tvcoursedescription=itemView.findViewById(R.id.Tv_CourseDescription);
-            imageView=itemView.findViewById(R.id.Im_Course);
+            tvcoursId = itemView.findViewById(R.id.Tv_Home_courseId);
+            tvcoursename = itemView.findViewById(R.id.Tv_CourseName);
+            tvcoursedescription = itemView.findViewById(R.id.Tv_CourseDescription);
+            imageView = itemView.findViewById(R.id.Im_Course);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                   //for (int i=-1;i<getAdapterPosition();i++){
-                        courseid =tvcoursId.getText().toString();
-                        //coursename=tvcoursename.getText().toString();
-                       // Toast.makeText(context, "courseid="+courseid+coursename, Toast.LENGTH_SHORT).show();
-                        Intent intent=new Intent(context,ViewDetail_Activity.class);
-                        intent.putExtra("courseid",courseid);
-                       // intent.putExtra("description",description);
+                    //for (int i=-1;i<getAdapterPosition();i++){
+                    courseid = tvcoursId.getText().toString();
+                    coursename = tvcoursename.getText().toString();
+                    description = tvcoursedescription.getText().toString();
+                    Toast.makeText(context, "courseid=" + courseid + coursename + courseprice, Toast.LENGTH_SHORT).show();
+//                        Course_Modal course_modal=new Course_Modal();
+//                        courseprice=course_modal.coursePrice;
+                    courseprice = product.get(getPosition()).getCoursePrice();
+                    courseGroupId = product.get(getPosition()).getCourseGroupId();
+                    Intent intent = new Intent(context, ViewDetail_Activity.class);
+                    intent.putExtra("courseid",courseid);
+                    intent.putExtra("coursename", coursename);
+                    intent.putExtra("description", description);
+                    intent.putExtra("price", courseprice);
+                    intent.putExtra("coursegroup", courseGroupId);
 
-                       context.startActivity(intent);
 
-                   //}
+                    context.startActivity(intent);
 
+                    //}
+                    // intent.putExtra("courseid",courseid);
+                    // intent.putExtra("description",description);
 
                 }
             });

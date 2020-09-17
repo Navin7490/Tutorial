@@ -34,10 +34,10 @@ import java.util.Map;
 public class Select_Paymen_Methode_Activity extends AppCompatActivity {
 
 
-    String ORDER_URL="http://192.168.43.65/tutorial/api/Insert_Order.php";
+    String ORDER_URL = "http://192.168.43.65/tutorial/api/Insert_Order.php";
 
     /// paytm start //
-  public  static final String PAYTM_PACKAGE_NAME="net.one97.paytm";
+    public static final String PAYTM_PACKAGE_NAME = "net.one97.paytm";
     /// paytm end //
 
     ImageButton btnGpay, btnPatmpay;
@@ -51,11 +51,11 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
     String note = "Madhvi vision Trasaction";
     String staus;
     Toast toast;
-    String course, uemail, courseprice,uname,umobile;
- /// end ///
+    String course, uemail, courseprice, uname, umobile;
+    /// end ///
 
     // paytm//
-    Uri uripaytm;
+     Uri uripaytm;
     String pname = "Navin";
     String paytId = "tinu1316@oksbi";
     String msgnote = "Madhvi vision";
@@ -118,19 +118,21 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
 //            // Process based on the data in response.
 //            Log.d("result", data.getStringExtra("Status"));
 //        }
-        if (data!=null){
-            staus=data.getStringExtra("Status").toLowerCase();
+        if (data != null) {
+            staus = data.getStringExtra("Status").toLowerCase();
         }
-        if ((RESULT_OK==resultCode )&& staus.equals("success")){
-            Toast.makeText(getApplicationContext(), "Trasaction successfull", Toast.LENGTH_SHORT).show();
+        if ((RESULT_OK == resultCode) && staus.equals("success")) {
+            toast = Toast.makeText(getApplicationContext(), "Trasaction successfull", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
             InsertMyOrder();
-            Intent intenth=new Intent(getApplicationContext(),Home_User_Activity.class);
+            Intent intenth = new Intent(getApplicationContext(), Home_User_Activity.class);
             startActivity(intenth);
-        }
-
-        else {
-            Toast.makeText(getApplicationContext(), "Trasaction Cancel by user", Toast.LENGTH_SHORT).show();
-            Intent intent=new Intent(getApplicationContext(),Home_User_Activity.class);
+        } else {
+            toast = Toast.makeText(getApplicationContext(), "Trasaction Cancel by user", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            Intent intent = new Intent(getApplicationContext(), Home_User_Activity.class);
             startActivity(intent);
             finish();
         }
@@ -206,8 +208,7 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
             i.setData(uripaytm);
             i.setPackage(PAYTM_PACKAGE_NAME);
             startActivityForResult(i, 123);
-        }
-        else {
+        } else {
             Toast.makeText(this, "Paytm is not istalled please install and try again", Toast.LENGTH_SHORT).show();
         }
     }
@@ -227,23 +228,22 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         }
     }
 
-    public  void InsertMyOrder(){
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, ORDER_URL, new Response.Listener<String>() {
+    public void InsertMyOrder() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ORDER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //progressDialog.dismiss();
-                Log.d("order",response);
+                Log.d("order", response);
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    String status=jsonObject.getString("status");
-                    if (status.equals("success")){
-                        toast=Toast.makeText(Select_Paymen_Methode_Activity.this, "Purchase Course Confirm", Toast.LENGTH_SHORT);
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("status");
+                    if (status.equals("success")) {
+                        toast = Toast.makeText(Select_Paymen_Methode_Activity.this, "Purchase Course Confirm", Toast.LENGTH_SHORT);
                         toast.show();
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
 
 
-                    }
-                    else{
+                    } else {
                         Toast.makeText(Select_Paymen_Methode_Activity.this, "fail", Toast.LENGTH_SHORT).show();
 
                     }
@@ -259,19 +259,19 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
                 Toast.makeText(Select_Paymen_Methode_Activity.this, "try again connection fail", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String>parms=new HashMap<>();
-                parms.put("order_id","");
-                parms.put("course_name",course);
-                parms.put("u_name",uname);
-                parms.put("u_email",uemail);
-                parms.put("u_phone",umobile);
+                Map<String, String> parms = new HashMap<>();
+                parms.put("order_id", "");
+                parms.put("course_name", course);
+                parms.put("u_name", uname);
+                parms.put("u_email", uemail);
+                parms.put("u_phone", umobile);
                 return parms;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(Select_Paymen_Methode_Activity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(Select_Paymen_Methode_Activity.this);
         requestQueue.add(stringRequest);
     }
 
