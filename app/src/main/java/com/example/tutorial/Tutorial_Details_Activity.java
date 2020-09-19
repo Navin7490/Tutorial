@@ -36,7 +36,6 @@ public class Tutorial_Details_Activity extends Activity {
    RecyclerView recyclerView,recyclerViewdemo;
    TextView tvcoursename;
    ArrayList<LessonModal>lessonlist;
-   ArrayList<LessonDemo_Modal>productdemo;
    String subject,coures,videourl,video;
    VideoView videodemo;
    String COURSE_DETAIL_URL="http://192.168.43.65/tutorial/api/mycourseSubjectVideo.php";

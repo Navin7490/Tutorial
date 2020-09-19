@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MyCourseSubject_Adapter extends RecyclerView.Adapter<MyCourseSubject_Adapter.viewholder> {
-    private Context context;
-    private ArrayList<MyCourseSubject_Modal> product;
+     public   Context context;
+     ArrayList<MyCourseSubject_Modal> product;
 
     public MyCourseSubject_Adapter(Context context, ArrayList<MyCourseSubject_Modal> product) {
         this.context = context;
         this.product = product;
+
     }
 
     @NonNull
@@ -57,12 +58,14 @@ public class MyCourseSubject_Adapter extends RecyclerView.Adapter<MyCourseSubjec
                     String subid=tvsubid.getText().toString();
                     String coursename=tvcousub.getText().toString();
                     String subject=tvsubject.getText().toString();
-                    Intent intent=new Intent(context.getApplicationContext(),MyCourser_Sub_LessionActivity.class);
+                    Intent intent=new Intent(context,MyCourser_Sub_LessionActivity.class);
                     intent.putExtra("subjectid",subid);
 
                     intent.putExtra("course_name",coursename);
                     intent.putExtra("subject_name",subject);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+
                 }
             });
         }

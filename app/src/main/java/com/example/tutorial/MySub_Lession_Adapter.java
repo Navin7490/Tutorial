@@ -2,9 +2,11 @@ package com.example.tutorial;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class MySub_Lession_Adapter extends RecyclerView.Adapter<MySub_Lession_Adapter.viewholder> {
-    private Context context;
-    private ArrayList<MySub_Lession_Modal>product;
+     Context context;
+    ArrayList<MySub_Lession_Modal>product;
 
     public MySub_Lession_Adapter(Context context, ArrayList<MySub_Lession_Modal> product) {
         this.context = context;
@@ -45,6 +47,7 @@ public class MySub_Lession_Adapter extends RecyclerView.Adapter<MySub_Lession_Ad
     }
 
     public class viewholder extends RecyclerView.ViewHolder {
+
         TextView tvid,tvlessiotitle;
         public viewholder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +60,8 @@ public class MySub_Lession_Adapter extends RecyclerView.Adapter<MySub_Lession_Ad
                     String lessionid=tvid.getText().toString();
                     Intent intent=new Intent(context.getApplicationContext(),ViewVideoBySubject_Activity.class);
                     intent.putExtra("lessionid",lessionid);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     context.startActivity(intent);
                 }
             });

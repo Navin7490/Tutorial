@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -25,44 +26,50 @@ import java.util.ArrayList;
 
 public class MyCourser_Sub_LessionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    ArrayList<MySub_Lession_Modal> product;
-    String subjectid;
 
+    String subjectid;
+    ProgressDialog progressDialog;
+     ArrayList<MySub_Lession_Modal>products;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_courser__sub__lession);
-        getSupportActionBar().setTitle("Lession");
+        getSupportActionBar().setTitle("Select Lession");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         subjectid = intent.getStringExtra("subjectid");
         recyclerView = findViewById(R.id.Rv_Sub_Lessoin);
         recyclerView.setHasFixedSize(true);
+        products = new ArrayList<>();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        product = new ArrayList<>();
-        String LESSION_URL = "http://103.207.169.120:8891/api/Lesson/" + subjectid;
+        progressDialog = new ProgressDialog(MyCourser_Sub_LessionActivity.this);
+        progressDialog.setMessage("Please Wite");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+
+        String LESSION_URL = "http://103.207.169.120:8891/api/Lesson/"+subjectid;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, LESSION_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("lessons");
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
+                        JSONObject lessoindetail = jsonArray.getJSONObject(i);
+                        String id = lessoindetail.getString("LessonId");
+                        String name = lessoindetail.getString("LessonName");
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                        MySub_Lession_Modal lessonModal = new MySub_Lession_Modal();
+                        lessonModal.setLessionid(id);
+                        lessonModal.setLessiontitle(name);
+                        products.add(lessonModal);
 
-                        JSONObject Lessiondetail = jsonArray.getJSONObject(i);
-                        String LessionId = Lessiondetail.getString("LessonId");
-                        String LessionName = Lessiondetail.getString("LessonName");
-
-                        MySub_Lession_Modal modal = new MySub_Lession_Modal();
-                        modal.setLessionid(LessionId);
-                        modal.setLessiontitle(LessionName);
-                        product.add(modal);
-                        MySub_Lession_Adapter adapter = new MySub_Lession_Adapter(getApplicationContext(), product);
+                        MySub_Lession_Adapter adapter = new MySub_Lession_Adapter(getApplicationContext(), products);
                         recyclerView.setAdapter(adapter);
-
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -73,6 +80,8 @@ public class MyCourser_Sub_LessionActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+
                 Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
             }
         });

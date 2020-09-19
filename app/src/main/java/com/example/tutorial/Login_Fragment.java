@@ -109,7 +109,7 @@ public class Login_Fragment extends Fragment {
     }
 
     public void LoginData() {
-        String LOGIN_URL = "http://103.207.169.120:8891/api/Login?UserName="+username+"&Password="+password;
+        String LOGIN_URL = "http://103.207.169.120:8891/api/Login?UserName=" + username + "&Password=" + password;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, LOGIN_URL, new Response.Listener<String>() {
             @Override
@@ -117,12 +117,12 @@ public class Login_Fragment extends Fragment {
                 Log.d("paaa", response);
 
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("logins");
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("logins");
 
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject detail=jsonArray.getJSONObject(i);
-                        String status=detail.getString("Status");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject detail = jsonArray.getJSONObject(i);
+                        String status = detail.getString("Status");
                         String UserName = detail.getString("UserName");
                         String ContactId = detail.getString("ContactId");
                         String FullName = detail.getString("FullName");
@@ -134,11 +134,11 @@ public class Login_Fragment extends Fragment {
                         String Id = detail.getString("Id");
                         String uType = detail.getString("uType");
 
-                        if (status.equals("Success")){
+                        if (status.equals("Success")) {
 
-                            LoginShareprefe_Modal shareprefeModal=new LoginShareprefe_Modal(getActivity());
+                            LoginShareprefe_Modal shareprefeModal = new LoginShareprefe_Modal(getActivity());
                             shareprefeModal.setContactId(ContactId);
-                             shareprefeModal.setUserName(UserName);
+                            shareprefeModal.setUserName(UserName);
                             shareprefeModal.setFullName(FullName);
                             shareprefeModal.setProfileId(ProfileId);
                             shareprefeModal.setProfileName(ProfileName);
@@ -147,16 +147,14 @@ public class Login_Fragment extends Fragment {
                             shareprefeModal.setPassword(Password);
                             shareprefeModal.setId(Id);
                             shareprefeModal.setuType(uType);
-                            startActivity(new Intent(getActivity(),Home_User_Activity.class));
+                            startActivity(new Intent(getActivity(), Home_User_Activity.class));
                             getActivity().finish();
 
 
-                        }
-                        else if (status.equals("Failed")){
-                        toast=    Toast.makeText(getContext(), "Incorrect Email or Password", Toast.LENGTH_SHORT);
-                        toast.show();
-                        toast.setGravity(Gravity.CENTER,0,0);
-
+                        } else if (status.equals("Failed")) {
+                            toast = Toast.makeText(getContext(), "Incorrect Email or Password", Toast.LENGTH_SHORT);
+                            toast.show();
+                            toast.setGravity(Gravity.CENTER, 0, 0);
 
 
                         }
@@ -172,7 +170,10 @@ public class Login_Fragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d("paa", String.valueOf(error));
-                Toast.makeText(getContext(), "" + error, Toast.LENGTH_SHORT).show();
+                toast = Toast.makeText(getContext(), "No Connection", Toast.LENGTH_SHORT);
+                toast.show();
+                toast.setGravity(Gravity.CENTER, 0, 0);
+
 
             }
         });

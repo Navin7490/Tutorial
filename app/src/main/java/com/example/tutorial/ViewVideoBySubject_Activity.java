@@ -1,5 +1,6 @@
 package com.example.tutorial;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -39,7 +41,8 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_video_by_subject_);
         recyclerView = findViewById(R.id.Rv_VideobySub);
-        getSupportActionBar().hide();
+        getSupportActionBar().setTitle("Tutorial");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         lessionid = intent.getStringExtra("lessionid");
         recyclerView.setHasFixedSize(true);
@@ -47,6 +50,7 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
         lessonlist = new ArrayList<>();
         progressDialog = new ProgressDialog(ViewVideoBySubject_Activity.this);
         progressDialog.setMessage("Please Waite");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         String LESSION_VIDEO_URL = "http://103.207.169.120:8891/api/Tutorial/" + lessionid;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, LESSION_VIDEO_URL, new Response.Listener<String>() {
@@ -97,5 +101,13 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
 //        };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

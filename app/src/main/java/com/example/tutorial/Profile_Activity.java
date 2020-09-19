@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -17,9 +18,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Profile_Activity extends AppCompatActivity {
+    CircleImageView imageView;
     TextView tvname, tvusername;
-    String name, username;
+    String image, name, username;
      Button btnUpdate,btnSignOut;
      String email;
      Toast toast;
@@ -36,15 +40,16 @@ public class Profile_Activity extends AppCompatActivity {
         tvusername = findViewById(R.id.Tv_ProMobile);
         btnSignOut=findViewById(R.id.Btn_ProfileLogout);
         btnUpdate=findViewById(R.id.Btn_ProfileUpdate);
+        imageView=findViewById(R.id.Im_Profile);
 
          loginShareprefeModal = new LoginShareprefe_Modal(Profile_Activity.this);
-
+      Uri uri= Uri.parse(image=loginShareprefeModal.sharedPreLogin.getString("image",null));
          name = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
-        username = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
+         username = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
 
         tvname.setText(name);
         tvusername.setText(username);
-
+        imageView.setImageURI(uri);
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

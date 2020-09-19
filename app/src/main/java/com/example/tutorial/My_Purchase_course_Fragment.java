@@ -1,5 +1,6 @@
 package com.example.tutorial;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -47,6 +48,7 @@ public class My_Purchase_course_Fragment extends Fragment {
    View v;
   // String MYCOURSE_URL="http://192.168.43.65/tutorial/api/mycourse.php";
    String contactId;
+   ProgressDialog progressDialog;
     public My_Purchase_course_Fragment() {
         // Required empty public constructor
     }
@@ -87,6 +89,10 @@ public class My_Purchase_course_Fragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         product=new ArrayList<>();
+        progressDialog=new ProgressDialog(getContext());
+        progressDialog.setMessage("Please Waite");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         LoginShareprefe_Modal loginShareprefeModal=new LoginShareprefe_Modal(getContext());
         contactId=loginShareprefeModal.sharedPreLogin.getString("contactId",null);
         String MYCOURSE_URL="http://103.207.169.120:8891/api/Course?ContactId="+contactId;
@@ -94,6 +100,7 @@ public class My_Purchase_course_Fragment extends Fragment {
         StringRequest stringRequest=new StringRequest(Request.Method.GET, MYCOURSE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 try {
                     JSONObject jsonObject=new JSONObject(response);
                     JSONArray jsonArray=jsonObject.getJSONArray("courses");
@@ -121,6 +128,7 @@ public class My_Purchase_course_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 Toast.makeText(getContext(), "No connection"+error, Toast.LENGTH_SHORT).show();
             }
         });

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ public class MyCourseSubject_Activity extends AppCompatActivity {
     ArrayList<MyCourseSubject_Modal> prduct;
     //String SUBJECT_URL = "http://192.168.43.65/tutorial/api/mycourseSubject.php";
     String couserid;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +41,27 @@ public class MyCourseSubject_Activity extends AppCompatActivity {
         recyclerView = findViewById(R.id.Rv_My_Purchse_Subject);
         Intent intent = getIntent();
         couserid = intent.getStringExtra("couserid");
+        progressDialog=new ProgressDialog(MyCourseSubject_Activity.this);
 
 
         getSupportActionBar().setTitle("Subject");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         prduct = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setMessage("Please Waite");
+        progressDialog.show();
         String SUBJECT_URL = "http://103.207.169.120:8891/api/Subject/"+couserid;
 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, SUBJECT_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("subjects");
@@ -80,6 +90,7 @@ public class MyCourseSubject_Activity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
                 Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_SHORT).show();
             }
         });
