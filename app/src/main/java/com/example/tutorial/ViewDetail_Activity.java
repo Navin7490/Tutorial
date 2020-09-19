@@ -49,12 +49,9 @@ import java.util.Map;
 public class ViewDetail_Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<SubjectDeatail_Modal> product;
-
     TextView tvsubjectdetail, tvcourse, tvdescription, tvprice, tvcourseGroup,tvsubtitle,tvsubdes;
-    String courseid;
-    String courseId, coursename, coursedescription, courseprice, coursegroup;
-
-    String VIEWCOURSEDETAIL_URL = "http://103.207.169.120:8891/api/Subject/1";
+    public static  String courseid;
+     String courseId, coursename, coursedescription, courseprice, coursegroup;
 
 
    // String VIEWCOURSEDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewCourseDetail.php";
@@ -64,13 +61,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
     String msg;
     String subname, subdescription;
 
-    private static final int TEZ_REQUEST_CODE = 123;
-    private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
-    Uri uri;
-    String upiid = "tinu1316@oksbi";
-    String name = "Navin";
-    String note = "Madhvi vision Trasaction";
-    String staus;
+
     Toast toast;
     Snackbar snackbar;
     View v;
@@ -92,7 +83,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnpurchase.setVisibility(View.VISIBLE);
-        final Intent intent = getIntent();
+         Intent intent = getIntent();
         courseid=intent.getStringExtra("courseid");
         coursename = intent.getStringExtra("coursename");
         coursedescription=intent.getStringExtra("description");
@@ -113,83 +104,28 @@ public class ViewDetail_Activity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         product = new ArrayList<>();
-        //// view course  detail ______________///
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                progressDialog.dismiss();
-//                try {
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    // String status=jsonObject.getString("status");
-//                    JSONArray jsonArray = jsonObject.getJSONArray("product_detail");
-//                    // if (status.equals("success")){
-//                    for (int is = 0; is < jsonArray.length(); is++) {
-//                        JSONObject productv = jsonArray.getJSONObject(is);
-//                        courseId = productv.getString("id");
-//                        coursename = productv.getString("course_name");
-//
-//                        coursedescription = productv.getString("course_description");
-//                        courseprice = productv.getString("course_price");
-//                        coursegroup = productv.getString("course_group");
-//
-//                        tvcourse.setText(coursename);
-//                        tvdescription.setText(coursedescription);
-//                        tvprice.setText(courseprice);
-//                        tvcourseGroup.setText(coursegroup);
-//                        if (!courseprice.isEmpty()) {
-//                            btnpurchase.setVisibility(View.VISIBLE);
-//                        }
-//
-//                    }
-//
-//                    // }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                progressDialog.dismiss();
-//                Toast.makeText(ViewDetail_Activity.this, "connectin Fail", Toast.LENGTH_SHORT).show();
-//            }
-//        }) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> parm = new HashMap<>();
-//                parm.put("id", courseid);
-//                return parm;
-//            }
-//        };
-//        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        requestQueue.add(stringRequest);
-
-        //// view course  detail end ______________///
-
-        //// view subject  detail start ______________///
 
   tvsubjectdetail.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(final View view) {
+          String VIEWCOURSEDETAIL_URL = "http://103.207.169.120:8891/api/Subject/"+courseid  ;
+
           progressDialog.show();
-          StringRequest stringRequestsub = new StringRequest(Request.Method.POST, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
+          StringRequest stringRequestsub = new StringRequest(Request.Method.GET, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
               @Override
               public void onResponse(String response) {
                    progressDialog.dismiss();
                    tvsubjectdetail.setEnabled(false);
                    tvsubtitle.setVisibility(View.VISIBLE);
                    tvsubdes.setVisibility(View.VISIBLE);
+                  Log.d("response",response);
 
                   try {
                       JSONObject jsonObjects = new JSONObject(response);
-                      // String status=jsonObject.getString("status");
                       JSONArray jsonArrays = jsonObjects.getJSONArray("subjects");
-                      // if (status.equals("success")){
                       for (int i = 0; i < jsonArrays.length(); i++) {
                           JSONObject subject = jsonArrays.getJSONObject(i);
-                          //courseId = productv.getString("id");
-                          //coursename = subject.getString("course_name");
+
 
                           subname = subject.getString("SubjectName");
                           subdescription = subject.getString("Description");
@@ -224,14 +160,8 @@ public class ViewDetail_Activity extends AppCompatActivity {
                           });
                   snackbar.show();
               }
-          }) {
-              @Override
-              protected Map<String, String> getParams() throws AuthFailureError {
-                  Map<String, String> parms = new HashMap<>();
-                  parms.put("CourseId", courseid);
-                  return parms;
-              }
-          };
+          });
+
           RequestQueue requestQueuesub = Volley.newRequestQueue(ViewDetail_Activity.this);
           requestQueuesub.add(stringRequestsub);
       }
@@ -245,16 +175,17 @@ public class ViewDetail_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginShareprefe_Modal loginShareprefeModal = new LoginShareprefe_Modal(getApplicationContext());
-                String email = loginShareprefeModal.sharedPreLogin.getString("email", null);
-                String uname = loginShareprefeModal.sharedPreLogin.getString("name", null);
+                String contactid = loginShareprefeModal.sharedPreLogin.getString("contactId", null);
+                String UserName = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
+                String uname = loginShareprefeModal.sharedPreLogin.getString("fullname", null);
                 String umobile = loginShareprefeModal.sharedPreLogin.getString("mobile", null);
 
-                if (email != null) {
+                if (UserName != null) {
                     Intent intentpurche = new Intent(getApplicationContext(), Select_Paymen_Methode_Activity.class);
+                    intentpurche.putExtra("contactId", contactid);
                     intentpurche.putExtra("courseid", courseid);
                     intentpurche.putExtra("course", coursename);
                     intentpurche.putExtra("courseprice", courseprice);
-                    intentpurche.putExtra("email", email);
                     intentpurche.putExtra("name", uname);
                     intentpurche.putExtra("mobile", umobile);
 

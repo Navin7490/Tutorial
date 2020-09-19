@@ -68,7 +68,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.lessonView
                     videolink=tvvideolink.getText().toString();
                     Intent intent=new Intent(context.getApplicationContext(),View_Video_Activity.class);
                     intent.putExtra("videourl",  videolink);
-                  context.startActivity(intent);
+                    context.startActivity(intent);
                 }
             });
         }

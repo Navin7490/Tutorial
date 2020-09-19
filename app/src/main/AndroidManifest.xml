@@ -4,7 +4,7 @@
     package="com.example.tutorial">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewVideoBySubject_Activity"></activity>
+        <activity android:name=".MyCourser_Sub_LessionActivity"></activity>
+        <activity android:name=".ViewVideoBySubject_Activity" />
         <activity android:name=".MyCourseSubject_Activity" />
         <activity android:name=".Select_Paymen_Methode_Activity" />
         <activity

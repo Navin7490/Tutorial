@@ -45,8 +45,8 @@ public class My_Purchase_course_Fragment extends Fragment {
    RecyclerView recyclerView;
    ArrayList<MyPurchaseCourse_Modal>product;
    View v;
-   String MYCOURSE_URL="http://192.168.43.65/tutorial/api/mycourse.php";
-   String uemail;
+  // String MYCOURSE_URL="http://192.168.43.65/tutorial/api/mycourse.php";
+   String contactId;
     public My_Purchase_course_Fragment() {
         // Required empty public constructor
     }
@@ -88,22 +88,24 @@ public class My_Purchase_course_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         product=new ArrayList<>();
         LoginShareprefe_Modal loginShareprefeModal=new LoginShareprefe_Modal(getContext());
-        uemail=loginShareprefeModal.sharedPreLogin.getString("email",null);
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, MYCOURSE_URL, new Response.Listener<String>() {
+        contactId=loginShareprefeModal.sharedPreLogin.getString("contactId",null);
+        String MYCOURSE_URL="http://103.207.169.120:8891/api/Course?ContactId="+contactId;
+
+        StringRequest stringRequest=new StringRequest(Request.Method.GET, MYCOURSE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("order_detail");
+                    JSONArray jsonArray=jsonObject.getJSONArray("courses");
 
                     for (int i=0;i<jsonArray.length();i++){
 
                         JSONObject purches=jsonArray.getJSONObject(i);
-                        String orderid=purches.getString("order_id");
-                        String coursename=purches.getString("course_name");
+                        String CourseId=purches.getString("CourseId");
+                        String coursename=purches.getString("CourseName");
 
                         MyPurchaseCourse_Modal modal=new MyPurchaseCourse_Modal();
-                        modal.setPurchaseId(orderid);
+                        modal.setPurchaseId(CourseId);
                         modal.setCoursename(coursename);
                         product.add(modal);
                         MyPurchase_Adapter adapter=new MyPurchase_Adapter(getContext(),product);
@@ -119,16 +121,18 @@ public class My_Purchase_course_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No connection"+error, Toast.LENGTH_SHORT).show();
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String>parm=new HashMap<>();
-                parm.put("u_email",uemail);
-                return parm;
-            }
-        };
+        });
+//
+//        {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String>parm=new HashMap<>();
+//                parm.put("u_email",contactId);
+//                return parm;
+//            }
+//        };
         RequestQueue requestQueue= Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 

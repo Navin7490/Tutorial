@@ -32,6 +32,7 @@ public class MyCourseSubject_Adapter extends RecyclerView.Adapter<MyCourseSubjec
 
     @Override
     public void onBindViewHolder(@NonNull MyCourseSubject_Adapter.viewholder holder, int position) {
+        holder.tvsubid.setText(product.get(position).getSubid());
         holder.tvcousub.setText(product.get(position).getSubcourse());
         holder.tvsubject.setText(product.get(position).getSubjectname());
 
@@ -43,18 +44,22 @@ public class MyCourseSubject_Adapter extends RecyclerView.Adapter<MyCourseSubjec
     }
 
     public class viewholder extends RecyclerView.ViewHolder {
-        TextView tvsubject,tvcousub;
+        TextView tvsubid,tvsubject,tvcousub;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
+            tvsubid=itemView.findViewById(R.id.Tv_cousubId);
             tvsubject = itemView.findViewById(R.id.Tv_MycourseSubjectList);
             tvcousub=itemView.findViewById(R.id.Tv_cousub);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    String subid=tvsubid.getText().toString();
                     String coursename=tvcousub.getText().toString();
                     String subject=tvsubject.getText().toString();
-                    Intent intent=new Intent(context.getApplicationContext(),ViewVideoBySubject_Activity.class);
+                    Intent intent=new Intent(context.getApplicationContext(),MyCourser_Sub_LessionActivity.class);
+                    intent.putExtra("subjectid",subid);
+
                     intent.putExtra("course_name",coursename);
                     intent.putExtra("subject_name",subject);
                     context.startActivity(intent);

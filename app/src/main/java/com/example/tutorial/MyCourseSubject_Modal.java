@@ -24,4 +24,14 @@ public class MyCourseSubject_Modal {
     }
 
     String subcourse;
+
+    public String getSubid() {
+        return subid;
+    }
+
+    public void setSubid(String subid) {
+        this.subid = subid;
+    }
+
+    String subid;
 }

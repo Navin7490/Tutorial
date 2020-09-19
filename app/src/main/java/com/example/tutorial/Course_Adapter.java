@@ -66,9 +66,7 @@ public class Course_Adapter extends RecyclerView.Adapter<Course_Adapter.Viewhold
                     courseid = tvcoursId.getText().toString();
                     coursename = tvcoursename.getText().toString();
                     description = tvcoursedescription.getText().toString();
-                    Toast.makeText(context, "courseid=" + courseid + coursename + courseprice, Toast.LENGTH_SHORT).show();
-//                        Course_Modal course_modal=new Course_Modal();
-//                        courseprice=course_modal.coursePrice;
+
                     courseprice = product.get(getPosition()).getCoursePrice();
                     courseGroupId = product.get(getPosition()).getCourseGroupId();
                     Intent intent = new Intent(context, ViewDetail_Activity.class);

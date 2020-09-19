@@ -18,8 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Profile_Activity extends AppCompatActivity {
-    TextView tvname, tvmobile;
-    String name, mobile;
+    TextView tvname, tvusername;
+    String name, username;
      Button btnUpdate,btnSignOut;
      String email;
      Toast toast;
@@ -33,16 +33,17 @@ public class Profile_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         tvname = findViewById(R.id.Tv_ProfileName);
-        tvmobile = findViewById(R.id.Tv_ProMobile);
+        tvusername = findViewById(R.id.Tv_ProMobile);
         btnSignOut=findViewById(R.id.Btn_ProfileLogout);
         btnUpdate=findViewById(R.id.Btn_ProfileUpdate);
 
          loginShareprefeModal = new LoginShareprefe_Modal(Profile_Activity.this);
-         name = loginShareprefeModal.sharedPreLogin.getString("email", null);
-         mobile = loginShareprefeModal.sharedPreLogin.getString("mobile", null);
+
+         name = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
+        username = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
 
         tvname.setText(name);
-        tvmobile.setText(mobile);
+        tvusername.setText(username);
 
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override

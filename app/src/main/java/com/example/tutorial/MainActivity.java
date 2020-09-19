@@ -24,9 +24,9 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 LoginShareprefe_Modal loginShareprefeModal1=new LoginShareprefe_Modal(getApplicationContext());
-                String email=   loginShareprefeModal1.sharedPreLogin.getString("email",null);
+                String UserName=   loginShareprefeModal1.sharedPreLogin.getString("UserName",null);
 
-                if (email !=null){
+                if (UserName !=null){
                     Intent intent=new Intent(getApplicationContext(),Home_User_Activity.class);
                     startActivity(intent);
                     finish();

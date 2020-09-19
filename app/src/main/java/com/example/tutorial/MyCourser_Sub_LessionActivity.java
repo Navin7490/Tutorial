@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,50 +22,44 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class MyCourseSubject_Activity extends AppCompatActivity {
+public class MyCourser_Sub_LessionActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    ArrayList<MyCourseSubject_Modal> prduct;
-    //String SUBJECT_URL = "http://192.168.43.65/tutorial/api/mycourseSubject.php";
-    String couserid;
+    ArrayList<MySub_Lession_Modal> product;
+    String subjectid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_course_subject_);
-        recyclerView = findViewById(R.id.Rv_My_Purchse_Subject);
-        Intent intent = getIntent();
-        couserid = intent.getStringExtra("couserid");
-
-
-        getSupportActionBar().setTitle("Subject");
+        setContentView(R.layout.activity_my_courser__sub__lession);
+        getSupportActionBar().setTitle("Lession");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        prduct = new ArrayList<>();
+
+        Intent intent = getIntent();
+        subjectid = intent.getStringExtra("subjectid");
+        recyclerView = findViewById(R.id.Rv_Sub_Lessoin);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        String SUBJECT_URL = "http://103.207.169.120:8891/api/Subject/"+couserid;
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, SUBJECT_URL, new Response.Listener<String>() {
+        product = new ArrayList<>();
+        String LESSION_URL = "http://103.207.169.120:8891/api/Lesson/" + subjectid;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, LESSION_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("subjects");
+                    JSONArray jsonArray = jsonObject.getJSONArray("lessons");
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
-                        JSONObject courseSubject = jsonArray.getJSONObject(i);
-                        String SubjectId = courseSubject.getString("SubjectId");
-                        String subject = courseSubject.getString("SubjectName");
+                        JSONObject Lessiondetail = jsonArray.getJSONObject(i);
+                        String LessionId = Lessiondetail.getString("LessonId");
+                        String LessionName = Lessiondetail.getString("LessonName");
 
-                        MyCourseSubject_Modal modal = new MyCourseSubject_Modal();
-                        modal.setSubid(SubjectId);
-                        modal.setSubjectname(subject);
-                        prduct.add(modal);
-                        MyCourseSubject_Adapter adapter = new MyCourseSubject_Adapter(getApplicationContext(), prduct);
+                        MySub_Lession_Modal modal = new MySub_Lession_Modal();
+                        modal.setLessionid(LessionId);
+                        modal.setLessiontitle(LessionName);
+                        product.add(modal);
+                        MySub_Lession_Adapter adapter = new MySub_Lession_Adapter(getApplicationContext(), product);
                         recyclerView.setAdapter(adapter);
 
 
@@ -94,7 +87,6 @@ public class MyCourseSubject_Activity extends AppCompatActivity {
 //        };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
-
 
     }
 

@@ -43,15 +43,16 @@ public class Course_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    String courseid, cours, courseprice, description, image, coursegroup, orderid;
 
     RecyclerView recyclerView;
     ArrayList<Course_Modal> productcourse;
     RecyclerView.LayoutManager layoutManager;
     View v;
-     String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/1";
+
+    String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/1";
     //String VIEWCOURSES_URL = "http://192.168.43.65/tutorial/api/ViewCourses.php";
 
-    String courseid, cours, courseprice, description, image, coursegroup, orderid;
     ProgressDialog progressDialog;
     Toast toast;
 

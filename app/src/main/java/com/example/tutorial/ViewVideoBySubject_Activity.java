@@ -27,46 +27,49 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ViewVideoBySubject_Activity extends AppCompatActivity {
-  RecyclerView recyclerView;
+    RecyclerView recyclerView;
     ArrayList<LessonModal> lessonlist;
-    String subject,coures,videourl,video;
+    String subject, lessionid, videourl, video;
     VideoView videodemo;
-    String COURSE_DETAIL_URL="http://192.168.43.65/tutorial/api/mycourseSubjectVideo.php";
+    //String COURSE_DETAIL_URL="http://192.168.43.65/tutorial/api/mycourseSubjectVideo.php";
     ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_video_by_subject_);
-        recyclerView=findViewById(R.id.Rv_VideobySub);
+        recyclerView = findViewById(R.id.Rv_VideobySub);
         getSupportActionBar().hide();
-        Intent intent=getIntent();
-        coures=intent.getStringExtra("course_name");
-        subject=intent.getStringExtra("subject_name");
+        Intent intent = getIntent();
+        lessionid = intent.getStringExtra("lessionid");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        lessonlist=new ArrayList<>();
-        progressDialog=new ProgressDialog(ViewVideoBySubject_Activity.this);
+        lessonlist = new ArrayList<>();
+        progressDialog = new ProgressDialog(ViewVideoBySubject_Activity.this);
         progressDialog.setMessage("Please Waite");
         progressDialog.show();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, COURSE_DETAIL_URL, new Response.Listener<String>() {
+        String LESSION_VIDEO_URL = "http://103.207.169.120:8891/api/Tutorial/" + lessionid;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, LESSION_VIDEO_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
                 try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("video_detail");
-                    for (int i=0;i<jsonArray.length();i++){
-                        JSONObject coursedetail=jsonArray.getJSONObject(i);
-                        String videotitle=coursedetail.getString("videotitle");
-                        String videourl=coursedetail.getString("videourl");
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("tutorials");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject coursedetail = jsonArray.getJSONObject(i);
+                        String videoid = coursedetail.getString("TutorialId");
+                        String videotitle = coursedetail.getString("TutorialName");
+                        String videourl = coursedetail.getString("Path");
 
-                        LessonModal lessonModal=new LessonModal();
+                        LessonModal lessonModal = new LessonModal();
+                        lessonModal.setVideoId(videoid);
                         lessonModal.setLessonName(videotitle);
                         lessonModal.setVideourl(videourl);
                         lessonModal.setTvlink(videourl);
                         lessonlist.add(lessonModal);
 
-                        LessonAdapter adapter=new LessonAdapter(getApplicationContext(),lessonlist);
+                        LessonAdapter adapter = new LessonAdapter(getApplicationContext(), lessonlist);
                         recyclerView.setAdapter(adapter);
                     }
                 } catch (JSONException e) {
@@ -78,19 +81,21 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(ViewVideoBySubject_Activity.this, "No Connection"+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewVideoBySubject_Activity.this, "No Connection" + error, Toast.LENGTH_SHORT).show();
 
             }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String>parm=new HashMap<>();
-                parm.put("course_name",coures);
-                parm.put("subject_name",subject);
-                return parm;
-            }
-        };
-        RequestQueue requestQueue= Volley.newRequestQueue(getApplicationContext());
+        }) ;
+
+//        {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> parm = new HashMap<>();
+//                parm.put("course_name", coures);
+//                parm.put("subject_name", subject);
+//                return parm;
+//            }
+//        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
 }

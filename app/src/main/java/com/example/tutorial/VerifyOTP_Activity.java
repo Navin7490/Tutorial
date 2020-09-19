@@ -36,7 +36,7 @@ public class VerifyOTP_Activity extends AppCompatActivity {
   EditText etname,etmobile,etotp;
   Button btnsend,btnverify;
   int randomnumber;
-  String course,name,email,mobile,password,otp;
+  String contactid,name,email,mobile,password,otp;
   String SIGNUP_URL="http://192.168.43.65/tutorial/api/user_signUp.php";
   Toast toast;
 
@@ -58,7 +58,7 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Madhvi Vision");
 
         final Intent intent=getIntent();
-       course=intent.getStringExtra("course");
+       contactid=intent.getStringExtra("course");
        name=intent.getStringExtra("name");
        mobile=intent.getStringExtra("mobile");
        email=intent.getStringExtra("email");
@@ -163,8 +163,8 @@ public class VerifyOTP_Activity extends AppCompatActivity {
                         toast.show();
 
                         LoginShareprefe_Modal loginShareprefeModal=new LoginShareprefe_Modal(VerifyOTP_Activity.this);
-                        loginShareprefeModal.setCourse(course);
-                        loginShareprefeModal.setName(name);
+                        loginShareprefeModal.setContactId(contactid);
+                        loginShareprefeModal.setUserName(name);
                         loginShareprefeModal.setEmail(email);
                         loginShareprefeModal.setMobile(mobile);
                         loginShareprefeModal.setPassword(password);
@@ -192,10 +192,9 @@ public class VerifyOTP_Activity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> parms=new HashMap<>();
                  parms.put("u_name",name);
-                parms.put("u_email",email);
-                parms.put("u_phone",mobile);
+                 parms.put("u_email",email);
+                 parms.put("u_phone",mobile);
                 parms.put("u_password",password);
-                parms.put("u_course",course);
 
                 return parms;
             }

@@ -45,4 +45,14 @@ public class LessonModal {
 
     String tvlink;
     int lessonImageurl;
+
+    public String getVideoId() {
+        return videoId;
+    }
+
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
+    }
+
+    String videoId;
 }

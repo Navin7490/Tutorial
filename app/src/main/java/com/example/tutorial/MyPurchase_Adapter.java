@@ -54,9 +54,9 @@ public class MyPurchase_Adapter  extends RecyclerView.Adapter<MyPurchase_Adapter
             btnview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String coursename=tvcoursename.getText().toString();
+                    String couserid=tvoid.getText().toString();
                     Intent intent=new Intent(context.getApplicationContext(),MyCourseSubject_Activity.class);
-                    intent.putExtra("course_name",coursename);
+                    intent.putExtra("couserid",couserid);
                     context.startActivity(intent);
                 }
             });
