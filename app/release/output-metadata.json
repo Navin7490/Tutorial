@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.tutorial",
+  "applicationId": "vision.madhvi.tutorial",
   "variantName": "release",
   "elements": [
     {

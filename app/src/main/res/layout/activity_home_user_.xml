@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".Home_User_Activity">
+    tools:context="vision.madhvi.tutorial.Home_User_Activity">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

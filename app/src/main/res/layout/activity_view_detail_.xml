@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/View_detail_A"
-    tools:context=".ViewDetail_Activity">
+    tools:context="vision.madhvi.tutorial.ViewDetail_Activity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_margin="@dimen/_5sdp"
