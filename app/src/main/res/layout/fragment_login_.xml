@@ -26,7 +26,7 @@
             android:layout_height="@dimen/_50sdp">
             <EditText
                 android:id="@+id/Et_LEmail"
-                android:hint="Enter Email"
+                android:hint="Enter UserName"
                 android:background="@drawable/edit_text"
                 android:padding="@dimen/_10sdp"
                 android:drawableTint="@color/blue"
