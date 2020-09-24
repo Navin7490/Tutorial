@@ -63,14 +63,10 @@ public class SignUp_Fragment extends Fragment {
     EditText etname, etemail, etmobile, etpassword, etcpassword;
     TextView tvcourse;
     Context context;
-    Spinner spinner;
     String name, email, mobile, password, cpassword,radomotp;
-    String viewcoursedeta;
-    String viewcourse, cours;
-    String select = "select course";
+    String cours;
     ProgressDialog progressDialog;
     ArrayList<String> product;
-    String VIEWCOURSE_URL = "http://192.168.43.65/tutorial/api/ViewCourses.php";
     String SIGNUP_URL="http://192.168.43.65/tutorial/api/checkemailinTable.php";
     Snackbar snackbar;
     Toast toast;
@@ -116,14 +112,12 @@ public class SignUp_Fragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_sign_up_, container, false);
 
-        spinner = v.findViewById(R.id.SpinnerCourse);
         btnSignup = v.findViewById(R.id.Btn_SignUp);
         etname = v.findViewById(R.id.Et_Name);
         etemail = v.findViewById(R.id.Et_Email);
         etmobile = v.findViewById(R.id.Et_Mobile);
         etpassword = v.findViewById(R.id.Et_Password);
         etcpassword = v.findViewById(R.id.Et_CPassword);
-        tvcourse = v.findViewById(R.id.Tv_Courseselect);
 
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -132,71 +126,7 @@ public class SignUp_Fragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please Waiting..");
-        //progressDialog.show();
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, VIEWCOURSE_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                // progressDialog.dismiss();
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("course_detail");
 
-                    for (int i = 0; i < jsonArray.length(); i++) {
-
-                        JSONObject course = jsonArray.getJSONObject(i);
-
-                        viewcoursedeta = course.getString("course_name");
-                        product.add(viewcoursedeta);
-
-                        ArrayAdapter<String> adaptertt = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, product);
-                        spinner.setAdapter(adaptertt);
-
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // progressDialog.dismiss();
-                snackbar = Snackbar.make(v.findViewById(R.id.Layout_Sigup), "   No Connection", Snackbar.LENGTH_LONG)
-                        .setAction("View", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                            }
-                        });
-                snackbar.show();
-
-                //Toast.makeText(getContext(), "No connectin", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        queue.add(stringRequest);
-
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-
-                viewcourse = (String) spinner.getItemAtPosition(position);
-
-                tvcourse.setText(viewcourse);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -207,7 +137,6 @@ public class SignUp_Fragment extends Fragment {
                 mobile = etmobile.getText().toString();
                 password = etpassword.getText().toString();
                 cpassword = etcpassword.getText().toString();
-                cours = tvcourse.getText().toString();
 //                 if (cours.matches(select)){
 //                     Toast.makeText(getActivity(), "Select Course", Toast.LENGTH_SHORT).show();
 //                 }

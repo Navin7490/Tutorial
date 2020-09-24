@@ -9,6 +9,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -38,6 +39,8 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_video_by_subject_);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         recyclerView = findViewById(R.id.Rv_VideobySub);
         getSupportActionBar().setTitle("Tutorial");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -67,7 +70,7 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
                         LessonModal lessonModal = new LessonModal();
                         lessonModal.setVideoId(videoid);
                         lessonModal.setLessonName(videotitle);
-                        lessonModal.setVideourl(videourl);
+                        lessonModal.setLessonImageurl(videourl);
                         lessonModal.setTvlink(videourl);
                         lessonlist.add(lessonModal);
 

@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.tutorial.R;
 
 import java.util.ArrayList;
@@ -37,7 +39,8 @@ public class MyCourseSubject_Adapter extends RecyclerView.Adapter<MyCourseSubjec
         holder.tvsubid.setText(product.get(position).getSubid());
         holder.tvcousub.setText(product.get(position).getSubcourse());
         holder.tvsubject.setText(product.get(position).getSubjectname());
-
+        holder.tvdescription.setText(product.get(position).getDescription());
+        Glide.with(context).load(product.get(position).getImage()).into(holder.imageView);
     }
 
     @Override
@@ -46,13 +49,15 @@ public class MyCourseSubject_Adapter extends RecyclerView.Adapter<MyCourseSubjec
     }
 
     public class viewholder extends RecyclerView.ViewHolder {
-        TextView tvsubid,tvsubject,tvcousub;
-
+        TextView tvsubid,tvsubject,tvcousub,tvdescription;
+        ImageView imageView;
         public viewholder(@NonNull View itemView) {
             super(itemView);
             tvsubid=itemView.findViewById(R.id.Tv_cousubId);
             tvsubject = itemView.findViewById(R.id.Tv_MycourseSubjectList);
             tvcousub=itemView.findViewById(R.id.Tv_cousub);
+            imageView=itemView.findViewById(R.id.Im_Subject);
+            tvdescription=itemView.findViewById(R.id.Tv_MY_Subdetail);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

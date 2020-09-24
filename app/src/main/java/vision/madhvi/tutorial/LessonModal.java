@@ -15,11 +15,11 @@ public class LessonModal {
         this.lessonName = lessonName;
     }
 
-    public int getLessonImageurl() {
+    public String getLessonImageurl() {
         return lessonImageurl;
     }
 
-    public void setLessonImageurl(int lessonImageurl) {
+    public void setLessonImageurl(String lessonImageurl) {
         this.lessonImageurl = lessonImageurl;
     }
 
@@ -44,7 +44,7 @@ public class LessonModal {
     }
 
     String tvlink;
-    int lessonImageurl;
+    String lessonImageurl;
 
     public String getVideoId() {
         return videoId;

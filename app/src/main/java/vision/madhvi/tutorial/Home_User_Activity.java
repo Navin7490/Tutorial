@@ -172,7 +172,7 @@ public class Home_User_Activity extends AppCompatActivity {
 
                 Intent intent=new Intent(getApplicationContext(),Profile_Activity.class);
                 startActivity(intent);
-                // finish();
+                 //finish();
                 return true;
             }
         });

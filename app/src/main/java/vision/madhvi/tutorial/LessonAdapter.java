@@ -2,11 +2,14 @@ package vision.madhvi.tutorial;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +40,22 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.lessonView
     public void onBindViewHolder(@NonNull LessonAdapter.lessonViewholder holder, int position) {
         holder.tvvideolink.setText(lessonitem.get(position).getTvlink());
         holder.videoTitle.setText(lessonitem.get(position).getLessonName());
-         Glide.with(context).load(lessonitem.get(position).getVideourl()).into(holder.imageView);
+       // holder.imageView.setVideoPath(lessonitem.get(position).getLessonImageurl());
+        try {
+            String link= lessonitem.get(position).getLessonImageurl();
+            MediaController mediaController=new MediaController(context);
+            mediaController.setAnchorView(holder.imageView);
+
+            Uri video=Uri.parse(link);
+            holder.imageView.setMediaController(mediaController);
+            holder.imageView.setVideoURI(video);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        // Glide.with(context).load(lessonitem.get(position).getLessonImageurl()).into(holder.imageView);
 
         //holder.tvvideoUrl.setText(lessonitem.get(position).getVideourl());
         //Glide.with(context).load(lessonitem.get(position).getLessonImageurl()).into(holder.imageView);
@@ -51,7 +69,7 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.lessonView
     }
 
     public class lessonViewholder extends RecyclerView.ViewHolder {
-        ImageView imageView;
+        VideoView imageView;
         TextView  videoTitle,tvvideolink;
         public lessonViewholder(@NonNull View itemView) {
             super(itemView);
@@ -61,16 +79,16 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.lessonView
             imageView=itemView.findViewById(R.id.Im_lessonItem);
             tvvideolink=itemView.findViewById(R.id.Tv_VideoUrl);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    videolink=tvvideolink.getText().toString();
-                    Intent intent=new Intent(context.getApplicationContext(),View_Video_Activity.class);
-                    intent.putExtra("videourl",  videolink);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                }
-            });
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    videolink=tvvideolink.getText().toString();
+//                    Intent intent=new Intent(context.getApplicationContext(),View_Video_Activity.class);
+//                    intent.putExtra("videourl",  videolink);
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    context.startActivity(intent);
+//                }
+//            });
         }
     }
 }

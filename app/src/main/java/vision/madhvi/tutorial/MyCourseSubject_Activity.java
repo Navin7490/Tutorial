@@ -69,10 +69,15 @@ public class MyCourseSubject_Activity extends AppCompatActivity {
                         JSONObject courseSubject = jsonArray.getJSONObject(i);
                         String SubjectId = courseSubject.getString("SubjectId");
                         String subject = courseSubject.getString("SubjectName");
+                        String description = courseSubject.getString("Description");
+
+                        String image=courseSubject.getString("CoverPage");
 
                         MyCourseSubject_Modal modal = new MyCourseSubject_Modal();
                         modal.setSubid(SubjectId);
                         modal.setSubjectname(subject);
+                        modal.setDescription(description);
+                        modal.setImage(image);
                         prduct.add(modal);
                         MyCourseSubject_Adapter adapter = new MyCourseSubject_Adapter(getApplicationContext(), prduct);
                         recyclerView.setAdapter(adapter);

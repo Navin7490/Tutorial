@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.tutorial.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,11 +25,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Profile_Activity extends AppCompatActivity {
     CircleImageView imageView;
     TextView tvname, tvusername;
-    String image, name, username;
-     Button btnUpdate,btnSignOut;
-     String email;
-     Toast toast;
+    String name, username;
+    Button btnUpdate, btnSignOut;
+    String email;
+    Toast toast;
     LoginShareprefe_Modal loginShareprefeModal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,47 +41,50 @@ public class Profile_Activity extends AppCompatActivity {
 
         tvname = findViewById(R.id.Tv_ProfileName);
         tvusername = findViewById(R.id.Tv_ProMobile);
-        btnSignOut=findViewById(R.id.Btn_ProfileLogout);
-        btnUpdate=findViewById(R.id.Btn_ProfileUpdate);
-        imageView=findViewById(R.id.Im_Profile);
+        btnSignOut = findViewById(R.id.Btn_ProfileLogout);
+        btnUpdate = findViewById(R.id.Btn_ProfileUpdate);
+        imageView = findViewById(R.id.Im_Profile);
 
-         loginShareprefeModal = new LoginShareprefe_Modal(Profile_Activity.this);
-      Uri uri= Uri.parse(image=loginShareprefeModal.sharedPreLogin.getString("image",null));
-         name = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
-         username = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
+        loginShareprefeModal = new LoginShareprefe_Modal(Profile_Activity.this);
+
+
+        Glide.with(this).load(loginShareprefeModal.sharedPreLogin.getString("image", null)).into(imageView);
+        name = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
+        username = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
 
         tvname.setText(name);
         tvusername.setText(username);
-        imageView.setImageURI(uri);
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             showlogoutdailog();
+                showlogoutdailog();
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish();
+
         }
         return super.onOptionsItemSelected(item);
     }
-    public void showlogoutdailog(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+
+    public void showlogoutdailog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setTitle("Exit");
         builder.setMessage("you want to logout");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                loginShareprefeModal =new LoginShareprefe_Modal( Profile_Activity.this );
+                loginShareprefeModal = new LoginShareprefe_Modal(Profile_Activity.this);
                 loginShareprefeModal.removeuser();
-                toast = Toast.makeText( Profile_Activity.this,"Logout successful",Toast.LENGTH_SHORT );
-                toast.setGravity( Gravity.CENTER,0,0 );
+                toast = Toast.makeText(Profile_Activity.this, "Logout successful", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
-                Intent intent=new Intent( getApplicationContext(), Home_Activity.class );
-                startActivity( intent );
+                Intent intent = new Intent(getApplicationContext(), Home_Activity.class);
+                startActivity(intent);
                 finish();
 
             }
@@ -91,12 +96,12 @@ public class Profile_Activity extends AppCompatActivity {
 
             }
         });
-        Dialog dialog= builder.create();
+        Dialog dialog = builder.create();
         dialog.show();
         // dialog.getWindow().setBackgroundDrawableResource(R.color.blue);
-        Button no=((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
+        Button no = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_NEGATIVE);
         no.setTextColor(Color.BLACK);
-        Button yes=((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
+        Button yes = ((AlertDialog) dialog).getButton(DialogInterface.BUTTON_POSITIVE);
         yes.setTextColor(Color.BLACK);
 
     }

@@ -1,68 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <RelativeLayout
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/my_course_item"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_10sdp">
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:id="@+id/Tablelayout"
-            android:layout_height="wrap_content">
 
-            <TableRow
+        <TextView
+            android:id="@+id/Tv_MyPurchaseCourseId"
+            android:layout_width="@dimen/_210sdp"
+            android:layout_height="wrap_content"
+            android:text="OD14523678"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="gone" />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/Tv_Home_courseId"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/my_course_item">
-                <TextView
-                    android:layout_marginLeft="@dimen/_2sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Purchase ID :"/>
-                <TextView
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    android:text="OD14523678"
-                    android:id="@+id/Tv_MyPurchaseCourseId"
-                    android:layout_width="@dimen/_210sdp"
-                    android:layout_height="wrap_content"/>
+                android:visibility="gone" />
 
-            </TableRow>
-            <TableRow
+            <ImageView
+                android:id="@+id/Im_My_PCourse"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/catdigm" />
+
+            <TextView
+
+                android:id="@+id/Tv_My_Purchasecourse"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:padding="@dimen/_5sdp"
-                android:background="@drawable/my_course_item">
-                <TextView
-                    android:layout_marginLeft="@dimen/_2sdp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Course Name :"/>
-                <TextView
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_12sdp"
-                    android:text="10 th"
-                    android:id="@+id/Tv_My_Purchasecourse"
-                    android:layout_width="@dimen/_210sdp"
-                    android:layout_height="wrap_content"/>
-            </TableRow>
+                android:layout_below="@+id/Im_My_PCourse"
+                android:layout_margin="@dimen/_5sdp"
+                android:gravity="center"
+                android:text="Java"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/Btn_ViewMyOrder_course"
-                android:text="View"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark1"
+            <TextView
+                android:id="@+id/Tv_MY_CourseDescription"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </TableLayout>
-    </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Tv_My_Purchasecourse"
+                android:layout_margin="@dimen/_5sdp"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="All Subject included and hindi endlish"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
 
 </RelativeLayout>

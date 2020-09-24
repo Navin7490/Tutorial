@@ -108,10 +108,14 @@ public class My_Purchase_course_Fragment extends Fragment {
                         JSONObject purches=jsonArray.getJSONObject(i);
                         String CourseId=purches.getString("CourseId");
                         String coursename=purches.getString("CourseName");
+                        String image=purches.getString("Path");
+                        String description=purches.getString("Description");
 
                         MyPurchaseCourse_Modal modal=new MyPurchaseCourse_Modal();
                         modal.setPurchaseId(CourseId);
                         modal.setCoursename(coursename);
+                        modal.setCoursedetail(description);
+                        modal.setImage(image);
                         product.add(modal);
                         MyPurchase_Adapter adapter=new MyPurchase_Adapter(getContext(),product);
                         recyclerView.setAdapter(adapter);
@@ -127,7 +131,7 @@ public class My_Purchase_course_Fragment extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(getContext(), "No connection"+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
             }
         });
 //

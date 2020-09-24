@@ -8,28 +8,41 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.tutorial.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class Home_Activity extends AppCompatActivity {
     Button btnviewcurses;
-    TextView tvcourses, tvmarquee;
+    TextView tvcourses, tvmarquee,tvsomething,tvvision,tvvisionidea;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle adt;
     FrameLayout frameLayoutCourses, frameLayoutVision;
     private MenuItem item;
-
+    Myreciver myreciver;
+    RelativeLayout imageView;
+    boolean noconnectivity;
+    Toast toast;
     //Toolbar toolbar;
     @SuppressLint("ResourceAsColor")
     @Override
@@ -46,6 +59,10 @@ public class Home_Activity extends AppCompatActivity {
         tvmarquee = findViewById(R.id.Tv_Home_LearnAt);
         frameLayoutCourses = findViewById(R.id.Fram_Courses);
         frameLayoutVision = findViewById(R.id.Fra_Vision);
+        tvsomething=findViewById(R.id.Tv_Home_Something);
+        tvvision=findViewById(R.id.Tv_Home_Vision);
+        tvvisionidea=findViewById(R.id.Tv_Home_VisionIdea);
+        imageView=findViewById(R.id.Layout1);
 
         tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
 
@@ -54,21 +71,32 @@ public class Home_Activity extends AppCompatActivity {
         drawerLayout.setDrawerListener(adt);
         adt.syncState();
         //setSupportActionBar(toolbar);
-
+         myreciver=new Myreciver();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Madhvi Vision");
+        getSupportActionBar();
+        imageView.setVisibility(View.GONE);
+        tvmarquee.setVisibility(View.GONE);
+        btnviewcurses.setVisibility(View.GONE);
+        tvcourses.setVisibility(View.GONE);
+        tvsomething.setVisibility(View.GONE);
+        tvvision.setVisibility(View.GONE);
+        tvvisionidea.setVisibility(View.GONE);
+        frameLayoutCourses.setVisibility(View.GONE);
+        frameLayoutVision.setVisibility(View.GONE);
 
 
-        Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
-        fragmentTransaction.commit();
+
+
         btnviewcurses.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
                 tvcourses.setText("All COURSES");
                 frameLayoutCourses.setVisibility(View.VISIBLE);
+                frameLayoutVision.setVisibility(View.GONE);
+                tvvision.setVisibility(View.GONE);
+                tvvisionidea.setVisibility(View.GONE);
                 Course_Fragment courseFragment = new Course_Fragment();
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
@@ -84,45 +112,100 @@ public class Home_Activity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id == R.id.MenuHome_courses) {
-                    tvcourses.setText("All COURSES");
-                    frameLayoutCourses.setVisibility(View.VISIBLE);
-                    frameLayoutVision.setVisibility(View.VISIBLE);
-                    Course_Fragment courseFragment = new Course_Fragment();
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
-                    fragmentTransaction.commit();
-                    drawerLayout.closeDrawer(Gravity.START);
+
+                    if (noconnectivity){
+                      toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                      toast.setGravity(Gravity.CENTER,0,0);
+                      toast.show();
+                        drawerLayout.closeDrawer(Gravity.START);
+
+                    }else {
+                        tvcourses.setText("All COURSES");
+                        frameLayoutCourses.setVisibility(View.VISIBLE);
+                        frameLayoutVision.setVisibility(View.GONE);
+                        tvcourses.setVisibility(View.VISIBLE);
+                        tvsomething.setVisibility(View.VISIBLE);
+                        tvvision.setVisibility(View.GONE);
+                        tvvisionidea.setVisibility(View.GONE);
+                        Course_Fragment courseFragment = new Course_Fragment();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
+                        fragmentTransaction.commit();
+                        drawerLayout.closeDrawer(Gravity.START);
+                    }
+
 
                 }
                 if (id == R.id.MenuHome_vision) {
-                    frameLayoutCourses.setVisibility(View.GONE);
-                    frameLayoutVision.setVisibility(View.VISIBLE);
-                    Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
-                    fragmentTransaction.commit();
-                    drawerLayout.closeDrawer(Gravity.START);
+                    if (noconnectivity){
+                        toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+                        drawerLayout.closeDrawer(Gravity.START);
 
+                    }
+                    else {
+
+                        frameLayoutCourses.setVisibility(View.GONE);
+                        frameLayoutVision.setVisibility(View.VISIBLE);
+                        tvvision.setVisibility(View.VISIBLE);
+                        tvvisionidea.setVisibility(View.VISIBLE);
+                        tvcourses.setVisibility(View.GONE);
+                        tvsomething.setVisibility(View.GONE);
+                        Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
+                        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
+                        fragmentTransaction.commit();
+                        drawerLayout.closeDrawer(Gravity.START);
+                    }
                 }
                 if (id == R.id.MenuHome_Login) {
-                    frameLayoutVision.setVisibility(View.GONE);
-                    frameLayoutCourses.setVisibility(View.VISIBLE);
-                    Login_Fragment loginFragment = new Login_Fragment();
-                    FragmentTransaction fragmentTralogin = getSupportFragmentManager().beginTransaction();
-                    fragmentTralogin.replace(R.id.Fram_Courses, loginFragment);
-                    fragmentTralogin.commit();
-                    drawerLayout.closeDrawer(Gravity.START);
+                    if (noconnectivity){
+                        toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+                        drawerLayout.closeDrawer(Gravity.START);
+
+                    }
+                    else {
+
+                        frameLayoutVision.setVisibility(View.GONE);
+                        frameLayoutCourses.setVisibility(View.VISIBLE);
+                        tvcourses.setVisibility(View.GONE);
+                        tvsomething.setVisibility(View.GONE);
+                        tvvision.setVisibility(View.GONE);
+                        tvvisionidea.setVisibility(View.GONE);
+                        Login_Fragment loginFragment = new Login_Fragment();
+                        FragmentTransaction fragmentTralogin = getSupportFragmentManager().beginTransaction();
+                        fragmentTralogin.replace(R.id.Fram_Courses, loginFragment);
+                        fragmentTralogin.commit();
+                        drawerLayout.closeDrawer(Gravity.START);
+                    }
 
                 }
                 if (id == R.id.MenuHome_signup) {
-                    frameLayoutVision.setVisibility(View.GONE);
-                    frameLayoutCourses.setVisibility(View.VISIBLE);
-                    SignUp_Fragment signUp_fragment = new SignUp_Fragment();
-                    FragmentTransaction signuptra = getSupportFragmentManager().beginTransaction();
-                    signuptra.replace(R.id.Fram_Courses, signUp_fragment);
-                    signuptra.commit();
+                    if (noconnectivity){
+                        toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.show();
+                        drawerLayout.closeDrawer(Gravity.START);
 
-                    drawerLayout.closeDrawer(Gravity.START);
+                    }
+                    else {
+                        frameLayoutVision.setVisibility(View.GONE);
+                        frameLayoutCourses.setVisibility(View.VISIBLE);
+                        tvcourses.setVisibility(View.GONE);
+                        tvsomething.setVisibility(View.GONE);
+                        tvvision.setVisibility(View.GONE);
+                        tvvisionidea.setVisibility(View.GONE);
+                        SignUp_Fragment signUp_fragment = new SignUp_Fragment();
+                        FragmentTransaction signuptra = getSupportFragmentManager().beginTransaction();
+                        signuptra.replace(R.id.Fram_Courses, signUp_fragment);
+                        signuptra.commit();
+
+                        drawerLayout.closeDrawer(Gravity.START);
+                    }
+
 
 
                 }
@@ -131,6 +214,19 @@ public class Home_Activity extends AppCompatActivity {
             }
         });
 
+
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(myreciver,filter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(myreciver);
 
     }
 
@@ -203,6 +299,41 @@ public class Home_Activity extends AppCompatActivity {
         builder.create();
         builder.show();
 
+    }
+    private class Myreciver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())){
+                 noconnectivity=intent.getBooleanExtra(
+                        ConnectivityManager.EXTRA_NO_CONNECTIVITY,false
+                );
+                if (noconnectivity){
+                    toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+
+                }else {
+                    toast=  Toast.makeText(Home_Activity.this, "Connected ", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
+                    Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
+                    final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
+                    fragmentTransaction.commit();
+                    frameLayoutCourses.setVisibility(View.VISIBLE);
+                    frameLayoutVision.setVisibility(View.VISIBLE);
+                    tvvision.setVisibility(View.VISIBLE);
+                    tvvisionidea.setVisibility(View.VISIBLE);
+                    tvcourses.setVisibility(View.VISIBLE);
+                    tvsomething.setVisibility(View.VISIBLE);
+                    btnviewcurses.setVisibility(View.VISIBLE);
+                    tvmarquee.setVisibility(View.VISIBLE);
+                    imageView.setVisibility(View.VISIBLE);
+                    btnviewcurses.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
 }
