@@ -23,7 +23,7 @@
 
             <EditText
                 android:id="@+id/Et_Name"
-                android:hint="Enter Name"
+                android:hint="Full Name"
                 android:drawableTint="@color/black"
                 android:inputType="textPersonName"
                 android:layout_below="@+id/Tv_Signup"
@@ -38,7 +38,7 @@
             <EditText
 
                 android:id="@+id/Et_Email"
-                android:hint="Enter Email"
+                android:hint="Email"
 
                 android:layout_below="@+id/Et_Name"
                 android:drawableTint="@color/black"
@@ -55,7 +55,7 @@
 
                 android:id="@+id/Et_Mobile"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:hint="Enter Mobile Number"
+                android:hint="Mobile"
                 android:padding="@dimen/_10sdp"
                 android:layout_below="@+id/Et_Email"
                 android:maxLength="10"
@@ -67,15 +67,29 @@
                 android:background="@drawable/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+        <EditText
 
+            android:id="@+id/Et_UserName"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:hint="User Name"
+            android:padding="@dimen/_10sdp"
+            android:layout_below="@+id/Et_Mobile"
+            android:drawableTint="@color/black"
+            android:inputType="textPersonName"
+
+            android:drawablePadding="@dimen/_10sdp"
+            android:textColorHint="@color/black"
+            android:background="@drawable/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
             <EditText
                 android:id="@+id/Et_Password"
-                android:hint="Enter Password"
+                android:hint="Password"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textColorHint="@color/black"
                 android:drawablePadding="@dimen/_10sdp"
                 android:padding="@dimen/_10sdp"
-                android:layout_below="@+id/Et_Mobile"
+                android:layout_below="@+id/Et_UserName"
                 android:drawableTint="@color/black"
                 android:inputType="textPassword"
                 android:background="@drawable/edit_text"

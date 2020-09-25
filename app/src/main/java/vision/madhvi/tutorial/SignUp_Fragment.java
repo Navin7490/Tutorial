@@ -60,10 +60,10 @@ public class SignUp_Fragment extends Fragment {
     private String mParam2;
     Button btnSignup;
     View v;
-    EditText etname, etemail, etmobile, etpassword, etcpassword;
+    EditText etname, etemail, etmobile,etusername, etpassword, etcpassword;
     TextView tvcourse;
     Context context;
-    String name, email, mobile, password, cpassword,radomotp;
+    String name, email, mobile,username, password, cpassword,radomotp;
     String cours;
     ProgressDialog progressDialog;
     ArrayList<String> product;
@@ -116,6 +116,7 @@ public class SignUp_Fragment extends Fragment {
         etname = v.findViewById(R.id.Et_Name);
         etemail = v.findViewById(R.id.Et_Email);
         etmobile = v.findViewById(R.id.Et_Mobile);
+        etusername=v.findViewById(R.id.Et_UserName);
         etpassword = v.findViewById(R.id.Et_Password);
         etcpassword = v.findViewById(R.id.Et_CPassword);
 
@@ -135,6 +136,7 @@ public class SignUp_Fragment extends Fragment {
                 name = etname.getText().toString();
                 email = etemail.getText().toString();
                 mobile = etmobile.getText().toString();
+                username=etusername.getText().toString();
                 password = etpassword.getText().toString();
                 cpassword = etcpassword.getText().toString();
 //                 if (cours.matches(select)){
@@ -168,7 +170,11 @@ public class SignUp_Fragment extends Fragment {
                 } else if (!etmobile.getText().toString().matches("[0-9]{10}")) {
                     etmobile.requestFocus();
                     etmobile.setError("Invalid Mobie Number");
-                } else if (password.isEmpty()) {
+                }else if (username.isEmpty()){
+                    etusername.requestFocus();
+                    etusername.setError("Enter username");
+                }
+                else if (password.isEmpty()) {
                     etpassword.requestFocus();
                     etpassword.setError("Enter Password");
                 } else if (password.length() < 6) {
@@ -243,7 +249,7 @@ public class SignUp_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "No Connection"+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "server is off", Toast.LENGTH_SHORT).show();
 
             }
         }){

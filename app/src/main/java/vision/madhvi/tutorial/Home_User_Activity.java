@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +32,10 @@ public class Home_User_Activity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle adt;
-
+    ImageView imageView;
     Button btnviewcurses;
     TextView tvcourses, tvmarquee;
     FrameLayout frameLayoutCourses, frameLayoutVision;
-
     //Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +44,13 @@ public class Home_User_Activity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.DrawerLyout);
         navigationView = findViewById(R.id.NaviGation);
 
-        btnviewcurses = findViewById(R.id.Btn_Home_ViewCourse);
-        tvcourses = findViewById(R.id.Tv_Home_COURSES);
-        tvmarquee = findViewById(R.id.Tv_Home_LearnAt);
+
         frameLayoutCourses = findViewById(R.id.Fram_Courses);
         frameLayoutVision = findViewById(R.id.Fra_Vision);
 
-        tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-
-        tvmarquee.setSelected(true);
+//        tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+//
+//        tvmarquee.setSelected(true);
 
         adt = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.setDrawerListener(adt);
@@ -61,24 +59,24 @@ public class Home_User_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
-        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
-        fragmentTransaction.commit();
-        btnviewcurses.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View view) {
-                tvcourses.setText("All COURSES");
-                frameLayoutCourses.setVisibility(View.VISIBLE);
-                Course_Fragment courseFragment = new Course_Fragment();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
-                fragmentTransaction.commit();
-
-
-            }
-        });
+//        Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
+//        final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
+//        fragmentTransaction.commit();
+//        btnviewcurses.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("ResourceAsColor")
+//            @Override
+//            public void onClick(View view) {
+//                tvcourses.setText("All COURSES");
+//                frameLayoutCourses.setVisibility(View.VISIBLE);
+//                Course_Fragment courseFragment = new Course_Fragment();
+//                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
+//                fragmentTransaction.commit();
+//
+//
+//            }
+//        });
 
 
 
@@ -88,32 +86,23 @@ public class Home_User_Activity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 int id = menuItem.getItemId();
-                if (id == R.id.MenuHome) {
+//                if (id == R.id.MenuHome) {
+//
+//                }
+                if (id == R.id.MenuMycoursedashboard) {
                     Course_Fragment courseListFragment = new Course_Fragment();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.Fram_Courses, courseListFragment);
                     drawerLayout.closeDrawer(Gravity.START);
                     getSupportActionBar().setTitle("Madhvi Vision");
-                    tvcourses.setText("COURSES");
 
                     fragmentTransaction.commit();
-                }
-                if (id == R.id.MenuMycoursedashboard) {
-//                    MyCourse_Fragment myCourseFragment = new MyCourse_Fragment();
-//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//                    fragmentTransaction.replace(R.id.Fram_Courses, myCourseFragment);
-                    getSupportActionBar().setTitle("Madhvi Vision");
-                    drawerLayout.closeDrawer(Gravity.START);
-                   // fragmentTransaction.commit();
-                    Toast.makeText(Home_User_Activity.this, "Dashboard nothing", Toast.LENGTH_SHORT).show();
-
                 }
                 if (id == R.id.MenuTutorial) {
 
                     My_Purchase_course_Fragment fragment=new My_Purchase_course_Fragment();
                     FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.Fram_Courses,fragment);
-                    tvcourses.setText("PURCHASE COURSES");
                     fragmentTransaction.commit();
 
 //                    Intent intent=new Intent(getApplicationContext(),Tutorial_Details_Activity.class);
@@ -160,7 +149,6 @@ public class Home_User_Activity extends AppCompatActivity {
         notification.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Toast.makeText(Home_User_Activity.this, "Notification", Toast.LENGTH_SHORT).show();
 
                 return true;
             }
@@ -180,7 +168,6 @@ public class Home_User_Activity extends AppCompatActivity {
         flage.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem Item) {
-                Toast.makeText(Home_User_Activity.this, "flage", Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

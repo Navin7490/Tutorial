@@ -12,15 +12,20 @@
         app:cardCornerRadius="@dimen/_5sdp"
         android:layout_margin="@dimen/_3sdp"
         android:layout_height="wrap_content">
-        <FrameLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp">
-            <VideoView
+            android:layout_height="wrap_content">
+
+
+            <ImageView
                 android:id="@+id/Im_lessonItem"
                 android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </FrameLayout>
+                android:src="@drawable/videicon1"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"/>
 
 
     <TextView
@@ -31,14 +36,14 @@
     <TextView
         android:id="@+id/Tv_lessonItemdetail"
         android:layout_alignLeft="@+id/Im_lessonItem"
-        android:layout_marginLeft="@dimen/_55sdp"
+        android:layout_marginLeft="@dimen/_90sdp"
         android:layout_width="match_parent"
-
         android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_30sdp"
         android:text="Basic Android for begginer"
-        android:layout_marginTop="@dimen/_150sdp"
         android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

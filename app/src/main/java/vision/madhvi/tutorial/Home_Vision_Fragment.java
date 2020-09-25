@@ -73,13 +73,13 @@ public class Home_Vision_Fragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         product=new ArrayList<>();
-        product.add(new Vision_Modal(R.drawable.categoryimage, "Career advancement and hobbies", "Career advancement and hobbies"+
+        product.add(new Vision_Modal(R.drawable.homescrren, "Career advancement and hobbies", "Career advancement and hobbies"+
                 "    Studying online more flexibility.you can worke and fit your work schedule(and your hobbies) around"  +
                 "     your course worke more easily; even more so if you are taking an asychronous class: an online class where" +
                 "    you dont have to log in at spicific time for a live session" +
                 "    your course worke more easily; even more so if you are taking an asychronous class: an online class where" +
                 "  you dont have to log in at spicific time for a live session "));
-        product.add(new Vision_Modal(R.drawable.catdigm, "Career advancement and hobbies", "Career advancement and hobbies"+
+        product.add(new Vision_Modal(R.drawable.homescrren, "Career advancement and hobbies", "Career advancement and hobbies"+
                 "  Studying online more flexibility.you can worke and fit your work schedule(and your hobbies) around"  +
                 "   your course worke more easily; even more so if you are taking an asychronous class: an online class where" +
                 "  you dont have to log in at spicific time for a live session" +

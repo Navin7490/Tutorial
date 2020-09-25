@@ -41,7 +41,6 @@ public class Home_Activity extends AppCompatActivity {
     private MenuItem item;
     Myreciver myreciver;
     RelativeLayout imageView;
-    boolean noconnectivity;
     Toast toast;
     //Toolbar toolbar;
     @SuppressLint("ResourceAsColor")
@@ -93,6 +92,8 @@ public class Home_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 tvcourses.setText("All COURSES");
+                tvcourses.setVisibility(View.VISIBLE);
+                tvsomething.setVisibility(View.VISIBLE);
                 frameLayoutCourses.setVisibility(View.VISIBLE);
                 frameLayoutVision.setVisibility(View.GONE);
                 tvvision.setVisibility(View.GONE);
@@ -113,11 +114,11 @@ public class Home_Activity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.MenuHome_courses) {
 
-                    if (noconnectivity){
+                    if (myreciver.noconnectivity){
                       toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                       toast.setGravity(Gravity.CENTER,0,0);
                       toast.show();
-                        drawerLayout.closeDrawer(Gravity.START);
+                      drawerLayout.closeDrawer(Gravity.START);
 
                     }else {
                         tvcourses.setText("All COURSES");
@@ -137,7 +138,7 @@ public class Home_Activity extends AppCompatActivity {
 
                 }
                 if (id == R.id.MenuHome_vision) {
-                    if (noconnectivity){
+                    if (myreciver.noconnectivity){
                         toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER,0,0);
                         toast.show();
@@ -160,7 +161,7 @@ public class Home_Activity extends AppCompatActivity {
                     }
                 }
                 if (id == R.id.MenuHome_Login) {
-                    if (noconnectivity){
+                    if (myreciver.noconnectivity){
                         toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER,0,0);
                         toast.show();
@@ -184,7 +185,7 @@ public class Home_Activity extends AppCompatActivity {
 
                 }
                 if (id == R.id.MenuHome_signup) {
-                    if (noconnectivity){
+                    if (myreciver.noconnectivity){
                         toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER,0,0);
                         toast.show();
@@ -300,10 +301,11 @@ public class Home_Activity extends AppCompatActivity {
         builder.show();
 
     }
-    private class Myreciver extends BroadcastReceiver{
-
+    public class Myreciver extends BroadcastReceiver{
+   public  boolean noconnectivity;
         @Override
         public void onReceive(Context context, Intent intent) {
+
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())){
                  noconnectivity=intent.getBooleanExtra(
                         ConnectivityManager.EXTRA_NO_CONNECTIVITY,false
@@ -313,10 +315,9 @@ public class Home_Activity extends AppCompatActivity {
                     toast.setGravity(Gravity.CENTER,0,0);
                     toast.show();
 
+
                 }else {
-                    toast=  Toast.makeText(Home_Activity.this, "Connected ", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
-                    toast.show();
+
                     Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
                     final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);

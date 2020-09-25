@@ -4,6 +4,7 @@
         <item
             android:id="@+id/MenuHome"
             android:title="Home"
+            android:visible="false"
             android:icon="@drawable/ic_menu_home"
             android:iconTint="@color/black"/>
         <item
@@ -13,7 +14,7 @@
             android:iconTint="@color/black"/>
         <item
             android:id="@+id/MenuTutorial"
-            android:title="Tutorial Dashboard"
+            android:title="My Dashboard"
             android:icon="@drawable/ic_videotutorial"
             android:iconTint="@color/black"/>
     </group>

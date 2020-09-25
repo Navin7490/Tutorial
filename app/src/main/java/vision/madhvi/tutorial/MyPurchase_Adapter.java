@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tutorial.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class MyPurchase_Adapter  extends RecyclerView.Adapter<MyPurchase_Adapter
         holder.tvoid.setText(product.get(position).getPurchaseId());
         holder.tvcoursename.setText(product.get(position).getCoursename());
         holder.tvcoursedescr.setText(product.get(position).getCoursedetail());
-        Glide.with(context).load(product.get(position).getImage()).into(holder.imageView);
+        Picasso.get().load(product.get(position).getImage()).into(holder.imageView);
 
 
     }

@@ -17,7 +17,6 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/Im_Home_visionlist"
             android:layout_width="@dimen/_50sdp"
-            android:src="@drawable/catdigm"
             android:layout_height="@dimen/_50sdp"/>
         <TextView
             android:id="@+id/Tv_Home_visionTitle"

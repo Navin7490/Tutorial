@@ -17,7 +17,6 @@
                     android:id="@+id/Im_Subject"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/catdigm"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_200sdp"/>
                 <TextView

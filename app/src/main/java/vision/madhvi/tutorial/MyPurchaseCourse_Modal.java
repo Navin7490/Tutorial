@@ -1,8 +1,7 @@
 package vision.madhvi.tutorial;
 
 public class MyPurchaseCourse_Modal {
-    String purchaseId;
-
+    String purchaseId,image,coursename,coursedetail;
     public String getImage() {
         return image;
     }
@@ -11,13 +10,6 @@ public class MyPurchaseCourse_Modal {
         this.image = image;
     }
 
-    String image;
-
-//    public MyPurchaseCourse_Modal(String purchaseId, String coursename) {
-//        this.purchaseId = purchaseId;
-//        this.coursename = coursename;
-//        this.coursedetail = coursedetail;
-//    }
 
     public String getPurchaseId() {
         return purchaseId;
@@ -43,6 +35,5 @@ public class MyPurchaseCourse_Modal {
         this.coursedetail = coursedetail;
     }
 
-    String coursename;
-    String coursedetail;
+
 }

@@ -137,7 +137,9 @@ public class Login_Fragment extends Fragment {
                         String uType = detail.getString("uType");
 
                         if (status.equals("Success")) {
-
+                            toast = Toast.makeText(getContext(), "Login Successfull", Toast.LENGTH_SHORT);
+                            toast.show();
+                            toast.setGravity(Gravity.CENTER, 0, 0);
                             LoginShareprefe_Modal shareprefeModal = new LoginShareprefe_Modal(getActivity());
                             shareprefeModal.setContactId(ContactId);
                             shareprefeModal.setUserName(UserName);
