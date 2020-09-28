@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +86,7 @@ public class ViewVideoBySubject_Activity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Toast.makeText(ViewVideoBySubject_Activity.this, "No Connection" + error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewVideoBySubject_Activity.this, "No Connection", Toast.LENGTH_SHORT).show();
 
             }
         }) ;

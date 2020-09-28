@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class ForgotPassword_Activity extends AppCompatActivity {

@@ -18,17 +18,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.text.TextUtils.concat;
+
 public class Profile_Activity extends AppCompatActivity {
     CircleImageView imageView;
-    TextView tvname, tvusername;
-    String name, username;
+    TextView tvname,tvprofilename, tvusername;
+    String name,profilename, username;
     Button btnUpdate, btnSignOut;
-    String email;
+    String welcom="Welcome ";
+    String lastlogindate="Last Login: ";
     Toast toast;
+    String n,pn,un,ld;
     LoginShareprefe_Modal loginShareprefeModal;
 
     @Override
@@ -39,8 +43,9 @@ public class Profile_Activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Profile");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        tvname = findViewById(R.id.Tv_ProfileName);
-        tvusername = findViewById(R.id.Tv_ProMobile);
+        tvname = findViewById(R.id.Tv_Name);
+        tvprofilename=findViewById(R.id.Tv_ProfileName);
+        tvusername = findViewById(R.id.Tv_UserName);
         btnSignOut = findViewById(R.id.Btn_ProfileLogout);
         btnUpdate = findViewById(R.id.Btn_ProfileUpdate);
         imageView = findViewById(R.id.Im_Profile);
@@ -49,10 +54,15 @@ public class Profile_Activity extends AppCompatActivity {
 
 
         Glide.with(this).load(loginShareprefeModal.sharedPreLogin.getString("image", null)).into(imageView);
-        name = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
-        username = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
+        n = loginShareprefeModal.sharedPreLogin.getString("fullname", null);
+        pn = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
 
+        un = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
+        ld = loginShareprefeModal.sharedPreLogin.getString("lastLoginDate", null);
+        name=welcom.concat(n);
+        username=un+" , "+concat(lastlogindate.concat(ld));
         tvname.setText(name);
+        tvprofilename.setText(pn);
         tvusername.setText(username);
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override

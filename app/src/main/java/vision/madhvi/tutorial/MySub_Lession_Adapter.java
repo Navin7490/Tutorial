@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 
 import java.util.ArrayList;
 

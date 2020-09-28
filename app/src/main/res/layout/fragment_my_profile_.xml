@@ -4,34 +4,187 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="vision.madhvi.tutorial.MyProfile_Fragment">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_margin="@dimen/_10sdp"
-    android:layout_height="wrap_content">
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/Im_Profile"
-        android:src="@drawable/ic_user"
-        android:layout_marginLeft="@dimen/_100sdp"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"/>
-    <TextView
-        android:id="@+id/Tv_ProfileName"
-        android:gravity="center"
-        android:text="Navin Solanki"
-        android:padding="@dimen/_5sdp"
-        android:layout_below="@+id/Im_Profile"
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedscroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:text="7490967163"
-        android:gravity="center"
-        android:padding="@dimen/_5sdp"
-        android:layout_below="@+id/Tv_ProfileName"
+        android:layout_height="@dimen/_460sdp">
+    <RelativeLayout
+        android:id="@+id/Relativ"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:gravity="center">
 
 
-</RelativeLayout>
+
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/Im_Profile"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    android:src="@drawable/ic_user" />
+
+                <TextView
+                    android:id="@+id/Tv_PMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Im_Profile"
+                    android:textColor="@color/black"
+                    android:padding="@dimen/_5sdp"
+                    android:text="7490967163" />
+
+                <TextView
+                    android:id="@+id/Tv_PEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Tv_PMobile"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@color/black"
+                    android:text="bngamar018@gmail.com" />
+
+                <EditText
+                    android:id="@+id/Tv_PFullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Tv_PEmail"
+
+                    android:background="@drawable/edit_text_profile"
+                     android:paddingLeft="@dimen/_5sdp"
+                    android:hint="Full Name" />
+
+                <EditText
+                    android:id="@+id/Et_PFatherName"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Tv_PFullName"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:hint="Father name" />
+
+                <TextView
+                    android:id="@+id/Et_PGender"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Et_PFatherName"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:text="gender" />
+
+                <RadioGroup
+                    android:id="@+id/Radiogroup_P"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Et_PGender"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Male" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Female" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/Et_PDOB"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Radiogroup_P"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:text="Choose DOB" />
+
+                <EditText
+                    android:id="@+id/Et_PCountry"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Et_PDOB"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:hint="Country" />
+
+                <EditText
+                    android:id="@+id/Et_PState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Et_PCountry"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:hint="State" />
+
+                <EditText
+                    android:id="@+id/Et_PDistric"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Et_PState"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:hint="Distric" />
+
+                <EditText
+                    android:id="@+id/Et_PCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Et_PDistric"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:hint="City" />
+
+                <EditText
+                    android:id="@+id/Et_PAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Et_PCity"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:hint="Address" />
+
+                <EditText
+                    android:id="@+id/Et_PPinNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/Et_PAddress"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/edit_text_profile"
+                    android:inputType="number"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:hint="Pincode" />
+
+    </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_below="@+id/nestedscroll"
+        tools:ignore="UnknownId">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:background="@drawable/btn_signup"
+            android:text="update profile"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

@@ -10,26 +10,18 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/Drawaernav">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp">
+            android:layout_height="match_parent">
 
 
             <FrameLayout
-                android:id="@+id/Fram_Courses"
+                android:id="@+id/Fram_UCourses"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Tv_Home_Something" />
-
-            <FrameLayout
-                android:id="@+id/Fra_Vision"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Fram_Courses"
-                android:layout_marginTop="@dimen/_10sdp" />
+                android:layout_height="match_parent" />
 
 
         </RelativeLayout>
@@ -40,6 +32,7 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/NaviGation"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"

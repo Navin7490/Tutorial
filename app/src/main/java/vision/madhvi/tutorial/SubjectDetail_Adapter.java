@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class SubjectDetail_Adapter extends RecyclerView.Adapter<SubjectDetail_Ad
     public SubjectDetail_Adapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater=LayoutInflater.from(context);
-        View viewlist=layoutInflater.inflate(R.layout.dashboard_course,parent,false);
+        View viewlist=layoutInflater.inflate(R.layout.subject_list,parent,false);
         return new Viewholder(viewlist);
     }
 

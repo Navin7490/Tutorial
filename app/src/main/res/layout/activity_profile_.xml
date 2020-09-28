@@ -35,11 +35,12 @@
                 android:layout_height="@dimen/_80sdp"
                 android:layout_marginLeft="@dimen/_100sdp"
                 android:src="@drawable/ic_user" />
-
             <TextView
-                android:id="@+id/Tv_ProfileName"
+                android:id="@+id/Tv_Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:layout_below="@+id/Im_Profile"
                 android:gravity="center"
                 android:padding="@dimen/_5sdp"
@@ -47,46 +48,30 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/Tv_ProMobile"
+                android:id="@+id/Tv_ProfileName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Tv_Name"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="Student"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/Tv_UserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/Tv_ProfileName"
                 android:gravity="center"
                 android:padding="@dimen/_5sdp"
-                android:text="7490967163"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:text="navin@7490"
                 android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/Et_proFristName"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_below="@+id/Tv_ProMobile"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/edit_text_profile"
-                android:gravity="center"
-                android:hint="First Name"
-                android:textColorHint="@color/black" />
 
-            <EditText
-                android:id="@+id/Et_ProLastName"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_below="@+id/Et_proFristName"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/edit_text_profile"
-                android:gravity="center"
-                android:hint="Last Name"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_below="@+id/Et_ProLastName"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/edit_text_profile"
-                android:gravity="center"
-                android:hint="City"
-                android:textColorHint="@color/black" />
 
 
         </RelativeLayout>

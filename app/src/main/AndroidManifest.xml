@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.tutorial">
+    package="vision.madhvi.tutorial">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -37,9 +37,6 @@
         <activity
             android:name="vision.madhvi.tutorial.View_Video_Activity"
             android:screenOrientation="landscape" />
-        <activity
-            android:name="vision.madhvi.tutorial.Tutorial_Details_Activity"
-            android:screenOrientation="portrait" />
         <activity
             android:name="vision.madhvi.tutorial.Home_Activity"
             android:screenOrientation="portrait" />

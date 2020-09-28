@@ -27,7 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -63,14 +63,16 @@ public class SignUp_Fragment extends Fragment {
     EditText etname, etemail, etmobile,etusername, etpassword, etcpassword;
     TextView tvcourse;
     Context context;
-    String name, email, mobile,username, password, cpassword,radomotp;
+    String name, email, mobile,username, password, cpassword;
     String cours;
     ProgressDialog progressDialog;
     ArrayList<String> product;
-    String SIGNUP_URL="http://192.168.43.65/tutorial/api/checkemailinTable.php";
+
+   // String SIGNUP_URL="http://192.168.43.65/tutorial/api/checkemailinTable.php";
     Snackbar snackbar;
     Toast toast;
     int randomnumber;
+    String radomotp="";
     String OtpMess="Dear Customer of Madhvi Vision ";
 
     public SignUp_Fragment() {
@@ -203,39 +205,55 @@ public class SignUp_Fragment extends Fragment {
         return v;
     }
     public  void SignupData(){
+        String SIGNUP_URL="http://103.207.169.120:8891/api/Registration";
+
         StringRequest stringRequestsigup=new StringRequest(Request.Method.POST, SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String status = jsonObject.getString("status");
+                    String status = jsonObject.getString("msg");
 
-                    if (status.equals("user already created")) {
 
-                        toast = Toast.makeText(getContext(), "Email already existing...", Toast.LENGTH_LONG);
+                    if(status.equals("Email is already exist!")){
+                        toast = Toast.makeText(getContext(), "Email already existing", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
                     }
+                   else   if(status.equals("User name is already exist!")){
+                        toast = Toast.makeText(getContext(), "UserName  already existing", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+
+                    }
+
+
                     else  {
+
+
                         etname.setText("");
                         etemail.setText("");
                         etmobile.setText("");
                         etpassword.setText("");
                         etcpassword.setText("");
-                        SendOtp();
+                       // SendOtp();
                         radomotp= String.valueOf(randomnumber);
-                        Intent intent = new Intent(getContext(), VerifyOTP_Activity.class);
-                       // intent.putExtra("course",cours);
-                        intent.putExtra("name",name);
-                        intent.putExtra("email",email);
-                        intent.putExtra("mobile",mobile);
-                        intent.putExtra("password",password);
-                        intent.putExtra("otp",radomotp);
 
-                        startActivity(intent);
-                        getActivity().finish();
 
+//                        Intent intent = new Intent(getContext(), VerifyOTP_Activity.class);
+//                        // intent.putExtra("course",cours);
+//                        intent.putExtra("name",name);
+//                        intent.putExtra("email",email);
+//                        intent.putExtra("mobile",mobile);
+//                        intent.putExtra("password",password);
+//                        intent.putExtra("random",radomotp);
+//
+//                        startActivity(intent);
+                        //getActivity().finish();
+                        toast = Toast.makeText(getContext(), "Registration Success ", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
 
                     }
 
@@ -249,18 +267,18 @@ public class SignUp_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "server is off", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
 
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String>parms=new HashMap<>();
-               // parms.put("u_name",name);
-                parms.put("u_email",email);
-//                parms.put("u_phone",mobile);
-//                parms.put("u_password",password);
-//                parms.put("u_course",cours);
+                parms.put("EmailId",email);
+                parms.put("UserName",username);
+                parms.put("Mobile",mobile);
+                parms.put("Password",password);
+                parms.put("FullName",name);
 
                 return parms;
             }
@@ -270,11 +288,12 @@ public class SignUp_Fragment extends Fragment {
     }
 
     public void SendOtp(){
+
         try {
                     // Construct data
                     String apiKey = "apikey=" + "eo/1x8BBlAs-re18SbJlYoNTVIxqlGk0PRx15h48iB";
                     Random random=new Random();
-                    randomnumber=random.nextInt(999999);
+                      randomnumber=random.nextInt(999999);
                     String message = "&message=" + "Hey "+OtpMess+" your OTP is "+randomnumber;
                     String sender = "&sender=" + "TXTLCL";
                     String numbers = "&numbers=" +mobile;
@@ -293,15 +312,15 @@ public class SignUp_Fragment extends Fragment {
                         stringBuffer.append(line);
                     }
                     rd.close();
-                  toast=  Toast.makeText(getContext(), "OTP Send Successfully", Toast.LENGTH_SHORT);
-                  toast.setGravity(Gravity.CENTER,0,0);
-                  toast.show();
+//                  toast=  Toast.makeText(getContext(), "OTP Send Successfully"+randomnumber, Toast.LENGTH_SHORT);
+//                  toast.setGravity(Gravity.CENTER,0,0);
+//                  toast.show();
                    // return stringBuffer.toString();
                 } catch (Exception e) {
                     //System.out.println("Error SMS "+e);
                    // return "Error "+e;
+
                     Toast.makeText(getContext(), "Error SMS"+e, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), "ERROR"+e, Toast.LENGTH_SHORT).show();
 
                 }
     }

@@ -28,7 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tutorial.R;
+import vision.madhvi.tutorial.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class Home_Activity extends AppCompatActivity {
