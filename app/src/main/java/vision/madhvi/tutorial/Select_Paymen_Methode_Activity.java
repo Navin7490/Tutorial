@@ -14,6 +14,8 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -34,31 +36,32 @@ import java.util.Map;
 public class Select_Paymen_Methode_Activity extends AppCompatActivity {
 
 
-    String ORDER_URL = "http://192.168.43.65/tutorial/api/Insert_Order.php";
+   // String ORDER_URL = "http://192.168.43.65/tutorial/api/Insert_Order.php";
+   String ORDER_URL = "http://103.207.169.120:8891/api/Sales";
 
     /// paytm start //
     public static final String PAYTM_PACKAGE_NAME = "net.one97.paytm";
     /// paytm end //
+    public static final String PHONE_PAY_PACKAGE_NAME="com.phonepe.app";
 
-    ImageButton btnGpay, btnPatmpay;
+    public static final String PAYPAL_PAY_PACKAGE_NAME="com.paypal.android.p2pmobile";
+    ImageView btnGpay, btnPatmpay,btnPhonpe,btnPaypal;
 
     /// google pay ///
     private static final int TEZ_REQUEST_CODE = 123;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     Uri uri;
-    String upiid = "tinu1316@oksbi";
-    String name = "Navin";
+    String upiid = "dhruvmicro@oksbi";
+    String name = "DHRUV PRASAD SHARMA";
     String note = "Madhvi vision Trasaction";
     String staus;
     Toast toast;
-    String contactid,course, uemail, courseprice, uname, umobile;
+    String contactid,courseid, uemail, courseprice, fname, umobile;
+    TextView tvamountpayble;
     /// end ///
 
     // paytm//
-     Uri uripaytm;
-    String pname = "Navin";
-    String paytId = "tinu1316@oksbi";
-    String msgnote = "Madhvi vision";
+   String courseamount="5";
 
 
     @Override
@@ -67,27 +70,30 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_select__paymen__methode_);
         getSupportActionBar().setTitle("Select Payment");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        btnGpay = findViewById(R.id.Btn_CardGpay);
-        btnPatmpay = findViewById(R.id.Btn_CardPaytmpay);
+        tvamountpayble=findViewById(R.id.Tv_amoutapayable);
+        btnGpay = findViewById(R.id.Im_Pay_Gpay);
+        btnPatmpay = findViewById(R.id.Im_Pay_Paytm);
+        btnPhonpe=findViewById(R.id.Im_Pay_Phone);
+        btnPaypal=findViewById(R.id.Im_Pay_PayPaypal);
 
         Intent intent = getIntent();
         contactid=intent.getStringExtra("contactId");
-        course = intent.getStringExtra("course");
+        courseid = intent.getStringExtra("courseid");
         courseprice = intent.getStringExtra("courseprice");
         uemail = intent.getStringExtra("email");
-        uname = intent.getStringExtra("name");
+        fname = intent.getStringExtra("name");
         umobile = intent.getStringExtra("mobile");
 
         ///// Start Paytm pay payment event start /////////
-
+        tvamountpayble.setText(courseprice);
 
         btnPatmpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                uripaytm = getPayTmUri(pname, paytId, msgnote, courseprice);
-                PayWithPaytm(PAYTM_PACKAGE_NAME);
-
+          if (!courseamount.equals("")) {
+              uri = getUPIPaymentUri(name, upiid, note, courseamount);
+              PayWithPaytm(PAYTM_PACKAGE_NAME);
+          }
             }
         });
 
@@ -99,13 +105,32 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!courseprice.equals("")) {
-
-                    uri = getUPIPaymentUri(name, upiid, note, courseprice);
+                if (!courseamount.equals("")) {
+                    uri = getUPIPaymentUri(name, upiid, note, courseamount);
                     PayWithGpay(GOOGLE_TEZ_PACKAGE_NAME);
                 }
 
 
+            }
+        });
+        btnPhonpe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!courseamount.equals("")) {
+
+                    uri = getUPIPaymentUri(name, upiid, note, courseamount);
+                    PayWithPhonePay(PHONE_PAY_PACKAGE_NAME);
+                }
+            }
+        });
+        btnPaypal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!courseamount.equals("")) {
+
+                    uri = getUPIPaymentUri(name, upiid, note, courseamount);
+                    PayWithPayPal(PAYPAL_PAY_PACKAGE_NAME);
+                }
             }
         });
 
@@ -129,6 +154,7 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
             InsertMyOrder();
             Intent intenth = new Intent(getApplicationContext(), Home_User_Activity.class);
             startActivity(intenth);
+            finish();
         } else {
             toast = Toast.makeText(getApplicationContext(), "Trasaction Cancel by user", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -154,11 +180,57 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         }
     }
 
-    private static Uri getUPIPaymentUri(String name, String UPIId, String note, String amount) {
+    private void PayWithPhonePay(String phonePayPackageName) {
+        if (isAnstalledPhonePay(this, PHONE_PAY_PACKAGE_NAME)) {
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(uri);
+            i.setPackage(PHONE_PAY_PACKAGE_NAME);
+            startActivityForResult(i, 123);
+        } else {
+            Toast.makeText(this, "PhonePe is not istalled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private void PayWithPayPal(String paypalPayPackageName) {
+        if (isAnstalledPayPal(this, PAYPAL_PAY_PACKAGE_NAME)) {
+
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(uri);
+            i.setPackage(PAYPAL_PAY_PACKAGE_NAME);
+            startActivityForResult(i, 123);
+        } else {
+            Toast.makeText(this, "PayPal is not istalled", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public static boolean isAnstalledPayPal(Context context, String PackegeName) {
+        try {
+            context.getPackageManager().getApplicationInfo(PackegeName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+
+        }
+    }
+
+    public static boolean isAnstalledPhonePay(Context context, String PackegeName) {
+        try {
+            context.getPackageManager().getApplicationInfo(PackegeName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+
+        }
+    }
+
+    private static Uri getUPIPaymentUri(String name, String upiId, String note, String amount) {
         return new Uri.Builder()
                 .scheme("upi")
                 .authority("pay")
-                .appendQueryParameter("pa", UPIId)
+                .appendQueryParameter("pa", upiId)
                 .appendQueryParameter("pn", name)
                 .appendQueryParameter("tn", note)
                 .appendQueryParameter("am", amount)
@@ -188,29 +260,17 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
     }
 
 
-    /// paytm method  ////
-    private static Uri getPayTmUri(String name, String upiId, String note, String amount) {
-        return new Uri.Builder()
-                .scheme("upi")
-                .authority("pay")
-                .appendQueryParameter("pa", upiId)
-                .appendQueryParameter("pn", name)
-                .appendQueryParameter("tn", note)
-                .appendQueryParameter("am", amount)
-                .appendQueryParameter("cu", "INR")
-                .build();
 
-    }
 
     private void PayWithPaytm(String PPackagename) {
         if (isAnstalledPaytm(this, PAYTM_PACKAGE_NAME)) {
 
             Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(uripaytm);
+            i.setData(uri);
             i.setPackage(PAYTM_PACKAGE_NAME);
             startActivityForResult(i, 123);
         } else {
-            Toast.makeText(this, "Paytm is not istalled please install and try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Paytm is not istalled ", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -237,8 +297,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
                 Log.d("order", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String status = jsonObject.getString("status");
-                    if (status.equals("success")) {
+                    String status = jsonObject.getString("msg");
+                    if (status.equals("Inserted Successfully")) {
                         toast = Toast.makeText(Select_Paymen_Methode_Activity.this, "Purchase Course Confirm", Toast.LENGTH_SHORT);
                         toast.show();
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -264,11 +324,29 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parms = new HashMap<>();
-                parms.put("order_id", "");
-                parms.put("course_name", course);
-                parms.put("u_name", uname);
-                parms.put("u_email", uemail);
-                parms.put("u_phone", umobile);
+                parms.put("Action", "Insert");
+                parms.put("BillNo", "0");
+                parms.put("BillDate", "");
+                parms.put("ContactId",contactid);
+                parms.put("CourseId",courseid);
+                parms.put("TaxType", "0");
+                parms.put("Tax", "0");
+                parms.put("DiscountType", "0");
+                parms.put("Discount", "0");
+                parms.put("BillAmount",courseamount);
+                parms.put("Comment", "Comment");
+                parms.put("MOP", "");
+                parms.put("Name",fname);
+                parms.put("Bank", "0");
+                parms.put("Branch", "0");
+                parms.put("IFSC", "0");
+                parms.put("Card", "0");
+                parms.put("ExpirationDate", "12/12/2020");
+                parms.put("CVV", "123");
+                parms.put("Mobile", umobile);
+                parms.put("EmailId", uemail);
+                parms.put("MatchAmount",courseamount);
+
                 return parms;
             }
         };

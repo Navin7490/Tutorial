@@ -13,13 +13,22 @@
         android:id="@+id/Relativ"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginRight="@dimen/_10sdp"
         android:gravity="center">
 
 
 
-
+        <TextView
+            android:id="@+id/Tv_PContactId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_100sdp"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            android:padding="@dimen/_5sdp"
+            android:text="7490967163" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/Im_Profile"
@@ -46,7 +55,7 @@
                     android:text="bngamar018@gmail.com" />
 
                 <EditText
-                    android:id="@+id/Tv_PFullName"
+                    android:id="@+id/Et_PFullName"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_below="@+id/Tv_PEmail"
@@ -59,7 +68,7 @@
                     android:id="@+id/Et_PFatherName"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_below="@+id/Tv_PFullName"
+                    android:layout_below="@+id/Et_PFullName"
                     android:background="@drawable/edit_text_profile"
                     android:paddingLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -82,11 +91,13 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/BtnrMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Male" />
 
                     <RadioButton
+                        android:id="@+id/BtnrFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Female" />
@@ -94,13 +105,17 @@
 
                 <TextView
                     android:id="@+id/Et_PDOB"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:paddingLeft="@dimen/_5sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_below="@+id/Radiogroup_P"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/edit_text_profile"
-                    android:paddingLeft="@dimen/_5sdp"
-                    android:text="Choose DOB" />
+                    android:hint="Choose DOB" />
 
                 <EditText
                     android:id="@+id/Et_PCountry"
@@ -130,7 +145,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/edit_text_profile"
                     android:paddingLeft="@dimen/_5sdp"
-                    android:hint="Distric" />
+                    android:hint="District" />
 
                 <EditText
                     android:id="@+id/Et_PCity"
@@ -143,7 +158,7 @@
                     android:hint="City" />
 
                 <EditText
-                    android:id="@+id/Et_PAddress"
+                    android:id="@+id/Et_PAddress1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/Et_PCity"
@@ -153,13 +168,25 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
-                    android:hint="Address" />
+                    android:hint="Address 1" />
+        <EditText
+            android:id="@+id/Et_PAddress2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Et_PAddress1"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/edit_text_profile"
+            android:paddingLeft="@dimen/_5sdp"
+            android:paddingRight="@dimen/_5sdp"
+            android:paddingTop="@dimen/_5sdp"
+            android:paddingBottom="@dimen/_5sdp"
+            android:hint="Address 2" />
 
                 <EditText
                     android:id="@+id/Et_PPinNumber"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_below="@+id/Et_PAddress"
+                    android:layout_below="@+id/Et_PAddress2"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/edit_text_profile"
                     android:inputType="number"
@@ -177,10 +204,11 @@
         tools:ignore="UnknownId">
 
         <Button
+            android:id="@+id/Btn_PUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_50sdp"
-            android:layout_marginRight="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_100sdp"
+            android:layout_marginRight="@dimen/_100sdp"
             android:background="@drawable/btn_signup"
             android:text="update profile"
             android:textColor="@color/white" />

@@ -136,14 +136,10 @@ public class ViewDetail_Activity extends AppCompatActivity {
               @Override
               public void onErrorResponse(VolleyError error) {
                    progressDialog.dismiss();
-                  snackbar = Snackbar.make(findViewById(R.id.View_detail_A), "   No Internet Connection !", Snackbar.LENGTH_LONG)
-                          .setAction("View Detail", new View.OnClickListener() {
-                              @Override
-                              public void onClick(View view) {
+                  toast = Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_LONG);
+                  toast.setGravity(Gravity.CENTER, 0, 0);
+                  toast.show();
 
-                              }
-                          });
-                  snackbar.show();
               }
           });
 
@@ -162,7 +158,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
                 LoginShareprefe_Modal loginShareprefeModal = new LoginShareprefe_Modal(getApplicationContext());
                 String contactid = loginShareprefeModal.sharedPreLogin.getString("contactId", null);
                 String UserName = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
-                String uname = loginShareprefeModal.sharedPreLogin.getString("fullname", null);
+                String fname = loginShareprefeModal.sharedPreLogin.getString("fullname", null);
                 String umobile = loginShareprefeModal.sharedPreLogin.getString("mobile", null);
 
                 if (UserName != null) {
@@ -171,7 +167,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
                     intentpurche.putExtra("courseid", courseid);
                     intentpurche.putExtra("course", coursename);
                     intentpurche.putExtra("courseprice", courseprice);
-                    intentpurche.putExtra("name", uname);
+                    intentpurche.putExtra("name", fname);
                     intentpurche.putExtra("mobile", umobile);
 
                     startActivity(intentpurche);

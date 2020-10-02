@@ -128,6 +128,18 @@ public class Login_Fragment extends Fragment {
                         String UserName = detail.getString("UserName");
                         String ContactId = detail.getString("ContactId");
                         String FullName = detail.getString("FullName");
+                        String FatherName=detail.getString("FName");
+                        String Sex=detail.getString("Sex");
+                        String DOB=detail.getString("DOB");
+                        String Address1=detail.getString("Address1");
+                        String Address2=detail.getString("Address2");
+                        String City=detail.getString("City");
+                        String District=detail.getString("District");
+                        String State=detail.getString("State");
+                        String Country=detail.getString("Country");
+                        String PIN=detail.getString("PIN");
+                        String Mobile=detail.getString("Mobile");
+                        String EmailId=detail.getString("EmailId");
                         String ProfileId = detail.getString("ProfileId");
                         String ProfileName = detail.getString("ProfileName");
                         String LastLoginDate = detail.getString("LastLoginDate");
@@ -144,6 +156,19 @@ public class Login_Fragment extends Fragment {
                             shareprefeModal.setContactId(ContactId);
                             shareprefeModal.setUserName(UserName);
                             shareprefeModal.setFullName(FullName);
+                            shareprefeModal.setFathername(FatherName);
+                            shareprefeModal.setSex(Sex);
+                            shareprefeModal.setDOB(DOB);
+                            shareprefeModal.setAddress1(Address1);
+                            shareprefeModal.setAddress2(Address2);
+                            shareprefeModal.setCity(City);
+                            shareprefeModal.setDistric(District);
+                            shareprefeModal.setState(State);
+                            shareprefeModal.setCountry(Country);
+                            shareprefeModal.setPIN(PIN);
+                            shareprefeModal.setMobile(Mobile);
+                            shareprefeModal.setEmail(EmailId);
+
                             shareprefeModal.setProfileId(ProfileId);
                             shareprefeModal.setProfileName(ProfileName);
                             shareprefeModal.setLastLoginDate(LastLoginDate);

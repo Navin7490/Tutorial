@@ -46,7 +46,7 @@ public class Home_User_Activity extends AppCompatActivity {
     ImageView imageView;
     Button btnpdprofile,btnpdlogout;
     TextView tvcourses, tvmarquee;
-    FrameLayout frameLayoutCourses, frameLayoutVision;
+    FrameLayout frameLayoutCourses, frameLayoutProfile;
     Toast toast;
     Myreciver myreciver;
 
@@ -82,6 +82,7 @@ public class Home_User_Activity extends AppCompatActivity {
         ///end
 
         frameLayoutCourses = findViewById(R.id.Fram_UCourses);
+        frameLayoutProfile=findViewById(R.id.Fram_UProfile);
         adt = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.setDrawerListener(adt);
         adt.syncState();
@@ -97,6 +98,8 @@ public class Home_User_Activity extends AppCompatActivity {
                 int id = menuItem.getItemId();
 
                 if (id == R.id.MenuMycoursedashboard) {
+                    frameLayoutCourses.setVisibility(View.VISIBLE);
+                    frameLayoutProfile.setVisibility(View.GONE);
                     Course_Fragment courseListFragment = new Course_Fragment();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.Fram_UCourses, courseListFragment);
@@ -106,14 +109,12 @@ public class Home_User_Activity extends AppCompatActivity {
                     fragmentTransaction.commit();
                 }
                 if (id == R.id.MenuTutorial) {
-
+                    frameLayoutCourses.setVisibility(View.VISIBLE);
+                    frameLayoutProfile.setVisibility(View.GONE);
                     My_Purchase_course_Fragment fragment=new My_Purchase_course_Fragment();
                     FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.Fram_UCourses,fragment);
                     fragmentTransaction.commit();
-
-//                    Intent intent=new Intent(getApplicationContext(),Tutorial_Details_Activity.class);
-//                    startActivity(intent);
                     drawerLayout.closeDrawer(Gravity.START);
                 }
 
@@ -208,8 +209,11 @@ public class Home_User_Activity extends AppCompatActivity {
                    public void onClick(View v) {
                        MyProfile_Fragment profile_fragment=new MyProfile_Fragment();
                        FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
-                       transaction.replace(R.id.Fram_UCourses,profile_fragment);
+                       transaction.replace(R.id.Fram_UProfile,profile_fragment);
                        transaction.commit();
+                       frameLayoutCourses.setVisibility(View.GONE);
+                       frameLayoutProfile.setVisibility(View.VISIBLE);
+
                        dialog.dismiss();
                    }
                });

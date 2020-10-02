@@ -8,10 +8,124 @@ public class LoginShareprefe_Modal {
 
     Context context;
     public SharedPreferences sharedPreLogin;
-
-
-
     String Id;
+    String fathername;
+    String sex;
+    String DOB;
+    String contactId;
+    String email;
+    String password;
+    String mobile;
+    String image;
+    String Address1;
+    String Address2;
+    String City;
+    String Distric;
+    String State;
+    String Country;
+    String PIN;
+
+    public String getFathername() {
+        return fathername;
+    }
+
+    public void setFathername(String fathername) {
+        this.fathername = fathername;
+        sharedPreLogin.edit().putString("FatherName",fathername).commit();
+
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+        sharedPreLogin.edit().putString("Sex",sex).commit();
+
+    }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+        sharedPreLogin.edit().putString("DOB",DOB).commit();
+
+    }
+
+    public String getAddress1() {
+        return Address1;
+    }
+
+    public void setAddress1(String address1) {
+        Address1 = address1;
+        sharedPreLogin.edit().putString("Address1",address1).commit();
+
+    }
+
+    public String getAddress2() {
+        return Address2;
+    }
+
+    public void setAddress2(String address2) {
+        Address2 = address2;
+        sharedPreLogin.edit().putString("Address2",address2).commit();
+
+    }
+
+    public String getCity() {
+        return City;
+    }
+
+    public void setCity(String city) {
+        City = city;
+        sharedPreLogin.edit().putString("City",city).commit();
+
+    }
+
+    public String getDistric() {
+        return Distric;
+    }
+
+    public void setDistric(String distric) {
+        Distric = distric;
+        sharedPreLogin.edit().putString("Distric",distric).commit();
+
+    }
+
+    public String getState() {
+        return State;
+    }
+
+    public void setState(String state) {
+        State = state;
+        sharedPreLogin.edit().putString("State",state).commit();
+
+    }
+
+    public String getCountry() {
+        return Country;
+    }
+
+    public void setCountry(String country) {
+        Country = country;
+        sharedPreLogin.edit().putString("Country",country).commit();
+
+    }
+
+    public String getPIN() {
+        return PIN;
+    }
+
+    public void setPIN(String PIN) {
+        this.PIN = PIN;
+        sharedPreLogin.edit().putString("PIN",PIN).commit();
+
+    }
+
+
 
     public String getId() {
         return Id;
@@ -44,11 +158,7 @@ public class LoginShareprefe_Modal {
         sharedPreLogin.edit().putString("contactId",contactId).commit();
     }
 
-    String contactId;
-    String email;
-    String password;
-    String mobile;
-    String image;
+
 
     public String getuType() {
         return uType;
@@ -118,7 +228,7 @@ public class LoginShareprefe_Modal {
 
     public void setEmail(String email) {
         this.email = email;
-        sharedPreLogin.edit().putString("email",email).commit();
+        sharedPreLogin.edit().putString("Email",email).commit();
 
     }
 
@@ -128,7 +238,7 @@ public class LoginShareprefe_Modal {
 
     public void setPassword(String password) {
         this.password = password;
-        sharedPreLogin.edit().putString("password",password).commit();
+        sharedPreLogin.edit().putString("Password",password).commit();
 
     }
 
@@ -138,7 +248,7 @@ public class LoginShareprefe_Modal {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-        sharedPreLogin.edit().putString("mobile",mobile).commit();
+        sharedPreLogin.edit().putString("Mobile",mobile).commit();
 
     }
 

@@ -79,6 +79,7 @@ public class Course_Adapter extends RecyclerView.Adapter<Course_Adapter.Viewhold
 
                     context.startActivity(intent);
 
+
                     //}
                     // intent.putExtra("courseid",courseid);
                     // intent.putExtra("description",description);

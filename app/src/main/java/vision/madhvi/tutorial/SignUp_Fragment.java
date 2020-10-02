@@ -206,10 +206,11 @@ public class SignUp_Fragment extends Fragment {
     }
     public  void SignupData(){
         String SIGNUP_URL="http://103.207.169.120:8891/api/Registration";
-
+       progressDialog.show();
         StringRequest stringRequestsigup=new StringRequest(Request.Method.POST, SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("msg");
@@ -235,6 +236,7 @@ public class SignUp_Fragment extends Fragment {
                         etname.setText("");
                         etemail.setText("");
                         etmobile.setText("");
+                        etusername.setText("");
                         etpassword.setText("");
                         etcpassword.setText("");
                        // SendOtp();
@@ -267,7 +269,9 @@ public class SignUp_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+
+                Toast.makeText(getContext(), "No connection", Toast.LENGTH_LONG).show();
 
             }
         }){

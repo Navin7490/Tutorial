@@ -105,9 +105,9 @@ public class Course_Fragment extends Fragment {
         spinner = v.findViewById(R.id.SP_Courese_group);
         productcoursegroup=new ArrayList<>();
         progressDialog = new ProgressDialog(getContext());
-        progressDialog.show();
         progressDialog.setMessage("Please waiting");
         progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
         StringRequest stringRequestSpinner = new StringRequest(Request.Method.GET, COURSE_GOUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -150,12 +150,13 @@ public class Course_Fragment extends Fragment {
 
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                progressDialog.show();
 
                 group = String.valueOf(spinner.getItemIdAtPosition(position+1));
                 String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/"+group;
-
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VIEWCOURSES_URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -186,6 +187,7 @@ public class Course_Fragment extends Fragment {
                                 productcourse.add(course_modal);
                                 Course_Adapter adapter = new Course_Adapter(getContext(), productcourse);
                                 recyclerView.setAdapter(adapter);
+
                             }
 
 //                    JSONObject jsonObject = new JSONObject(response);
