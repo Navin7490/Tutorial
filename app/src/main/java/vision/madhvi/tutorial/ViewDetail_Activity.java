@@ -159,7 +159,9 @@ public class ViewDetail_Activity extends AppCompatActivity {
                 String contactid = loginShareprefeModal.sharedPreLogin.getString("contactId", null);
                 String UserName = loginShareprefeModal.sharedPreLogin.getString("UserName", null);
                 String fname = loginShareprefeModal.sharedPreLogin.getString("fullname", null);
-                String umobile = loginShareprefeModal.sharedPreLogin.getString("mobile", null);
+                String uemail = loginShareprefeModal.sharedPreLogin.getString("Email", null);
+
+                String umobile = loginShareprefeModal.sharedPreLogin.getString("Mobile", null);
 
                 if (UserName != null) {
                     Intent intentpurche = new Intent(getApplicationContext(), Select_Paymen_Methode_Activity.class);
@@ -168,6 +170,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
                     intentpurche.putExtra("course", coursename);
                     intentpurche.putExtra("courseprice", courseprice);
                     intentpurche.putExtra("name", fname);
+                    intentpurche.putExtra("email", uemail);
                     intentpurche.putExtra("mobile", umobile);
 
                     startActivity(intentpurche);

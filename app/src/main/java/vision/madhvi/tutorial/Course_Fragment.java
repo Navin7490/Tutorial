@@ -1,9 +1,13 @@
 package vision.madhvi.tutorial;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,8 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import vision.madhvi.tutorial.R;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,10 +63,20 @@ public class Course_Fragment extends Fragment {
 
     ProgressDialog progressDialog;
     Toast toast;
-     Spinner spinner;
-    String viewgroupdata,group;
+    Spinner spinner;
+    String viewgroupdata;
+    String group;
+    String groupid;
     ArrayList<String> productcoursegroup;
-  String COURSE_GOUP_URL="http://103.207.169.120:8891/api/CourseGroup";
+    String COURSE_GOUP_URL = "http://103.207.169.120:8891/api/CourseGroup";
+    JSONObject course;
+    Dialog dialog;
+    ArrayList<Group_Modal> productgroup;
+    RecyclerView recyclerViewGroup;
+    ImageView imcanceldialog;
+    Group_Adapter adaptergroup;
+    String GOUP_URL = "http://103.207.169.120:8891/api/CourseGroup";
+    String idgroup,namegroup;
     public Course_Fragment() {
         // Required empty public constructor
     }
@@ -91,6 +106,8 @@ public class Course_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.all_courses_group);
     }
 
     @Override
@@ -99,32 +116,53 @@ public class Course_Fragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_course_, container, false);
         recyclerView = v.findViewById(R.id.Rv_Home_Courses);
+        Button btnAllcoursegroup = v.findViewById(R.id.Btn_coursegroup);
+        TextView tvid=v.findViewById(R.id.Tv_GseleId);
+        TextView tvgroupname=v.findViewById(R.id.Tv_GseleName);
+
+//        Intent intent=getActivity().getIntent();
+//        String name=intent.getStringExtra("groupname");
+//        String id=intent.getStringExtra("groupid");
+//        tvid.setText(id);
+//        tvgroupname.setText(name);
+
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         productcourse = new ArrayList<>();
         spinner = v.findViewById(R.id.SP_Courese_group);
-        productcoursegroup=new ArrayList<>();
+        productcoursegroup = new ArrayList<>();
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Please waiting");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        StringRequest stringRequestSpinner = new StringRequest(Request.Method.GET, COURSE_GOUP_URL, new Response.Listener<String>() {
+        productgroup = new ArrayList<>();
+
+        recyclerViewGroup = dialog.findViewById(R.id.Rv_dGroup);
+        imcanceldialog=dialog.findViewById(R.id.groupcancel);
+        recyclerViewGroup.setHasFixedSize(true);
+        recyclerViewGroup.setLayoutManager(new GridLayoutManager(getContext(),2));
+
+
+        StringRequest stringRequestGroup = new StringRequest(Request.Method.GET, GOUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                 progressDialog.dismiss();
+                progressDialog.dismiss();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("courseGroups");
 
                     for (int i = 0; i < jsonArray.length(); i++) {
+                     JSONObject  groupdetail = jsonArray.getJSONObject(i);
+                        namegroup = groupdetail.getString("CourseGroupName");
+                        idgroup = groupdetail.getString("CourseGroupId");
 
-                        JSONObject course = jsonArray.getJSONObject(i);
-
-                        viewgroupdata = course.getString("CourseGroupName");
-                        productcoursegroup.add(viewgroupdata);
-
-                        ArrayAdapter<String> adaptertt = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, productcoursegroup);
-                        spinner.setAdapter(adaptertt);
+                        Group_Modal groupModal=new Group_Modal();
+                        groupModal.setGroupid(idgroup);
+                        groupModal.setGroupname(namegroup);
+                        productgroup.add(groupModal);
+                        adaptergroup = new Group_Adapter(getActivity(), productgroup);
+                        recyclerViewGroup.setAdapter(adaptergroup);
 
 
                     }
@@ -137,7 +175,61 @@ public class Course_Fragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                 progressDialog.dismiss();
+                progressDialog.dismiss();
+
+
+                Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        RequestQueue queuegroup = Volley.newRequestQueue(getContext());
+        queuegroup.add(stringRequestGroup);
+
+
+        btnAllcoursegroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.show();
+
+                imcanceldialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
+        StringRequest stringRequestSpinner = new StringRequest(Request.Method.GET, COURSE_GOUP_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("courseGroups");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        course = jsonArray.getJSONObject(i);
+                        viewgroupdata = course.getString("CourseGroupName");
+                        groupid = course.getString("CourseGroupId");
+                        productcoursegroup.add(viewgroupdata);
+                        adaptergroup = new Group_Adapter(getActivity(), productgroup);
+                        recyclerViewGroup.setAdapter(adaptergroup);
+                        ArrayAdapter<String> adaptertt = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, productcoursegroup);
+                        spinner.setAdapter(adaptertt);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
 
 
                 Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
@@ -154,9 +246,30 @@ public class Course_Fragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 progressDialog.show();
+                // group=   spinner.getFirstVisiblePosition();
+                // group= String.valueOf(spinner.getItemIdAtPosition(position+1));
 
-                group = String.valueOf(spinner.getItemIdAtPosition(position+1));
-                String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/"+group;
+                if (position == 0) {
+                    progressDialog.show();
+
+                    group = String.valueOf(spinner.getItemIdAtPosition(1));
+
+                } else if (position == 1) {
+                    progressDialog.show();
+
+                    group = String.valueOf(spinner.getItemIdAtPosition(2));
+
+
+                } else if (position == 2) {
+                    progressDialog.show();
+
+                    group = String.valueOf(spinner.getItemIdAtPosition(3));
+
+
+                }
+
+
+                String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/" + group;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VIEWCOURSES_URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -173,7 +286,7 @@ public class Course_Fragment extends Fragment {
                                 cours = Courses.getString("CourseName");
                                 courseprice = Courses.getString("Price");
                                 description = Courses.getString("Description");
-                                coursegroup=Courses.getString("CourseGroupId");
+                                coursegroup = Courses.getString("CourseGroupId");
                                 image = Courses.getString("Path");
 
 
@@ -215,7 +328,7 @@ public class Course_Fragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        toast = Toast.makeText(getContext(), "No Connection" , Toast.LENGTH_LONG);
+                        toast = Toast.makeText(getContext(), "No Connection", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
@@ -234,9 +347,9 @@ public class Course_Fragment extends Fragment {
         });
 
 
-
         return v;
     }
+
 }
 
 

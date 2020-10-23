@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_6sdp">
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:backgroundTint="@color/colorPrimaryDark1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_6sdp">
+
+
+            <TextView
+                android:id="@+id/Tv_GroupName"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_10sdp" />
+
+            <TextView
+                android:id="@+id/Tv_GroupId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Tv_GroupName"
+                android:visibility="gone" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</RelativeLayout>

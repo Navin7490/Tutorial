@@ -50,10 +50,13 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
     /// google pay ///
     private static final int TEZ_REQUEST_CODE = 123;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
-    Uri uri;
-    String upiid = "dhruvmicro@oksbi";
+
+    String upiid = "tinu1316@oksbi";
     String name = "DHRUV PRASAD SHARMA";
-    String note = "Madhvi vision Trasaction";
+
+   //  String upiid = "dhruvmicro@oksbi";
+   // String name = "DHRUV PRASAD SHARMA";
+    String note = "Paying For Madhvi vision";
     String staus;
     Toast toast;
     String contactid,courseid, uemail, courseprice, fname, umobile;
@@ -61,8 +64,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
     /// end ///
 
     // paytm//
-   String courseamount="5";
-
+   String courseamount="15";
+    Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +93,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         btnPatmpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-          if (!courseamount.equals("")) {
-              uri = getUPIPaymentUri(name, upiid, note, courseamount);
+          if (!courseprice.equals("")) {
+              uri = getUPIPaymentUri(name, upiid, note, courseprice);
               PayWithPaytm(PAYTM_PACKAGE_NAME);
           }
             }
@@ -105,8 +108,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!courseamount.equals("")) {
-                    uri = getUPIPaymentUri(name, upiid, note, courseamount);
+                if (!courseprice.equals("")) {
+                    uri = getUPIPaymentUri(name, upiid, note, courseprice);
                     PayWithGpay(GOOGLE_TEZ_PACKAGE_NAME);
                 }
 
@@ -116,9 +119,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         btnPhonpe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!courseamount.equals("")) {
-
-                    uri = getUPIPaymentUri(name, upiid, note, courseamount);
+                if (!courseprice.equals("")) {
+                    uri = getUPIPaymentUri(name, upiid, note, courseprice);
                     PayWithPhonePay(PHONE_PAY_PACKAGE_NAME);
                 }
             }
@@ -126,9 +128,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         btnPaypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!courseamount.equals("")) {
-
-                    uri = getUPIPaymentUri(name, upiid, note, courseamount);
+                if (!courseprice.equals("")) {
+                    uri = getUPIPaymentUri(name, upiid, note, courseprice);
                     PayWithPayPal(PAYPAL_PAY_PACKAGE_NAME);
                 }
             }
@@ -264,7 +265,6 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
 
     private void PayWithPaytm(String PPackagename) {
         if (isAnstalledPaytm(this, PAYTM_PACKAGE_NAME)) {
-
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(uri);
             i.setPackage(PAYTM_PACKAGE_NAME);
@@ -294,7 +294,7 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 //progressDialog.dismiss();
-                Log.d("order", response);
+                //Log.d("order", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("msg");
@@ -317,25 +317,25 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Select_Paymen_Methode_Activity.this, "try again connection fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Select_Paymen_Methode_Activity.this, "try again connection fail"+error, Toast.LENGTH_SHORT).show();
 
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parms = new HashMap<>();
-                parms.put("Action", "Insert");
-                parms.put("BillNo", "0");
-                parms.put("BillDate", "");
+                parms.put("Action","Insert");
+                parms.put("BillNo","0");
+                parms.put("BillDate","03/10/2020");
                 parms.put("ContactId",contactid);
                 parms.put("CourseId",courseid);
                 parms.put("TaxType", "0");
                 parms.put("Tax", "0");
                 parms.put("DiscountType", "0");
                 parms.put("Discount", "0");
-                parms.put("BillAmount",courseamount);
+                parms.put("BillAmount",courseprice);
                 parms.put("Comment", "Comment");
-                parms.put("MOP", "");
+                parms.put("MOP", "G pay");
                 parms.put("Name",fname);
                 parms.put("Bank", "0");
                 parms.put("Branch", "0");
@@ -345,8 +345,7 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
                 parms.put("CVV", "123");
                 parms.put("Mobile", umobile);
                 parms.put("EmailId", uemail);
-                parms.put("MatchAmount",courseamount);
-
+                parms.put("MatchAmount",courseprice);
                 return parms;
             }
         };
