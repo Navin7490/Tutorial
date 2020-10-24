@@ -52,7 +52,7 @@ public class Course_Fragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    String courseid, cours, courseprice, description, image, coursegroup, orderid;
+    String courseid, cours, courseprice, description, image, coursegroupid,coursegroupname, orderid;
 
     RecyclerView recyclerView;
     ArrayList<Course_Modal> productcourse;
@@ -72,11 +72,9 @@ public class Course_Fragment extends Fragment {
     JSONObject course;
     Dialog dialog;
     ArrayList<Group_Modal> productgroup;
-    RecyclerView recyclerViewGroup;
-    ImageView imcanceldialog;
+
     Group_Adapter adaptergroup;
-    String GOUP_URL = "http://103.207.169.120:8891/api/CourseGroup";
-    String idgroup,namegroup;
+
     public Course_Fragment() {
         // Required empty public constructor
     }
@@ -116,16 +114,6 @@ public class Course_Fragment extends Fragment {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_course_, container, false);
         recyclerView = v.findViewById(R.id.Rv_Home_Courses);
-        Button btnAllcoursegroup = v.findViewById(R.id.Btn_coursegroup);
-        TextView tvid=v.findViewById(R.id.Tv_GseleId);
-        TextView tvgroupname=v.findViewById(R.id.Tv_GseleName);
-
-//        Intent intent=getActivity().getIntent();
-//        String name=intent.getStringExtra("groupname");
-//        String id=intent.getStringExtra("groupid");
-//        tvid.setText(id);
-//        tvgroupname.setText(name);
-
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -138,69 +126,7 @@ public class Course_Fragment extends Fragment {
         progressDialog.show();
         productgroup = new ArrayList<>();
 
-        recyclerViewGroup = dialog.findViewById(R.id.Rv_dGroup);
-        imcanceldialog=dialog.findViewById(R.id.groupcancel);
-        recyclerViewGroup.setHasFixedSize(true);
-        recyclerViewGroup.setLayoutManager(new GridLayoutManager(getContext(),2));
 
-
-        StringRequest stringRequestGroup = new StringRequest(Request.Method.GET, GOUP_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progressDialog.dismiss();
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("courseGroups");
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                     JSONObject  groupdetail = jsonArray.getJSONObject(i);
-                        namegroup = groupdetail.getString("CourseGroupName");
-                        idgroup = groupdetail.getString("CourseGroupId");
-
-                        Group_Modal groupModal=new Group_Modal();
-                        groupModal.setGroupid(idgroup);
-                        groupModal.setGroupname(namegroup);
-                        productgroup.add(groupModal);
-                        adaptergroup = new Group_Adapter(getActivity(), productgroup);
-                        recyclerViewGroup.setAdapter(adaptergroup);
-
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-
-
-                Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        RequestQueue queuegroup = Volley.newRequestQueue(getContext());
-        queuegroup.add(stringRequestGroup);
-
-
-        btnAllcoursegroup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.show();
-
-                imcanceldialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-
-            }
-        });
         StringRequest stringRequestSpinner = new StringRequest(Request.Method.GET, COURSE_GOUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -211,13 +137,17 @@ public class Course_Fragment extends Fragment {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         course = jsonArray.getJSONObject(i);
-                        viewgroupdata = course.getString("CourseGroupName");
+                        coursegroupname = course.getString("CourseGroupName");
                         groupid = course.getString("CourseGroupId");
-                        productcoursegroup.add(viewgroupdata);
-                        adaptergroup = new Group_Adapter(getActivity(), productgroup);
-                        recyclerViewGroup.setAdapter(adaptergroup);
-                        ArrayAdapter<String> adaptertt = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, productcoursegroup);
-                        spinner.setAdapter(adaptertt);
+                        Group_Modal groupModal = new Group_Modal();
+                        groupModal.setGroupid(groupid);
+                        groupModal.setGroupname(coursegroupname);
+                        productgroup.add(groupModal);
+                        adaptergroup = new Group_Adapter(getContext(), productgroup);
+                        spinner.setAdapter(adaptergroup);
+
+                        //   ArrayAdapter<String> adaptertt = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, productcoursegroup);
+                        //  spinner.setAdapter(adaptertt);
 
                     }
 
@@ -244,32 +174,19 @@ public class Course_Fragment extends Fragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 progressDialog.show();
                 // group=   spinner.getFirstVisiblePosition();
                 // group= String.valueOf(spinner.getItemIdAtPosition(position+1));
 
-                if (position == 0) {
-                    progressDialog.show();
 
-                    group = String.valueOf(spinner.getItemIdAtPosition(1));
+                final Group_Modal groupModal = (Group_Modal) parent.getItemAtPosition(position);
 
-                } else if (position == 1) {
-                    progressDialog.show();
-
-                    group = String.valueOf(spinner.getItemIdAtPosition(2));
+                String gname = groupModal.getGroupname();
+                String gid = groupModal.getGroupid();
 
 
-                } else if (position == 2) {
-                    progressDialog.show();
-
-                    group = String.valueOf(spinner.getItemIdAtPosition(3));
-
-
-                }
-
-
-                String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/" + group;
+                String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/" + gid;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VIEWCOURSES_URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -286,37 +203,23 @@ public class Course_Fragment extends Fragment {
                                 cours = Courses.getString("CourseName");
                                 courseprice = Courses.getString("Price");
                                 description = Courses.getString("Description");
-                                coursegroup = Courses.getString("CourseGroupId");
+                                coursegroupid = Courses.getString("CourseGroupId");
                                 image = Courses.getString("Path");
-
-
+                                Group_Modal groupModal1=new Group_Modal();
+                                String groupname=groupModal1.getGroupname();
                                 Course_Modal course_modal = new Course_Modal();
                                 course_modal.setCourseId(courseid);
                                 course_modal.setCoursename(cours);
                                 course_modal.setCoursedescription(description);
                                 course_modal.setCoursePrice(courseprice);
-                                course_modal.setCourseGroupId(coursegroup);
+                                course_modal.setCourseGroupId(coursegroupid);
+                                course_modal.setCourseGroupname(groupname);
                                 course_modal.setCourseimage(image);
                                 productcourse.add(course_modal);
                                 Course_Adapter adapter = new Course_Adapter(getContext(), productcourse);
                                 recyclerView.setAdapter(adapter);
 
                             }
-
-//                    JSONObject jsonObject = new JSONObject(response);
-//                    JSONArray jsonArray=jsonObject.getJSONArray("");
-//                    for (int i = 0; i < jsonObject.length(); i++) {
-//                        JSONObject Courses = jsonObject.getJSONObject(String.valueOf(i));
-//                        courseid = Courses.getString("CourseId");
-//                        cours = Courses.getString("Course");
-//                        courseprice = Courses.getString("course_price");
-//                        description = Courses.getString("Description");
-//                        image = Courses.getString("Path");
-//
-//
-
-
-                            //}
 
 
                         } catch (JSONException e) {
@@ -352,58 +255,3 @@ public class Course_Fragment extends Fragment {
 
 }
 
-
-//    StringRequest stringRequest=new StringRequest(Request.Method.POST, VIEWCOURSES_URL, new Response.Listener<String>() {
-//        @Override
-//        public void onResponse(String response) {
-//            progressDialog.dismiss();
-//            try {
-//                JSONObject jsonObject=new JSONObject(response);
-//                JSONArray jsonArray=jsonObject.getJSONArray("course_detail");
-//                for (int i=0;i<jsonArray.length();i++){
-//                    JSONObject Courses=jsonArray.getJSONObject(i);
-//
-//                    courseid=Courses.getString("id");
-//                    cours=Courses.getString("course_name");
-//                    courseprice=Courses.getString("course_price");
-//                    description=Courses.getString("course_description");
-//                    image=Courses.getString("course_image");
-//                    Course_Modal course_modal=new Course_Modal();
-//
-//                    course_modal.setCourseId(courseid);
-//                    course_modal.setCoursename(cours);
-//                    course_modal.setCoursedescription(description);
-//                    course_modal.setCoursePrice(courseprice);
-//                    course_modal.setCourseimage(image);
-//                    productcourse.add(course_modal);
-//                    Course_Adapter adapter=new Course_Adapter(getContext(),productcourse);
-//                    recyclerView.setAdapter(adapter);
-//
-//                }
-//
-//
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//
-//        }
-//    }, new Response.ErrorListener() {
-//        @Override
-//        public void onErrorResponse(VolleyError error) {
-//            progressDialog.dismiss();
-//            toast=Toast.makeText(getContext(),"No Connection",Toast.LENGTH_LONG);
-//            toast.setGravity(Gravity.CENTER,0,0);
-//            toast.show();
-//
-//        }
-//    });
-//    RequestQueue requestQueue= Volley.newRequestQueue(getContext());
-//        requestQueue.add(stringRequest);
-
-
-//courseid=jsonObject.getString("CourseId");
-//                          cours=jsonObject.getString("Course");
-//                          description=jsonObject.getString("Description");
-//                          image=jsonObject.getString("Path");
-//                          coursegroup=jsonObject.getString("CourseGroupId");
-//                          orderid=jsonObject.getString("OrderId");

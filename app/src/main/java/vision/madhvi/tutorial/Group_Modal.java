@@ -1,7 +1,8 @@
 package vision.madhvi.tutorial;
 
 public class Group_Modal {
-    String groupname,groupid;
+    String groupname;
+    private  String groupid;
 
 //    public Group_Modal(String groupname, String groupid) {
 //        this.groupname = groupname;

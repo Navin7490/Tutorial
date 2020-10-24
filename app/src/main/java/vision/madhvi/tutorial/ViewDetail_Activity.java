@@ -22,7 +22,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import vision.madhvi.tutorial.R;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
@@ -34,12 +36,12 @@ import java.util.ArrayList;
 public class ViewDetail_Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<SubjectDeatail_Modal> product;
-    TextView tvsubjectdetail, tvcourse, tvdescription, tvprice, tvcourseGroup,tvsubtitle,tvsubdes;
-    public static  String courseid;
-     String courseId, coursename, coursedescription, courseprice, coursegroup;
+    TextView tvsubjectdetail, tvcourse, tvdescription, tvprice, tvcourseGroup, tvsubtitle, tvsubdes;
+    public static String courseid;
+    String courseId, coursename, coursedescription, courseprice, coursegroupid;
 
 
-   // String VIEWCOURSEDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewCourseDetail.php";
+    // String VIEWCOURSEDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewCourseDetail.php";
     String VIEWSUBJECTDETAIL_URL = "http://192.168.43.65/tutorial/api/ViewSubjectbyCourse.php";
     Button btnpurchase;
     ProgressDialog progressDialog;
@@ -50,6 +52,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
     Toast toast;
     Snackbar snackbar;
     View v;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,92 +64,92 @@ public class ViewDetail_Activity extends AppCompatActivity {
         tvprice = findViewById(R.id.Tv_mypp);
         tvcourseGroup = findViewById(R.id.Tv_myAA);
         btnpurchase = findViewById(R.id.Btn_Purchase);
-        tvsubjectdetail=findViewById(R.id.Tv_SubjectDetail);
-        tvsubtitle=findViewById(R.id.Tv_Subjecttit);
-        tvsubdes=findViewById(R.id.Tv_subjectdescrrrr);
+        tvsubjectdetail = findViewById(R.id.Tv_SubjectDetail);
+        tvsubtitle = findViewById(R.id.Tv_Subjecttit);
+        tvsubdes = findViewById(R.id.Tv_subjectdescrrrr);
         getSupportActionBar().setTitle("Course Detail");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnpurchase.setVisibility(View.VISIBLE);
-         Intent intent = getIntent();
-        courseid=intent.getStringExtra("courseid");
+        Intent intent = getIntent();
+        courseid = intent.getStringExtra("courseid");
         coursename = intent.getStringExtra("coursename");
-        coursedescription=intent.getStringExtra("description");
-        courseprice=intent.getStringExtra("price");
-        coursegroup=intent.getStringExtra("coursegroup");
+        coursedescription = intent.getStringExtra("description");
+        courseprice = intent.getStringExtra("price");
+        coursegroupid = intent.getStringExtra("coursegroupid");
 
-       tvcourse.setText(coursename);
-       tvdescription.setText(coursedescription);
-       tvprice.setText(courseprice);
-       tvcourseGroup.setText(coursegroup);
+        tvcourse.setText(coursename);
+        tvdescription.setText(coursedescription);
+        tvprice.setText(courseprice);
+        tvcourseGroup.setText(coursegroupid);
 
 
         progressDialog = new ProgressDialog(ViewDetail_Activity.this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please Waiting..");
-       // progressDialog.show();
+        // progressDialog.show();
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         product = new ArrayList<>();
 
-  tvsubjectdetail.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(final View view) {
-          String VIEWCOURSEDETAIL_URL = "http://103.207.169.120:8891/api/Subject/"+courseid  ;
+        tvsubjectdetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                String VIEWCOURSEDETAIL_URL = "http://103.207.169.120:8891/api/Subject/" + courseid;
 
-          progressDialog.show();
-          StringRequest stringRequestsub = new StringRequest(Request.Method.GET, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
-              @Override
-              public void onResponse(String response) {
-                   progressDialog.dismiss();
-                   tvsubjectdetail.setEnabled(false);
-                   tvsubtitle.setVisibility(View.VISIBLE);
-                   tvsubdes.setVisibility(View.VISIBLE);
-                  Log.d("response",response);
+                progressDialog.show();
+                StringRequest stringRequestsub = new StringRequest(Request.Method.GET, VIEWCOURSEDETAIL_URL, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        progressDialog.dismiss();
+                        tvsubjectdetail.setEnabled(false);
+                        tvsubtitle.setVisibility(View.VISIBLE);
+                        tvsubdes.setVisibility(View.VISIBLE);
+                        Log.d("response", response);
 
-                  try {
-                      JSONObject jsonObjects = new JSONObject(response);
-                      JSONArray jsonArrays = jsonObjects.getJSONArray("subjects");
-                      for (int i = 0; i < jsonArrays.length(); i++) {
-                          JSONObject subject = jsonArrays.getJSONObject(i);
+                        try {
+                            JSONObject jsonObjects = new JSONObject(response);
+                            JSONArray jsonArrays = jsonObjects.getJSONArray("subjects");
+                            for (int i = 0; i < jsonArrays.length(); i++) {
+                                JSONObject subject = jsonArrays.getJSONObject(i);
 
 
-                          subname = subject.getString("SubjectName");
-                          subdescription = subject.getString("Description");
+                                subname = subject.getString("SubjectName");
+                                subdescription = subject.getString("Description");
 
-                          SubjectDeatail_Modal subjectDeatailModal = new SubjectDeatail_Modal();
+                                SubjectDeatail_Modal subjectDeatailModal = new SubjectDeatail_Modal();
 
-                          subjectDeatailModal.setSubname(subname);
-                          subjectDeatailModal.setSubdescription(subdescription);
-                          product.add(subjectDeatailModal);
+                                subjectDeatailModal.setSubname(subname);
+                                subjectDeatailModal.setSubdescription(subdescription);
+                                product.add(subjectDeatailModal);
 
-                          SubjectDetail_Adapter adapter = new SubjectDetail_Adapter(ViewDetail_Activity.this, product);
-                          recyclerView.setAdapter(adapter);
+                                SubjectDetail_Adapter adapter = new SubjectDetail_Adapter(ViewDetail_Activity.this, product);
+                                recyclerView.setAdapter(adapter);
 
-                      }
+                            }
 
-                      // }
-                  } catch (JSONException e) {
-                      e.printStackTrace();
-                  }
+                            // }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-              }
-          }, new Response.ErrorListener() {
-              @Override
-              public void onErrorResponse(VolleyError error) {
-                   progressDialog.dismiss();
-                  toast = Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_LONG);
-                  toast.setGravity(Gravity.CENTER, 0, 0);
-                  toast.show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        toast = Toast.makeText(getApplicationContext(), "No connection", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
 
-              }
-          });
+                    }
+                });
 
-          RequestQueue requestQueuesub = Volley.newRequestQueue(ViewDetail_Activity.this);
-          requestQueuesub.add(stringRequestsub);
-      }
-  });
+                RequestQueue requestQueuesub = Volley.newRequestQueue(ViewDetail_Activity.this);
+                requestQueuesub.add(stringRequestsub);
+            }
+        });
 
 
         //// view subject  detail end ______________///

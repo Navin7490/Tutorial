@@ -69,12 +69,15 @@ public class Course_Adapter extends RecyclerView.Adapter<Course_Adapter.Viewhold
 
                     courseprice = product.get(getPosition()).getCoursePrice();
                     courseGroupId = product.get(getPosition()).getCourseGroupId();
+                    String coursGroupName=product.get(getPosition()).getCourseGroupname();
                     Intent intent = new Intent(context, ViewDetail_Activity.class);
                     intent.putExtra("courseid",courseid);
                     intent.putExtra("coursename", coursename);
                     intent.putExtra("description", description);
                     intent.putExtra("price", courseprice);
-                    intent.putExtra("coursegroup", courseGroupId);
+                    intent.putExtra("coursegroupid", courseGroupId);
+                    intent.putExtra("coursegroupname", coursGroupName);
+
 
 
                     context.startActivity(intent);

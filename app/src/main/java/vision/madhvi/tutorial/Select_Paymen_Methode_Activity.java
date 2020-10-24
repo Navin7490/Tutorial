@@ -51,8 +51,8 @@ public class Select_Paymen_Methode_Activity extends AppCompatActivity {
     private static final int TEZ_REQUEST_CODE = 123;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
 
-    String upiid = "tinu1316@oksbi";
-    String name = "DHRUV PRASAD SHARMA";
+    String upiid = "gamarnavin1698@oksbi";
+    String name = "Digital learning by Navin";
 
    //  String upiid = "dhruvmicro@oksbi";
    // String name = "DHRUV PRASAD SHARMA";

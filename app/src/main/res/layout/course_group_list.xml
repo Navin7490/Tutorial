@@ -8,6 +8,7 @@
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/Tv_group"
+        android:textColor="@color/black"
         android:padding="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

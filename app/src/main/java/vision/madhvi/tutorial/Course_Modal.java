@@ -64,4 +64,14 @@ public class Course_Modal {
     }
 
     String courseGroupId;
+
+    public String getCourseGroupname() {
+        return courseGroupname;
+    }
+
+    public void setCourseGroupname(String courseGroupname) {
+        this.courseGroupname = courseGroupname;
+    }
+
+    String courseGroupname;
 }

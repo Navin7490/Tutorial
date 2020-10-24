@@ -12,6 +12,7 @@
         <Button
             android:id="@+id/Btn_coursegroup"
             android:text="All Courses"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_10sdp"
             android:textColor="@color/white"
             android:background="@drawable/btn_signup"
@@ -24,6 +25,7 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_alignParentRight="true"
             android:text="view demo video"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:layout_marginTop="@dimen/_10sdp"
             android:textSize="@dimen/_8sdp"
@@ -38,6 +40,7 @@
         <TextView
             android:id="@+id/Tv_GseleName"
             android:text="Academic"
+            android:visibility="gone"
             android:gravity="center"
             android:textColor="@color/black"
             android:layout_margin="@dimen/_10sdp"
