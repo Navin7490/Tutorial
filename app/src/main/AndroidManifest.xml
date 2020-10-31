@@ -15,33 +15,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="vision.madhvi.tutorial.Mysub_Lession_Activity"></activity>
-        <activity android:name="vision.madhvi.tutorial.ViewVideoBySubject_Activity" />
-        <activity android:name="vision.madhvi.tutorial.MyCourseSubject_Activity" />
-        <activity android:name="vision.madhvi.tutorial.Select_Paymen_Methode_Activity" />
+        <activity android:name=".Payment_Activity"></activity>
+        <activity android:name=".Mysub_Lession_Activity" />
+        <activity android:name=".ViewVideoBySubject_Activity" />
+        <activity android:name=".MyCourseSubject_Activity" />
+        <activity android:name=".Select_Paymen_Methode_Activity" />
         <activity
-            android:name="vision.madhvi.tutorial.VerifyOTP_Activity"
+            android:name=".VerifyOTP_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vision.madhvi.tutorial.ForgotPassword_Activity"
+            android:name=".ForgotPassword_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vision.madhvi.tutorial.Profile_Activity"
+            android:name=".Profile_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vision.madhvi.tutorial.ViewDetail_Activity"
+            android:name=".ViewDetail_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vision.madhvi.tutorial.Home_User_Activity"
+            android:name=".Home_User_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vision.madhvi.tutorial.View_Video_Activity"
+            android:name=".View_Video_Activity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="vision.madhvi.tutorial.Home_Activity"
+            android:name=".Home_Activity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="vision.madhvi.tutorial.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="MissingClass">
             <intent-filter>

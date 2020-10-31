@@ -167,7 +167,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
                 String umobile = loginShareprefeModal.sharedPreLogin.getString("Mobile", null);
 
                 if (UserName != null) {
-                    Intent intentpurche = new Intent(getApplicationContext(), Select_Paymen_Methode_Activity.class);
+                    Intent intentpurche = new Intent(getApplicationContext(), Payment_Activity.class);
                     intentpurche.putExtra("contactId", contactid);
                     intentpurche.putExtra("courseid", courseid);
                     intentpurche.putExtra("course", coursename);
