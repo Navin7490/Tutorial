@@ -37,6 +37,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<SubjectDeatail_Modal> product;
     TextView tvsubjectdetail, tvcourse, tvdescription, tvprice, tvcourseGroup, tvsubtitle, tvsubdes;
+    TextView tvfreedemo;
     public static String courseid;
     String courseId, coursename, coursedescription, courseprice, coursegroupid;
 
@@ -57,6 +58,7 @@ public class ViewDetail_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detail_);
+        tvfreedemo=findViewById(R.id.Tv_FreeVideo);
 
         recyclerView = findViewById(R.id.Rv_Subject);
         tvcourse = findViewById(R.id.Tv_mycc);
@@ -93,6 +95,17 @@ public class ViewDetail_Activity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         product = new ArrayList<>();
 
+        // freedemo go
+         tvfreedemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1free=new Intent(ViewDetail_Activity.this,FreeTutorial_Activity.class);
+                intent1free.putExtra("courseid",courseid);
+                startActivity(intent1free);
+            }
+        });
+
+        //end freedemo
         tvsubjectdetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {

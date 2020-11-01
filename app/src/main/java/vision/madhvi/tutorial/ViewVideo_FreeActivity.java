@@ -1,19 +1,17 @@
 package vision.madhvi.tutorial;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
-
-import vision.madhvi.tutorial.R;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -37,7 +35,7 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
-public class View_Video_Activity extends Activity {
+public class ViewVideo_FreeActivity extends Activity {
     VideoView videoView;
     String videourl, freevideoUrl;
     ProgressDialog progressDialog;
@@ -46,11 +44,10 @@ public class View_Video_Activity extends Activity {
     ImageView btFullscreen;
     SimpleExoPlayer simpleExoPlayer;
     boolean flag = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view__video_);
+        setContentView(R.layout.activity_view_video__free);
 
         playerView = findViewById(R.id.player_view);
         progressBar = findViewById(R.id.progress_bar);
@@ -60,12 +57,12 @@ public class View_Video_Activity extends Activity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //videoView = findViewById(R.id.Video_View);
         Intent intent = getIntent();
-        videourl = intent.getStringExtra("videourl");
+       // videourl = intent.getStringExtra("videourl");
         freevideoUrl = intent.getStringExtra("freevideopath");
 
         // String videoPath="android.resource://"+getPackageName()+"/"+R.raw.video;
         Uri freevurl = Uri.parse(freevideoUrl);
-        Uri videoUrl = Uri.parse(videourl);
+      //  Uri videoUrl = Uri.parse(videourl);
 //        videoView.setVideoPath(String.valueOf(uri));
 //        MediaController mediaController = new MediaController(this);
 //        videoView.setMediaController(mediaController);
@@ -90,7 +87,7 @@ public class View_Video_Activity extends Activity {
 
         // initialize simple exo player
 
-        simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(View_Video_Activity.this, trackSelector, loadControl);
+        simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(ViewVideo_FreeActivity.this, trackSelector, loadControl);
 
         // data source
 
@@ -105,7 +102,6 @@ public class View_Video_Activity extends Activity {
         MediaSource mediaSourcefree = new ExtractorMediaSource(freevurl, factory, extractorsFactory, null, null);
 
         // free video end
-        MediaSource mediaSource = new ExtractorMediaSource(videoUrl, factory, extractorsFactory, null, null);
 
         //setplayer
         playerView.setPlayer(simpleExoPlayer);
@@ -117,7 +113,6 @@ public class View_Video_Activity extends Activity {
         simpleExoPlayer.prepare(mediaSourcefree);
 
         // free video end
-        simpleExoPlayer.prepare(mediaSource);
         // play video when ready
         simpleExoPlayer.setPlayWhenReady(true);
 
@@ -204,10 +199,7 @@ public class View_Video_Activity extends Activity {
 //                }
             }
         });
-
-
     }
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -226,5 +218,4 @@ public class View_Video_Activity extends Activity {
         //get plabacke state
         simpleExoPlayer.getPlaybackState();
     }
-
 }

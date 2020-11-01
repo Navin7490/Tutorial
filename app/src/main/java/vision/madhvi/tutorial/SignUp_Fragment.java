@@ -1,5 +1,7 @@
 package vision.madhvi.tutorial;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.StrictMode;
+import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +32,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import vision.madhvi.tutorial.R;
 import com.google.android.material.snackbar.Snackbar;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +45,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -74,7 +80,10 @@ public class SignUp_Fragment extends Fragment {
     int randomnumber;
     String radomotp="";
     String OtpMess="Dear Customer of Madhvi Vision ";
-
+// IMIEnumber
+    Button btn;
+    TelephonyManager tm;
+    String imeinumber;
     public SignUp_Fragment() {
         // Required empty public constructor
     }
@@ -133,8 +142,12 @@ public class SignUp_Fragment extends Fragment {
 
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view) {
+                tm = (TelephonyManager)getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
+                imeinumber = tm.getDeviceId();
+
                 name = etname.getText().toString();
                 email = etemail.getText().toString();
                 mobile = etmobile.getText().toString();
@@ -191,7 +204,6 @@ public class SignUp_Fragment extends Fragment {
                         etcpassword.requestFocus();
                         etcpassword.setError("No Match Paasowrd");
                     } else {
-
 
                        SignupData();
                     }
@@ -278,11 +290,16 @@ public class SignUp_Fragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String>parms=new HashMap<>();
+                parms.put("RegistrationId","0");
                 parms.put("EmailId",email);
                 parms.put("UserName",username);
                 parms.put("Mobile",mobile);
                 parms.put("Password",password);
                 parms.put("FullName",name);
+                parms.put("isEVerify","0");
+                parms.put("isMVerify","0");
+                parms.put("IMEI",imeinumber);
+
 
                 return parms;
             }
@@ -328,5 +345,28 @@ public class SignUp_Fragment extends Fragment {
 
                 }
     }
+    // Permission Allow method start
+    public void  permissionallow(){
+
+        PermissionListener permissionListener=new PermissionListener() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onPermissionGranted() {
+
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                getActivity().finish();
+                Toast.makeText(getActivity(), "Required All Permission", Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.with(getActivity())
+                .setPermissionListener(permissionListener)
+                .setPermissions(Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+    }
+
+    // permisssion end
 
 }

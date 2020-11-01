@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -29,11 +30,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import vision.madhvi.tutorial.R;
+
 import com.google.android.material.navigation.NavigationView;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
+
+import java.util.List;
 
 public class Home_Activity extends AppCompatActivity {
     Button btnviewcurses;
-    TextView tvcourses, tvmarquee,tvsomething,tvvision,tvvisionidea;
+    TextView tvcourses, tvmarquee, tvsomething, tvvision, tvvisionidea;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle adt;
@@ -42,6 +48,7 @@ public class Home_Activity extends AppCompatActivity {
     Myreciver myreciver;
     RelativeLayout imageView;
     Toast toast;
+
     //Toolbar toolbar;
     @SuppressLint("ResourceAsColor")
     @Override
@@ -58,10 +65,10 @@ public class Home_Activity extends AppCompatActivity {
         tvmarquee = findViewById(R.id.Tv_Home_LearnAt);
         frameLayoutCourses = findViewById(R.id.Fram_Courses);
         frameLayoutVision = findViewById(R.id.Fra_Vision);
-        tvsomething=findViewById(R.id.Tv_Home_Something);
-        tvvision=findViewById(R.id.Tv_Home_Vision);
-        tvvisionidea=findViewById(R.id.Tv_Home_VisionIdea);
-        imageView=findViewById(R.id.Layout1);
+        tvsomething = findViewById(R.id.Tv_Home_Something);
+        tvvision = findViewById(R.id.Tv_Home_Vision);
+        tvvisionidea = findViewById(R.id.Tv_Home_VisionIdea);
+        imageView = findViewById(R.id.Layout1);
 
         tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
 
@@ -70,7 +77,7 @@ public class Home_Activity extends AppCompatActivity {
         drawerLayout.setDrawerListener(adt);
         adt.syncState();
         //setSupportActionBar(toolbar);
-         myreciver=new Myreciver();
+        myreciver = new Myreciver();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Madhvi Vision");
         getSupportActionBar();
@@ -84,7 +91,9 @@ public class Home_Activity extends AppCompatActivity {
         frameLayoutCourses.setVisibility(View.GONE);
         frameLayoutVision.setVisibility(View.GONE);
 
-
+        // Runtime permission call method
+         PermissionAllow();
+        //Runtime permission end
 
 
         btnviewcurses.setOnClickListener(new View.OnClickListener() {
@@ -114,13 +123,13 @@ public class Home_Activity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 if (id == R.id.MenuHome_courses) {
 
-                    if (myreciver.noconnectivity){
-                      toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
-                      toast.setGravity(Gravity.CENTER,0,0);
-                      toast.show();
-                      drawerLayout.closeDrawer(Gravity.START);
+                    if (myreciver.noconnectivity) {
+                        toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                        drawerLayout.closeDrawer(Gravity.START);
 
-                    }else {
+                    } else {
                         tvcourses.setText("All COURSES");
                         frameLayoutCourses.setVisibility(View.VISIBLE);
                         frameLayoutVision.setVisibility(View.GONE);
@@ -138,14 +147,13 @@ public class Home_Activity extends AppCompatActivity {
 
                 }
                 if (id == R.id.MenuHome_vision) {
-                    if (myreciver.noconnectivity){
-                        toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    if (myreciver.noconnectivity) {
+                        toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         drawerLayout.closeDrawer(Gravity.START);
 
-                    }
-                    else {
+                    } else {
 
                         frameLayoutCourses.setVisibility(View.GONE);
                         frameLayoutVision.setVisibility(View.VISIBLE);
@@ -161,14 +169,13 @@ public class Home_Activity extends AppCompatActivity {
                     }
                 }
                 if (id == R.id.MenuHome_Login) {
-                    if (myreciver.noconnectivity){
-                        toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    if (myreciver.noconnectivity) {
+                        toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         drawerLayout.closeDrawer(Gravity.START);
 
-                    }
-                    else {
+                    } else {
 
                         frameLayoutVision.setVisibility(View.GONE);
                         frameLayoutCourses.setVisibility(View.VISIBLE);
@@ -185,14 +192,13 @@ public class Home_Activity extends AppCompatActivity {
 
                 }
                 if (id == R.id.MenuHome_signup) {
-                    if (myreciver.noconnectivity){
-                        toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    if (myreciver.noconnectivity) {
+                        toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         drawerLayout.closeDrawer(Gravity.START);
 
-                    }
-                    else {
+                    } else {
                         frameLayoutVision.setVisibility(View.GONE);
                         frameLayoutCourses.setVisibility(View.VISIBLE);
                         tvcourses.setVisibility(View.GONE);
@@ -208,7 +214,6 @@ public class Home_Activity extends AppCompatActivity {
                     }
 
 
-
                 }
 
                 return false;
@@ -217,11 +222,37 @@ public class Home_Activity extends AppCompatActivity {
 
 
     }
+
+    // permission method start
+    public void PermissionAllow() {
+        PermissionListener permissionListener = new PermissionListener() {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onPermissionGranted() {
+
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                finish();
+                Toast.makeText(Home_Activity.this, "Required All Permission", Toast.LENGTH_SHORT).show();
+            }
+        };
+        TedPermission.with(Home_Activity.this)
+                .setPermissionListener(permissionListener)
+                .setPermissions(Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE)
+                .check();
+
+    }
+
+    // permission method end
+
+
     @Override
     protected void onStart() {
         super.onStart();
-        IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(myreciver,filter);
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(myreciver, filter);
     }
 
     @Override
@@ -301,22 +332,24 @@ public class Home_Activity extends AppCompatActivity {
         builder.show();
 
     }
-    public class Myreciver extends BroadcastReceiver{
-   public  boolean noconnectivity;
+
+    public class Myreciver extends BroadcastReceiver {
+        public boolean noconnectivity;
+
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())){
-                 noconnectivity=intent.getBooleanExtra(
-                        ConnectivityManager.EXTRA_NO_CONNECTIVITY,false
+            if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                noconnectivity = intent.getBooleanExtra(
+                        ConnectivityManager.EXTRA_NO_CONNECTIVITY, false
                 );
-                if (noconnectivity){
-                    toast=  Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                if (noconnectivity) {
+                    toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
 
 
-                }else {
+                } else {
 
                     Home_Vision_Fragment visionFragment = new Home_Vision_Fragment();
                     final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Payment_Activity extends AppCompatActivity implements PaymentResultListener {
-    String ORDER_URL = "http://103.207.169.120:8891/api/Sales";
 
     Toast toast;
     String contactid,courseid, uemail, courseprice, fname, umobile;
@@ -74,6 +73,7 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
         checkout.setKeyID("rzp_live_v1lezGFouPayNY");
         Checkout.preload(getApplicationContext());
         totalamount = String.valueOf(total * 100);
+        int amount=1*100;
         final Activity activity = this;
 
         /**
@@ -88,21 +88,24 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
             //  options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#2196f3");
             options.put("currency", "INR");
-            options.put("amount",totalamount );//pass amount in currency subunits
+            options.put("amount",amount );//pass amount in currency subunits
             options.put("prefill.email", uemail);
             options.put("prefill.contact", umobile);
             checkout.open(activity, options);
         } catch (Exception e) {
             Log.e("TAG", "Error in starting Razorpay Checkout", e);
+            toast=    Toast.makeText(this, "Error in starting Razorpay Checkout" , Toast.LENGTH_LONG);
+            toast.show();
+            toast.setGravity(Gravity.CENTER, 0, 0);
         }
     }
 
     @Override
     public void onPaymentSuccess(String s) {
+        InsertMyOrder();
         toast=  Toast.makeText(this, "Payment SuccessFull" , Toast.LENGTH_LONG);
         toast.show();
         toast.setGravity(Gravity.CENTER, 0, 0);
-        InsertMyOrder();
     }
 
     @Override
@@ -113,15 +116,17 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
 
     }
     public void InsertMyOrder(){
+        String ORDER_URL = "http://103.207.169.120:8891/api/Sales";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ORDER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //progressDialog.dismiss();
-                //Log.d("order", response);
+                Log.d("order", response);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("msg");
-                    if (status.equals("Inserted Successfully")) {
+                    //String failstatus=jsonObject.getString("Message");
+                   if (status.equals("Inserted Successfully")) {
                         toast = Toast.makeText(Payment_Activity.this, "Purchase Course Confirm", Toast.LENGTH_LONG);
                         toast.show();
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -130,8 +135,12 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
                         finish();
 
 
-                    } else {
-                        Toast.makeText(Payment_Activity.this, "fail", Toast.LENGTH_LONG).show();
+                    }
+
+                    else {
+                        toast = Toast.makeText(Payment_Activity.this, "Something Wrong", Toast.LENGTH_LONG);
+                        toast.show();
+                        toast.setGravity(Gravity.CENTER, 0, 0);
 
                     }
 
@@ -143,7 +152,9 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(Payment_Activity.this, "try again connection fail", Toast.LENGTH_LONG).show();
+                toast = Toast.makeText(Payment_Activity.this, "try again connection fail", Toast.LENGTH_LONG);
+                toast.show();
+                toast.setGravity(Gravity.CENTER, 0, 0);
 
             }
         }) {
@@ -159,7 +170,7 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
                 parms.put("Tax", "0");
                 parms.put("DiscountType", "0");
                 parms.put("Discount", "0");
-                parms.put("BillAmount",courseprice);
+                parms.put("BillAmount","1");
                 parms.put("Comment", "Comment");
                 parms.put("MOP", "G pay");
                 parms.put("Name",fname);
@@ -171,7 +182,8 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
                 parms.put("CVV", "123");
                 parms.put("Mobile", umobile);
                 parms.put("EmailId", uemail);
-                parms.put("MatchAmount",courseprice);
+                parms.put("MatchAmount","1");
+
                 return parms;
             }
         };

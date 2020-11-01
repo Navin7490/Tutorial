@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/white"
+    android:layout_height="wrap_content">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/_5sdp"
+        android:layout_margin="@dimen/_3sdp"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/Im_FTImage"
+                android:layout_gravity="center"
+                android:src="@drawable/videicon1"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_100sdp"/>
+            <TextView
+                android:id="@+id/Tv_FTId"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Tv_FTName"
+                android:text="Basic Android for begginer"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_alignLeft="@+id/Im_FTImage"
+                android:layout_marginLeft="@dimen/_110sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Tv_FTDescription"
+                android:textColor="@color/black"
+                android:layout_below="@+id/Tv_FTName"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_alignLeft="@+id/Im_FTImage"
+                android:layout_marginLeft="@dimen/_110sdp"
+                android:text="Basic Android for begginer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Tv_FTPath"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Tv_FTLessionId"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Tv_FTOrderId"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

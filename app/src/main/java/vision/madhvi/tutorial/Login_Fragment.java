@@ -1,5 +1,6 @@
 package vision.madhvi.tutorial;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -46,6 +48,10 @@ public class Login_Fragment extends Fragment {
     String username, password;
     Toast toast;
      ProgressDialog progressDialog;
+
+     // imei number
+     TelephonyManager tm;
+    String imeinumber;
     public Login_Fragment() {
     }
 
@@ -80,8 +86,13 @@ public class Login_Fragment extends Fragment {
         progressDialog.setMessage("Please Waite");
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("MissingPermission")
             @Override
             public void onClick(View view) {
+
+                tm = (TelephonyManager)getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
+                imeinumber = tm.getDeviceId();
+
                 username = eteusername.getText().toString();
                 password = etpassword.getText().toString();
 
@@ -111,7 +122,7 @@ public class Login_Fragment extends Fragment {
 
     public void LoginData() {
         progressDialog.show();
-        String LOGIN_URL = "http://103.207.169.120:8891/api/Login?UserName=" + username + "&Password=" + password;
+        String LOGIN_URL = "http://103.207.169.120:8891/api/Login?UserName=" + username + "&Password=" + password + "&IMEI="+ imeinumber;
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, LOGIN_URL, new Response.Listener<String>() {
             @Override
@@ -181,7 +192,7 @@ public class Login_Fragment extends Fragment {
 
 
                         } else if (status.equals("Failed")) {
-                            toast = Toast.makeText(getContext(), "Incorrect Email or Password", Toast.LENGTH_SHORT);
+                            toast = Toast.makeText(getContext(), "Incorrect Username or Password", Toast.LENGTH_SHORT);
                             toast.show();
                             toast.setGravity(Gravity.CENTER, 0, 0);
 
