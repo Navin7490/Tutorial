@@ -61,17 +61,15 @@ public class View_Video_Activity extends Activity {
         //videoView = findViewById(R.id.Video_View);
         Intent intent = getIntent();
         videourl = intent.getStringExtra("videourl");
-        freevideoUrl = intent.getStringExtra("freevideopath");
 
         // String videoPath="android.resource://"+getPackageName()+"/"+R.raw.video;
-        Uri freevurl = Uri.parse(freevideoUrl);
         Uri videoUrl = Uri.parse(videourl);
 //        videoView.setVideoPath(String.valueOf(uri));
 //        MediaController mediaController = new MediaController(this);
 //        videoView.setMediaController(mediaController);
 //        mediaController.setAnchorView(videoView);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //video url
@@ -100,11 +98,8 @@ public class View_Video_Activity extends Activity {
 
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
 
-        // initilize mediasource
-        //free video
-        MediaSource mediaSourcefree = new ExtractorMediaSource(freevurl, factory, extractorsFactory, null, null);
+         // initilize mediasource
 
-        // free video end
         MediaSource mediaSource = new ExtractorMediaSource(videoUrl, factory, extractorsFactory, null, null);
 
         //setplayer
@@ -113,10 +108,7 @@ public class View_Video_Activity extends Activity {
         //keep screen on
         playerView.setKeepScreenOn(true);
         //prepar media
-        //free video
-        simpleExoPlayer.prepare(mediaSourcefree);
 
-        // free video end
         simpleExoPlayer.prepare(mediaSource);
         // play video when ready
         simpleExoPlayer.setPlayWhenReady(true);

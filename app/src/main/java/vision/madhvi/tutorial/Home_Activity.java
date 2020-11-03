@@ -235,7 +235,10 @@ public class Home_Activity extends AppCompatActivity {
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
                 finish();
-                Toast.makeText(Home_Activity.this, "Required All Permission", Toast.LENGTH_SHORT).show();
+               toast= Toast.makeText(Home_Activity.this, "Required All Permission", Toast.LENGTH_LONG);
+               toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+
             }
         };
         TedPermission.with(Home_Activity.this)

@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <Button
-            android:id="@+id/BtnPurchaese"
+            android:id="@+id/BtnPay"
             android:text="online payment"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_margin="@dimen/_20sdp"
