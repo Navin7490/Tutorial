@@ -2,6 +2,7 @@ package vision.madhvi.tutorial;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -84,6 +85,8 @@ public class SignUp_Fragment extends Fragment {
     Button btn;
     TelephonyManager tm;
     String imeinumber;
+    Dialog dialog;
+    TextView tvok;
     public SignUp_Fragment() {
         // Required empty public constructor
     }
@@ -113,6 +116,8 @@ public class SignUp_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        dialog=new Dialog(requireContext());
+
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
@@ -130,7 +135,6 @@ public class SignUp_Fragment extends Fragment {
         etusername=v.findViewById(R.id.Et_UserName);
         etpassword = v.findViewById(R.id.Et_Password);
         etcpassword = v.findViewById(R.id.Et_CPassword);
-
         StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -139,6 +143,16 @@ public class SignUp_Fragment extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please Waiting..");
 
+
+        dialog.setContentView(R.layout.registration_success_dialog);
+        dialog.create();
+       tvok= dialog.findViewById(R.id.TvOk);
+       tvok.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               dialog.dismiss();
+           }
+       });
 
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -253,7 +267,7 @@ public class SignUp_Fragment extends Fragment {
                         etcpassword.setText("");
                        // SendOtp();
                         radomotp= String.valueOf(randomnumber);
-
+                        dialog.show();
 
 //                        Intent intent = new Intent(getContext(), VerifyOTP_Activity.class);
 //                        // intent.putExtra("course",cours);
@@ -265,9 +279,9 @@ public class SignUp_Fragment extends Fragment {
 //
 //                        startActivity(intent);
                         //getActivity().finish();
-                        toast = Toast.makeText(getContext(), "Registration SuccessFull ", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+//                        toast = Toast.makeText(getContext(), "Registration SuccessFull ", Toast.LENGTH_LONG);
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
+//                        toast.show();
 
                     }
 
