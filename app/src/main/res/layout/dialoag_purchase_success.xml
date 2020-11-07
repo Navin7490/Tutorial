@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="@dimen/_200sdp">
+    <RelativeLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/purcharetitle"
+            android:textSize="@dimen/_18sdp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark1"
+            android:text="Your course has been\n\n Purchased"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/TvOkpurchase"
+            android:layout_below="@+id/purcharetitle"
+            android:textSize="@dimen/_24sdp"
+            android:text="OK"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,11 +15,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +27,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import vision.madhvi.tutorial.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -144,7 +138,7 @@ public class SignUp_Fragment extends Fragment {
         progressDialog.setMessage("Please Waiting..");
 
 
-        dialog.setContentView(R.layout.registration_success_dialog);
+        dialog.setContentView(R.layout.dialog_registration_success);
         dialog.create();
        tvok= dialog.findViewById(R.id.TvOk);
        tvok.setOnClickListener(new View.OnClickListener() {
@@ -156,18 +150,18 @@ public class SignUp_Fragment extends Fragment {
 
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
+            @SuppressLint({"MissingPermission", "HardwareIds"})
             @Override
             public void onClick(View view) {
-                tm = (TelephonyManager)getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
+                tm = (TelephonyManager) getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
                 imeinumber = tm.getDeviceId();
 
-                name = etname.getText().toString();
-                email = etemail.getText().toString();
-                mobile = etmobile.getText().toString();
-                username=etusername.getText().toString();
-                password = etpassword.getText().toString();
-                cpassword = etcpassword.getText().toString();
+                name = etname.getText().toString().trim();
+                email = etemail.getText().toString().trim();
+                mobile = etmobile.getText().toString().trim();
+                username=etusername.getText().toString().trim();
+                password = etpassword.getText().toString().trim();
+                cpassword = etcpassword.getText().toString().trim();
 //                 if (cours.matches(select)){
 //                     Toast.makeText(getActivity(), "Select Course", Toast.LENGTH_SHORT).show();
 //                 }
@@ -217,7 +211,8 @@ public class SignUp_Fragment extends Fragment {
                     if (!password.matches(cpassword)) {
                         etcpassword.requestFocus();
                         etcpassword.setError("No Match Paasowrd");
-                    } else {
+                    }
+                    else {
 
                        SignupData();
                     }
@@ -267,7 +262,7 @@ public class SignUp_Fragment extends Fragment {
                         etcpassword.setText("");
                        // SendOtp();
                         radomotp= String.valueOf(randomnumber);
-                        dialog.show();
+                       dialog.show();
 
 //                        Intent intent = new Intent(getContext(), VerifyOTP_Activity.class);
 //                        // intent.putExtra("course",cours);
@@ -303,7 +298,7 @@ public class SignUp_Fragment extends Fragment {
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String>parms=new HashMap<>();
+                Map<String,String>parms=new HashMap<>();
                 parms.put("RegistrationId","0");
                 parms.put("EmailId",email);
                 parms.put("UserName",username);

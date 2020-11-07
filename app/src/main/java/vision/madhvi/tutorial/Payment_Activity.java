@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -41,6 +43,11 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
     String totalamount;
     double total;
     String amoutpayble = "Amount Payable ₹:";
+
+    // dialog
+    Dialog dialogpurchase,dialogpaymentfailed;
+    TextView tvsok,tvfok;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +66,29 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
         fname = intent.getStringExtra("name");
         umobile = intent.getStringExtra("mobile");
         total= Double.parseDouble(courseprice);
-        ///// Start Paytm pay payment event start /////////
+
+
+        //dialog purchase success
+        dialogpurchase=new Dialog(this);
+        dialogpurchase.setContentView(R.layout.dialoag_purchase_success);
+        dialogpurchase.setCanceledOnTouchOutside(false);
+
+        // dialog transaction failed
+        dialogpaymentfailed=new Dialog(this);
+        dialogpaymentfailed.setContentView(R.layout.dialog_transaction_failed);
+        dialogpaymentfailed.setCanceledOnTouchOutside(false);
+        dialogpaymentfailed.create();
+
+
+        // Start Paytm pay payment event start //
         tvamountpayble.setText(amoutpayble.concat(courseprice));
 
         btnpay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // SetUpPayment();
-                InsertMyOrder();
+                SetUpPayment();
+                //InsertMyOrder();
+
             }
         });
     }
@@ -92,7 +114,7 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
             //  options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#2196f3");
             options.put("currency", "INR");
-            options.put("amount",amount );//pass amount in currency subunits
+            options.put("amount",totalamount );//pass amount in currency subunits
             options.put("prefill.email", uemail);
             options.put("prefill.contact", umobile);
             checkout.open(activity, options);
@@ -106,6 +128,8 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
 
     @Override
     public void onPaymentSuccess(String s) {
+
+        // transaction success
         InsertMyOrder();
         toast=  Toast.makeText(this, "Payment SuccessFull" , Toast.LENGTH_LONG);
         toast.show();
@@ -114,83 +138,112 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
 
     @Override
     public void onPaymentError(int i, String s) {
-        toast=    Toast.makeText(this, "Transaction Failed" , Toast.LENGTH_LONG);
-        toast.show();
-        toast.setGravity(Gravity.CENTER, 0, 0);
+
+        // transaction failed
+        dialogpaymentfailed.show();
+        tvfok=dialogpaymentfailed.findViewById(R.id.TvFailedOk);
+
+        try {
+
+            tvfok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogpaymentfailed.dismiss();
+                }
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+//        toast=    Toast.makeText(this, "Transaction Failed" , Toast.LENGTH_LONG);
+//        toast.show();
+//        toast.setGravity(Gravity.CENTER, 0, 0);
 
     }
     public void InsertMyOrder(){
-        String PURCHASE_URL="http://103.207.169.120:8891/api/Sales";
-        StringRequest stringRequestpurchase=new StringRequest(Request.Method.POST, PURCHASE_URL, new Response.Listener<String>() {
-           @Override
-           public void onResponse(String response) {
+        String ORDER_URL="http://103.207.169.120:8891/api/Sales";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,ORDER_URL,new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progressDialog.dismiss();
+                Log.d("order", response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String status = jsonObject.getString("msg");
+                    //String failstatus=jsonObject.getString("Message");
 
-               try {
-                   JSONObject jsonObjectpu=new JSONObject(response);
-
-                   String stspurchobject=jsonObjectpu.getString("msg");
-                   if (stspurchobject.equals("Inserted Successfully")){
-                       toast = Toast.makeText(Payment_Activity.this, "Purchase Course Confirm", Toast.LENGTH_LONG);
-                       toast.show();
-                       toast.setGravity(Gravity.CENTER, 0, 0);
-                       Intent intent=new Intent(getApplicationContext(),Home_User_Activity.class);
-                       startActivity(intent);
-                       finish();
-                   }
-                   else {
-                       toast = Toast.makeText(Payment_Activity.this, "Something Went Wrong", Toast.LENGTH_LONG);
-                       toast.show();
-                       toast.setGravity(Gravity.CENTER, 0, 0);
-
-                   }
-
-
-               } catch (JSONException e) {
-                   e.printStackTrace();
-               }
-
-           }
-       }, new Response.ErrorListener() {
-           @Override
-           public void onErrorResponse(VolleyError error) {
-               toast = Toast.makeText(Payment_Activity.this, "try again connection fail", Toast.LENGTH_LONG);
-               toast.show();
-               toast.setGravity(Gravity.CENTER, 0, 0);
-           }
-       }){
-           @Override
-           protected Map<String, String> getParams() throws AuthFailureError {
-
-               Map<String,String>parmiter=new HashMap<>();
-               parmiter.put("Action","Insert");
-               parmiter.put("BillNo","0");
-               parmiter.put("BillDate","02/11/2020");
-               parmiter.put("ContactId",contactid);
-               parmiter.put("CourseId",courseid);
-               parmiter.put("TaxType","0");
-               parmiter.put("Tax","0");
-               parmiter.put("DiscountType","0");
-               parmiter.put("Discount","0");
-               parmiter.put("BillAmount",courseprice);
-               parmiter.put("Comment","Comment");
-               parmiter.put("MOP","MOP");
-               parmiter.put("Name",fname);
-               parmiter.put("Bank","0");
-               parmiter.put("Branch","0");
-               parmiter.put("IFSC","0");
-               parmiter.put("Card","0");
-               parmiter.put("ExpirationDate","30/11/2020");
-               parmiter.put("CVV","123");
-               parmiter.put("Mobile",umobile);
-               parmiter.put("EmailId",uemail);
-               parmiter.put("MatchAmount",courseprice);
+                    if (status.equals("Inserted Successfully")) {
+                        dialogpurchase.show();
+                        tvsok=dialogpurchase.findViewById(R.id.TvOkpurchase);
+                        tvsok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogpurchase.dismiss();
+                                Intent intent=new Intent(getApplicationContext(),Home_User_Activity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+//                        toast = Toast.makeText(Payment_Activity.this, "Purchase Course Confirm", Toast.LENGTH_LONG);
+//                        toast.show();
+//                        toast.setGravity(Gravity.CENTER, 0, 0);
 
 
-               return parmiter;
-           }
-       };
-       RequestQueue queue=Volley.newRequestQueue(Payment_Activity.this);
-       queue.add(stringRequestpurchase);
+
+                    }
+
+                    else {
+                        toast = Toast.makeText(Payment_Activity.this, "Something Went Wrong", Toast.LENGTH_LONG);
+                        toast.show();
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                toast = Toast.makeText(Payment_Activity.this, "try again connection fail", Toast.LENGTH_LONG);
+                toast.show();
+                toast.setGravity(Gravity.CENTER, 0, 0);
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parms = new HashMap<>();
+                parms.put("Action","Insert");
+                parms.put("BillNo","0");
+                parms.put("BillDate","03/10/2020");
+                parms.put("ContactId",contactid);
+                parms.put("CourseId",courseid);
+                parms.put("TaxType", "0");
+                parms.put("Tax", "0");
+                parms.put("DiscountType", "0");
+                parms.put("Discount", "0");
+                parms.put("BillAmount",courseprice);
+                parms.put("Comment", "Comment");
+                parms.put("MOP", "G pay");
+                parms.put("Name",fname);
+                parms.put("Bank", "0");
+                parms.put("Branch", "0");
+                parms.put("IFSC", "0");
+                parms.put("Card", "0");
+                parms.put("ExpirationDate", "12/12/2020");
+                parms.put("CVV", "123");
+                parms.put("Mobile", umobile);
+                parms.put("EmailId", uemail);
+                parms.put("MatchAmount",courseprice);
+                return parms;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(Payment_Activity.this);
+        requestQueue.add(stringRequest);
     }
 
     @Override

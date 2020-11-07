@@ -73,6 +73,7 @@ public class Login_Fragment extends Fragment {
         }
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_login_, container, false);
@@ -86,15 +87,15 @@ public class Login_Fragment extends Fragment {
         progressDialog.setMessage("Please Waite");
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
+            @SuppressLint({"MissingPermission", "HardwareIds"})
             @Override
             public void onClick(View view) {
 
+
                 tm = (TelephonyManager)getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
                 imeinumber = tm.getDeviceId();
-
-                username = eteusername.getText().toString();
-                password = etpassword.getText().toString();
+                username = eteusername.getText().toString().trim();
+                password = etpassword.getText().toString().trim();
 
                 if (username.isEmpty()) {
                     eteusername.requestFocus();

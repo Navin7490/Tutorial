@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
@@ -36,8 +36,8 @@
                 android:id="@+id/Im_My_PCourse"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
+                android:src="@drawable/imagepaypal"
+                android:scaleType="fitXY" />
 
             <TextView
 
@@ -65,7 +65,7 @@
                 android:textSize="@dimen/_12sdp" />
         </RelativeLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

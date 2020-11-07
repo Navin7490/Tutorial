@@ -116,7 +116,9 @@ public class Course_Fragment extends Fragment {
         recyclerView = v.findViewById(R.id.Rv_Home_Courses);
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        layoutManager=new LinearLayoutManager(getContext());
+        layoutManager.canScrollHorizontally();
+        recyclerView.setLayoutManager(layoutManager);
         productcourse = new ArrayList<>();
         spinner = v.findViewById(R.id.SP_Courese_group);
         productcoursegroup = new ArrayList<>();
