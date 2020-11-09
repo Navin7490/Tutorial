@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.StrictMode;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +31,8 @@ import vision.madhvi.tutorial.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 
 public class Login_Fragment extends Fragment {
@@ -73,10 +76,13 @@ public class Login_Fragment extends Fragment {
         }
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint({"MissingPermission", "HardwareIds"})
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_login_, container, false);
+
+        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         btnlogin = v.findViewById(R.id.Btn_Login);
         tvSignup = v.findViewById(R.id.Tv_gorst);
         tvForgotPassword = v.findViewById(R.id.Tv_Forgote_Password);
@@ -86,18 +92,19 @@ public class Login_Fragment extends Fragment {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please Waite");
 
+
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @SuppressLint({"MissingPermission", "HardwareIds"})
             @Override
             public void onClick(View view) {
 
 
-                tm = (TelephonyManager)getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
+                tm = (TelephonyManager) Objects.requireNonNull(getActivity()). getSystemService(Context.TELEPHONY_SERVICE);
                 imeinumber = tm.getDeviceId();
                 username = eteusername.getText().toString().trim();
                 password = etpassword.getText().toString().trim();
 
-                if (username.isEmpty()) {
+                if(username.isEmpty()){
                     eteusername.requestFocus();
                     eteusername.setError("Enter UserName");
                 } else if (password.isEmpty()) {
@@ -121,11 +128,11 @@ public class Login_Fragment extends Fragment {
         return v;
     }
 
-    public void LoginData() {
+    public void LoginData(){
         progressDialog.show();
-        String LOGIN_URL = "http://103.207.169.120:8891/api/Login?UserName=" + username + "&Password=" + password + "&IMEI="+ imeinumber;
+        String LOGIN_URL = "http://103.207.169.120:8891/api/Login?UserName=" + username + "&Password=" + password + "&IMEI=" + imeinumber;
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, LOGIN_URL, new Response.Listener<String>() {
+         StringRequest stringRequest = new StringRequest(Request.Method.GET, LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.d("paaa", response);
@@ -161,7 +168,7 @@ public class Login_Fragment extends Fragment {
                         String uType = detail.getString("uType");
 
                         if (status.equals("Success")) {
-                            toast = Toast.makeText(getContext(), "Login Successfull", Toast.LENGTH_SHORT);
+                            toast = Toast.makeText(getContext(), "Login Successfull"+imeinumber, Toast.LENGTH_SHORT);
                             toast.show();
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             LoginShareprefe_Modal shareprefeModal = new LoginShareprefe_Modal(getActivity());
@@ -228,7 +235,7 @@ public class Login_Fragment extends Fragment {
 //            }
 //        };
 
-        RequestQueue queue = Volley.newRequestQueue(getContext());
+        RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         queue.add(stringRequest);
 
     }

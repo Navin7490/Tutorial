@@ -15,6 +15,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -241,10 +242,13 @@ public class Home_Activity extends AppCompatActivity {
 
             }
         };
-        TedPermission.with(Home_Activity.this)
-                .setPermissionListener(permissionListener)
-                .setPermissions(Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE)
-                .check();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            TedPermission.with(Home_Activity.this)
+                    .setPermissionListener(permissionListener)
+                    .setPermissions(Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_PHONE_NUMBERS)
+                    .check();
+        }
 
     }
 

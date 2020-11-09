@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -53,6 +54,8 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_);
 
+        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         getSupportActionBar().setTitle("Payment");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvamountpayble=findViewById(R.id.Tv_amoutapayable);
@@ -118,7 +121,8 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
             options.put("prefill.email", uemail);
             options.put("prefill.contact", umobile);
             checkout.open(activity, options);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Log.e("TAG", "Error in starting Razorpay Checkout", e);
             toast=    Toast.makeText(this, "Error in starting Razorpay Checkout" , Toast.LENGTH_LONG);
             toast.show();
@@ -165,7 +169,7 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
         String ORDER_URL="http://103.207.169.120:8891/api/Sales";
         StringRequest stringRequest = new StringRequest(Request.Method.POST,ORDER_URL,new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response){
                 //progressDialog.dismiss();
                 Log.d("order", response);
                 try {
@@ -189,10 +193,7 @@ public class Payment_Activity extends AppCompatActivity implements PaymentResult
 //                        toast.show();
 //                        toast.setGravity(Gravity.CENTER, 0, 0);
 
-
-
                     }
-
                     else {
                         toast = Toast.makeText(Payment_Activity.this, "Something Went Wrong", Toast.LENGTH_LONG);
                         toast.show();

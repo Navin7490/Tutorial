@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -110,10 +111,7 @@ public class SignUp_Fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        dialog=new Dialog(requireContext());
 
-        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
     }
 
     @Override
@@ -121,7 +119,10 @@ public class SignUp_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_sign_up_, container, false);
+        dialog=new Dialog(requireContext());
 
+//        StrictMode.ThreadPolicy policy=new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
         btnSignup = v.findViewById(R.id.Btn_SignUp);
         etname = v.findViewById(R.id.Et_Name);
         etemail = v.findViewById(R.id.Et_Email);
@@ -140,8 +141,8 @@ public class SignUp_Fragment extends Fragment {
 
         dialog.setContentView(R.layout.dialog_registration_success);
         dialog.create();
-       tvok= dialog.findViewById(R.id.TvOk);
-       tvok.setOnClickListener(new View.OnClickListener() {
+        tvok= dialog.findViewById(R.id.TvOk);
+        tvok.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                dialog.dismiss();
@@ -153,7 +154,8 @@ public class SignUp_Fragment extends Fragment {
             @SuppressLint({"MissingPermission", "HardwareIds"})
             @Override
             public void onClick(View view) {
-                tm = (TelephonyManager) getActivity(). getSystemService(Context.TELEPHONY_SERVICE);
+
+                tm = (TelephonyManager) Objects.requireNonNull(getActivity()). getSystemService(Context.TELEPHONY_SERVICE);
                 imeinumber = tm.getDeviceId();
 
                 name = etname.getText().toString().trim();
@@ -162,10 +164,10 @@ public class SignUp_Fragment extends Fragment {
                 username=etusername.getText().toString().trim();
                 password = etpassword.getText().toString().trim();
                 cpassword = etcpassword.getText().toString().trim();
-//                 if (cours.matches(select)){
-//                     Toast.makeText(getActivity(), "Select Course", Toast.LENGTH_SHORT).show();
-//                 }
-                if (name.isEmpty()) {
+                 if (imeinumber==null){
+                     Toast.makeText(getActivity(), "something wrong", Toast.LENGTH_SHORT).show();
+                 }
+               else if (name.isEmpty()) {
                     etname.requestFocus();
                     etname.setError("Enter Name");
                 } else if (name.length() < 4) {
@@ -225,9 +227,9 @@ public class SignUp_Fragment extends Fragment {
 
         return v;
     }
-    public  void SignupData(){
+        public  void SignupData(){
         String SIGNUP_URL="http://103.207.169.120:8891/api/Registration";
-       progressDialog.show();
+        progressDialog.show();
         StringRequest stringRequestsigup=new StringRequest(Request.Method.POST, SIGNUP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -236,33 +238,33 @@ public class SignUp_Fragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     String status = jsonObject.getString("msg");
 
+                        switch (status) {
+                        case "Email is already exist!":
+                            toast = Toast.makeText(getContext(), "Email already existing", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            break;
+                        case "User name is already exist!":
+                            toast = Toast.makeText(getContext(), "UserName  already existing", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            break;
+                        case "IMEI is already exist!":
+                            toast = Toast.makeText(getContext(), "IMEI  already existing", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                            break;
+                        default:
 
-                    if(status.equals("Email is already exist!")){
-                        toast = Toast.makeText(getContext(), "Email already existing", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-
-                    }
-                   else   if(status.equals("User name is already exist!")){
-                        toast = Toast.makeText(getContext(), "UserName  already existing", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-
-                    }
-
-
-                    else  {
-
-
-                        etname.setText("");
-                        etemail.setText("");
-                        etmobile.setText("");
-                        etusername.setText("");
-                        etpassword.setText("");
-                        etcpassword.setText("");
-                       // SendOtp();
-                        radomotp= String.valueOf(randomnumber);
-                       dialog.show();
+                            etname.setText("");
+                            etemail.setText("");
+                            etmobile.setText("");
+                            etusername.setText("");
+                            etpassword.setText("");
+                            etcpassword.setText("");
+                            // SendOtp();
+                            radomotp = String.valueOf(randomnumber);
+                            dialog.show();
 
 //                        Intent intent = new Intent(getContext(), VerifyOTP_Activity.class);
 //                        // intent.putExtra("course",cours);
@@ -273,11 +275,12 @@ public class SignUp_Fragment extends Fragment {
 //                        intent.putExtra("random",radomotp);
 //
 //                        startActivity(intent);
-                        //getActivity().finish();
-//                        toast = Toast.makeText(getContext(), "Registration SuccessFull ", Toast.LENGTH_LONG);
-//                        toast.setGravity(Gravity.CENTER, 0, 0);
-//                        toast.show();
+                            //getActivity().finish();
+                            toast = Toast.makeText(getContext(), "Registration SuccessFull " , Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
 
+                            break;
                     }
 
 
