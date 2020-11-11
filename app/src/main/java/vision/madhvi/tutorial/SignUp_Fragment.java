@@ -276,9 +276,9 @@ public class SignUp_Fragment extends Fragment {
 //
 //                        startActivity(intent);
                             //getActivity().finish();
-                            toast = Toast.makeText(getContext(), "Registration SuccessFull " , Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
+//                            toast = Toast.makeText(getContext(), "Registration SuccessFull " , Toast.LENGTH_LONG);
+//                            toast.setGravity(Gravity.CENTER, 0, 0);
+//                            toast.show();
 
                             break;
                     }
