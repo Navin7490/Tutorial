@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -99,8 +100,10 @@ public class Login_Fragment extends Fragment {
             public void onClick(View view) {
 
 
-                tm = (TelephonyManager) Objects.requireNonNull(getActivity()). getSystemService(Context.TELEPHONY_SERVICE);
-                imeinumber = tm.getDeviceId();
+//                tm = (TelephonyManager) Objects.requireNonNull(getActivity()). getSystemService(Context.TELEPHONY_SERVICE);
+//                imeinumber = tm.getDeviceId();
+
+                imeinumber= Settings.Secure.getString(getActivity().getContentResolver(),Settings.Secure.ANDROID_ID);
                 username = eteusername.getText().toString().trim();
                 password = etpassword.getText().toString().trim();
 

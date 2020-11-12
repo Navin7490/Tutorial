@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.StrictMode;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -155,8 +156,10 @@ public class SignUp_Fragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                tm = (TelephonyManager) Objects.requireNonNull(getActivity()). getSystemService(Context.TELEPHONY_SERVICE);
-                imeinumber = tm.getDeviceId();
+//                tm = (TelephonyManager) Objects.requireNonNull(getActivity()). getSystemService(Context.TELEPHONY_SERVICE);
+//                imeinumber = tm.getDeviceId();
+
+                imeinumber= Settings.Secure.getString(getActivity().getContentResolver(),Settings.Secure.ANDROID_ID);
 
                 name = etname.getText().toString().trim();
                 email = etemail.getText().toString().trim();
@@ -164,10 +167,10 @@ public class SignUp_Fragment extends Fragment {
                 username=etusername.getText().toString().trim();
                 password = etpassword.getText().toString().trim();
                 cpassword = etcpassword.getText().toString().trim();
-                 if (imeinumber==null){
-                     Toast.makeText(getActivity(), "something wrong", Toast.LENGTH_SHORT).show();
-                 }
-               else if (name.isEmpty()) {
+//                 if (imeinumber==null){
+//                     Toast.makeText(getActivity(), "something wrong", Toast.LENGTH_SHORT).show();
+//                 }
+                if (name.isEmpty()) {
                     etname.requestFocus();
                     etname.setError("Enter Name");
                 } else if (name.length() < 4) {
