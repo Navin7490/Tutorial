@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent"
+    tools:context=".FeedBackCountausFragment">
+
+    <TextView
+        android:id="@+id/Tv_ContactEmail"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:textColor="@color/black"
+        android:padding="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email : akv1482@gmail.com" />
+    <TextView
+        android:id="@+id/Tv_ContactMobile"
+        android:layout_below="@+id/Tv_ContactEmail"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mobile : 7490967163" />
+
+</RelativeLayout>

@@ -131,7 +131,13 @@ public class Home_User_Activity extends AppCompatActivity {
                 }
 
                 if (id == R.id.MenuFeedback) {
+                    frameLayoutCourses.setVisibility(View.VISIBLE);
+                    frameLayoutProfile.setVisibility(View.GONE);
                     drawerLayout.closeDrawer(Gravity.START);
+                    FeedBackCountausFragment feedBackCountausFragment=new FeedBackCountausFragment();
+                    FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.Fram_UCourses,feedBackCountausFragment);
+                    fragmentTransaction.commit();
 
 
                 }
@@ -295,10 +301,19 @@ public class Home_User_Activity extends AppCompatActivity {
 
 
                 }else {
-                    My_Purchase_course_Fragment fragment=new My_Purchase_course_Fragment();
-                    FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.Fram_UCourses,fragment);
-                    fragmentTransaction.commit();
+
+
+
+                    Course_Fragment courseFragment=new Course_Fragment();
+                    FragmentTransaction cfragmenttrasaction=getSupportFragmentManager().beginTransaction();
+                    cfragmenttrasaction.replace(R.id.Fram_UCourses,courseFragment);
+                    cfragmenttrasaction.commit();
+
+
+//                    My_Purchase_course_Fragment fragment=new My_Purchase_course_Fragment();
+//                    FragmentTransaction fragmentTransaction=getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.replace(R.id.Fram_UCourses,fragment);
+//                    fragmentTransaction.commit();
 
 
                 }
