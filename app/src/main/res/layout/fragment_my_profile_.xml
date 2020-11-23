@@ -116,16 +116,30 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/edit_text_profile"
                     android:hint="Choose DOB" />
+        <Button
+            android:id="@+id/Btn_PCurrentLocation"
+            android:text="use current location"
+            android:layout_below="@+id/Et_PDOB"
+            android:gravity="center"
+            android:paddingLeft="@dimen/_5sdp"
+            android:drawablePadding="@dimen/_5sdp"
+            android:textColor="@color/white"
+            android:drawableTint="@color/white"
+            android:drawableRight="@drawable/ic_current_location"
+            android:background="@color/darkblue"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_20sdp"/>
 
                 <EditText
                     android:id="@+id/Et_PCountry"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_below="@+id/Et_PDOB"
+                    android:layout_below="@+id/Btn_PCurrentLocation"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/edit_text_profile"
                     android:paddingLeft="@dimen/_5sdp"
                     android:hint="Country" />
+
 
                 <EditText
                     android:id="@+id/Et_PState"

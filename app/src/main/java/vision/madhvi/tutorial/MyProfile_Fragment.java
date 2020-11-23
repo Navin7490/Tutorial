@@ -1,16 +1,30 @@
 package vision.madhvi.tutorial;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,6 +50,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,7 +65,7 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link MyProfile_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyProfile_Fragment extends Fragment {
+public class MyProfile_Fragment extends Fragment implements LocationListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,8 +76,9 @@ public class MyProfile_Fragment extends Fragment {
     private String mParam1;
     private String mParam2;
     View v;
+    LocationListener locationListener;
     DatePickerDialog.OnDateSetListener onDateSetListener;
-    Button btnupdateprofile;
+    Button btnupdateprofile,btncurrentlocation;
     TextView tvcontactId, tvmobile,tvemail,tvdob;
     RadioButton btnrmale,btnrfemale;
     EditText etname,etfathername,etcountry,etstate,etdistric,etcity,etaddress1,etaddress2,etpincode;
@@ -76,6 +93,8 @@ public class MyProfile_Fragment extends Fragment {
     String gender="";
     Toast toast;
     ProgressDialog progressDialog;
+
+    LocationManager locationManager;
     public MyProfile_Fragment() {
         // Required empty public constructor
     }
@@ -130,6 +149,7 @@ public class MyProfile_Fragment extends Fragment {
         btnrmale=v.findViewById(R.id.BtnrMale);
         btnrfemale=v.findViewById(R.id.BtnrFemale);
         btnupdateprofile=v.findViewById(R.id.Btn_PUpdate);
+        btncurrentlocation=v.findViewById(R.id.Btn_PCurrentLocation);
 
 
          loginShareprefe_modal=new LoginShareprefe_Modal(getContext());
@@ -148,6 +168,7 @@ public class MyProfile_Fragment extends Fragment {
         address1=loginShareprefe_modal.sharedPreLogin.getString("Address1",null);
         address2=loginShareprefe_modal.sharedPreLogin.getString("Address2",null);
         pincode=loginShareprefe_modal.sharedPreLogin.getString("PIN",null);
+
         Glide.with(getContext()).load(loginShareprefe_modal.sharedPreLogin.getString("image",null)).into(imageprofile);
 
         tvcontactId.setText(contactId);
@@ -197,6 +218,25 @@ public class MyProfile_Fragment extends Fragment {
                 tvdob.setText(date);
             }
         };
+
+
+        // use current location
+
+        btncurrentlocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                grantedPermission();
+
+                checkLocationIsEnabledOrNot(); // this will redirect us to the location setting
+                getLocation();
+
+
+            }
+        });
+
+        // update profile
 
         btnupdateprofile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,7 +324,7 @@ public class MyProfile_Fragment extends Fragment {
 
         }
         try {
-            bitmap= MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),imageuri);
+            bitmap= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imageuri);
             imageprofile.setImageBitmap(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
@@ -297,4 +337,118 @@ public class MyProfile_Fragment extends Fragment {
         String encodedImage= Base64.encodeToString(imagebyte,Base64.DEFAULT);
         return encodedImage;
     }
+
+    // location method
+    private void getLocation() {
+
+        try {
+
+            locationManager= (LocationManager)getActivity(). getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,500,5,(LocationListener) this);
+        }catch (SecurityException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void checkLocationIsEnabledOrNot() {
+
+        LocationManager lm= (LocationManager)getActivity(). getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsEnabled=false;
+        boolean networkEnabled=false;
+
+        try {
+            gpsEnabled=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        try {
+            networkEnabled=lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if (!gpsEnabled && !networkEnabled){
+
+
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Enable GPS Service")
+                    .setCancelable(false)
+                    .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // this intent redirect us to the location setting , if GPS is disabled this dialog will be show
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    }).setNegativeButton("Cancel",null)
+                    .show();
+        }
+    }
+
+    private void grantedPermission() {
+
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED)
+        {
+
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION},100);
+        }
+
+
+
+
+    }
+
+
+
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+                try {
+                    Geocoder geocoder=new Geocoder(getActivity(), Locale.getDefault());
+
+                    List<Address> addresses=geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+
+                    etcountry.setText(addresses.get(0).getCountryName());
+                    etstate.setText(addresses.get(0).getAdminArea());
+                    etdistric.setText(addresses.get(0).getSubAdminArea());
+                    etcity.setText(addresses.get(0).getLocality());
+                    etaddress1.setText(addresses.get(0).getSubLocality());
+                    etaddress2.setText(addresses.get(0).getAddressLine(0));
+                    etpincode.setText(addresses.get(0).getPostalCode());
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(@NonNull String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(@NonNull String provider) {
+
+            }
+
+
+
+    // end
+
+//
+//    @Override
+//    public void onLocationChanged(@NonNull Location location) {
+//
+//
+//
+//    }
+
+
 }

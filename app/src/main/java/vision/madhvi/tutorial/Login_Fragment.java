@@ -202,6 +202,7 @@ public class Login_Fragment extends Fragment {
                             getActivity().finish();
 
 
+
                         } else if (status.equals("Failed")) {
                             toast = Toast.makeText(getContext(), "Incorrect Username or Password", Toast.LENGTH_SHORT);
                             toast.show();
