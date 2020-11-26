@@ -217,6 +217,33 @@ public class Home_Activity extends AppCompatActivity {
 
                 }
 
+                if (id == R.id.MenuHome_contactus) {
+                    if (myreciver.noconnectivity) {
+                        toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                        drawerLayout.closeDrawer(Gravity.START);
+
+                    } else {
+                        frameLayoutVision.setVisibility(View.GONE);
+                        frameLayoutCourses.setVisibility(View.VISIBLE);
+                        tvcourses.setVisibility(View.GONE);
+                        tvsomething.setVisibility(View.GONE);
+                        tvvision.setVisibility(View.GONE);
+                        tvvisionidea.setVisibility(View.GONE);
+                        FeedBackCountausFragment feedBackCountausFragment = new FeedBackCountausFragment();
+                        FragmentTransaction feedtra = getSupportFragmentManager().beginTransaction();
+                        feedtra.replace(R.id.Fram_Courses, feedBackCountausFragment);
+                        feedtra.commit();
+
+                        drawerLayout.closeDrawer(Gravity.START);
+                    }
+
+
+                }
+
+
+
                 return false;
             }
         });

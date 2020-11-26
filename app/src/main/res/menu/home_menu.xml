@@ -10,6 +10,8 @@
         android:title="LOGIN"/>
     <item android:id="@+id/MenuHome_signup"
         android:title="SIGN UP"/>
+    <item android:id="@+id/MenuHome_contactus"
+        android:title="CONTACT US"/>
 
 </group>
 </menu>

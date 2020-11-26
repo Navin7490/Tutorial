@@ -2,28 +2,184 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:gravity="center"
     android:layout_height="match_parent"
     tools:context=".FeedBackCountausFragment">
 
+
+    <RelativeLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:id="@+id/RelativConta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedscrollView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_470sdp">
+            <RelativeLayout
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+   <TextView
+       android:id="@+id/Tv_ContactInfo"
+       android:text="Contact Info"
+       android:textSize="@dimen/_24sdp"
+       android:textStyle="bold"
+       android:textColor="@color/black"
+       android:padding="@dimen/_5sdp"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/Tv_ContactInfoDetail"
+        android:layout_below="@+id/Tv_ContactInfo"
+        android:text="@string/contactInfo"
+        android:textSize="@dimen/_14sdp"
+        android:textColor="@color/black"
+        android:padding="@dimen/_5sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/Tv_ContactEmail"
+        android:layout_below="@+id/Tv_ContactInfoDetail"
         android:textSize="@dimen/_14sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_3sdp"
         android:textColor="@color/black"
-        android:padding="@dimen/_5sdp"
+        android:textStyle="bold"
+        android:drawablePadding="@dimen/_5sdp"
+        android:drawableTint="@color/colorPrimaryDark1"
+        android:drawableLeft="@drawable/ic_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Email : akv1482@gmail.com" />
+        android:text="Email" />
+        <TextView
+            android:id="@+id/TvContactE"
+            android:layout_below="@+id/Tv_ContactEmail"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:text="akv1482@gmail.com"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/Tv_ContactMobile"
-        android:layout_below="@+id/Tv_ContactEmail"
-        android:padding="@dimen/_5sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textStyle="bold"
+        android:layout_below="@+id/TvContactE"
+        android:drawableTint="@color/colorPrimaryDark1"
+        android:drawablePadding="@dimen/_5sdp"
+        android:drawableLeft="@drawable/ic_phone"
         android:textColor="@color/black"
         android:textSize="@dimen/_14sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mobile : 7490967163" />
+        android:text="Phone" />
+        <TextView
+            android:id="@+id/TvContactP"
+            android:layout_below="@+id/Tv_ContactMobile"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:text="7490967163"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/Tv_ContactAddress"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textStyle="bold"
+            android:layout_below="@+id/TvContactP"
+            android:drawablePadding="@dimen/_5sdp"
+            android:drawableLeft="@drawable/ic_location_"
+            android:drawableTint="@color/colorPrimaryDark1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address" />
+        <TextView
+            android:id="@+id/TvContactA"
+            android:layout_below="@+id/Tv_ContactAddress"
+            android:textSize="@dimen/_14sdp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="@dimen/_25sdp"
+            android:text="@string/ContactAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/Tv_ContactSendTitle"
+            android:layout_below="@+id/TvContactA"
+            android:text="Send A Message"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_24sdp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/Et_ContactName"
+            android:layout_below="@+id/Tv_ContactSendTitle"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text"
+            android:hint="Name"
+            android:paddingLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"/>
+        <EditText
+            android:id="@+id/Et_ContactEmail"
+            android:layout_below="@+id/Et_ContactName"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"/>
+        <EditText
+            android:id="@+id/Et_ContactPhone"
+            android:layout_below="@+id/Et_ContactEmail"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text"
+            android:hint="Phone"
+            android:inputType="number"
+            android:paddingLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"/>
+        <EditText
+            android:id="@+id/Et_ContactSubject"
+            android:layout_below="@+id/Et_ContactPhone"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text"
+            android:hint="Subject"
+            android:paddingLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"/>
+        <EditText
+            android:id="@+id/Et_ContactMessage"
+            android:layout_below="@+id/Et_ContactSubject"
+            android:textColor="@color/black"
+            android:background="@drawable/edit_text"
+            android:hint="Message"
+            android:paddingLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"/>
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+        <Button
+            android:layout_below="@+id/nestedscrollView"
+            android:text="submit"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_signup"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>
+
 
 </RelativeLayout>
