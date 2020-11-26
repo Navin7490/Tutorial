@@ -1,5 +1,7 @@
 package vision.madhvi.tutorial;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +28,8 @@ public class FeedBackCountausFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    TextView tvphone,tvemail,tvaddress;
+    String temail,taddress;
     public FeedBackCountausFragment() {
         // Required empty public constructor
     }
@@ -56,9 +62,70 @@ public class FeedBackCountausFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feed_back_countaus, container, false);
+        View v= inflater.inflate(R.layout.fragment_feed_back_countaus, container, false);
+
+        tvemail=v.findViewById(R.id.TvContactE);
+        tvphone=v.findViewById(R.id.TvContactP);
+
+        tvaddress=v.findViewById(R.id.TvContactA);
+        temail=tvemail.getText().toString();
+        taddress=tvaddress.getText().toString();
+        // email click
+        tvemail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               sendMail();
+
+            }
+        });
+
+        // phone click
+
+        tvphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:7490967163"));
+                startActivity(intent);
+            }
+        });
+
+
+        // click address
+        tvaddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:19.076,72.822"+taddress));
+                Intent.createChooser(intent,"Choose Maps");
+                startActivity(intent);
+            }
+        });
+        return v;
+    }
+    public void sendMail(){
+        String recipinList=temail;
+        String[]recipients=recipinList.split(",");
+
+        String subject="Madhvi Vision ";
+        String message="This is message";
+
+        Intent intent=new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_EMAIL,recipients);
+        intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+        intent.putExtra(Intent.EXTRA_TEXT,message);
+
+        intent.setType("message/rfc822");
+        if (intent.resolveActivity(getActivity().getPackageManager())!=null){
+            //startActivity(intent);
+            startActivity(Intent.createChooser(intent,"Choose email"));
+
+        } else {
+            Toast.makeText(getContext(), "Not support action", Toast.LENGTH_SHORT).show();
+        }
     }
 }
