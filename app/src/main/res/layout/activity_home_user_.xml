@@ -42,6 +42,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:itemTextColor="@color/black"
-        app:itemIconTint="@color/colorPrimaryDark1"
+        app:itemIconTint="@color/black"
         app:menu="@menu/bottom_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

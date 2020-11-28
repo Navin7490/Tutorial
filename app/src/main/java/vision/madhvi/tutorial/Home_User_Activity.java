@@ -17,6 +17,7 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.Menu;
@@ -89,6 +90,7 @@ public class Home_User_Activity extends AppCompatActivity {
         getSupportActionBar().setTitle("Madhvi Vision");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+       //  getSupportActionBar().setTitle(Html.fromHtml("<font color=\"yellow\">" +getString(R.string.app_name)));
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("WrongConstant")
