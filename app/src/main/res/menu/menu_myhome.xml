@@ -3,18 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/Menu_my_notificatin"
-        android:icon="@drawable/ic_notification"
+        android:icon="@drawable/ic__notificationshome"
         app:showAsAction="ifRoom|collapseActionView"
-        android:iconTint="@color/white"
         tools:ignore="MenuTitle" />
     <item android:id="@+id/Menu_my_flage"
-        android:icon="@drawable/ic_flage"
+        android:icon="@drawable/ic_flaghome"
         app:showAsAction="ifRoom|collapseActionView"
-        android:iconTint="@color/white"
         tools:ignore="MenuTitle" />
     <item android:id="@+id/Menu_my_profile"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_accounthome"
         app:showAsAction="ifRoom"
-        android:iconTint="@color/white"
+
         tools:ignore="MenuTitle" />
 </menu>

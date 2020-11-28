@@ -1,5 +1,6 @@
 package vision.madhvi.tutorial;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -99,14 +100,42 @@ public class FeedBackCountausFragment extends Fragment {
         tvaddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("geo:19.076,72.822"+taddress));
-                Intent.createChooser(intent,"Choose Maps");
-                startActivity(intent);
+
+                DisplayTrack("","Madhvi Shiksha Samiti");
+//                Intent intent=new Intent(Intent.ACTION_VIEW);
+//               intent.setData(Uri.parse("geo:26.996285399999998 75.87675999999999"));
+//                //intent.setData(Uri.parse("geo:26.9854865 75.8513454"));
+//
+//                Intent.createChooser(intent,"Choose Maps");
+//
+//                startActivity(intent);
             }
         });
         return v;
     }
+     // display google map
+    private void DisplayTrack(String sSource,String sDestination){
+
+        try {
+
+            Uri uri=Uri.parse("https://www.google.co.in/maps/dir/"  + "/" + sDestination);
+            Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+            intent.setPackage("com.google.android.apps.maps");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        }catch (ActivityNotFoundException e){
+
+            Uri uri=Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.maps");
+            Intent intent=new Intent(Intent.ACTION_VIEW,uri);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
+        }
+
+    }
+
+    // send email
     public void sendMail(){
         String recipinList=temail;
         String[]recipients=recipinList.split(",");

@@ -1,14 +1,17 @@
 package vision.madhvi.tutorial;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,8 +20,11 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -50,7 +56,7 @@ public class Home_Activity extends AppCompatActivity {
     RelativeLayout imageView;
     Toast toast;
 
-    //Toolbar toolbar;
+    Toolbar toolbar;
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +78,20 @@ public class Home_Activity extends AppCompatActivity {
         imageView = findViewById(R.id.Layout1);
 
         tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-
         tvmarquee.setSelected(true);
-        adt = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.setDrawerListener(adt);
-        adt.syncState();
+        adt = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(adt);
+      //  adt.syncState();
+      //  setTitleColor(R.color.colorPrimaryDark1);
         //setSupportActionBar(toolbar);
         myreciver = new Myreciver();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Madhvi Vision");
-        getSupportActionBar();
+       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+      //  getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+      //  getSupportActionBar().setDisplayShowHomeEnabled(false);
+       // toolbar.setTitle("bjnbnvn");
+
+       getSupportActionBar().setTitle("                      Madhvi Vision");
+       // getSupportActionBar().setTitle(Html.fromHtml("<font color=\"yellow\">" +getString(R.string.app_name)));
         imageView.setVisibility(View.GONE);
         tvmarquee.setVisibility(View.GONE);
         btnviewcurses.setVisibility(View.GONE);
@@ -128,7 +138,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
 
                     } else {
                         tvcourses.setText("All COURSES");
@@ -142,7 +152,7 @@ public class Home_Activity extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
                         fragmentTransaction.commit();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
                     }
 
 
@@ -152,7 +162,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
 
                     } else {
 
@@ -166,7 +176,7 @@ public class Home_Activity extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
                         fragmentTransaction.commit();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
                     }
                 }
                 if (id == R.id.MenuHome_Login) {
@@ -174,7 +184,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
 
                     } else {
 
@@ -188,7 +198,7 @@ public class Home_Activity extends AppCompatActivity {
                         FragmentTransaction fragmentTralogin = getSupportFragmentManager().beginTransaction();
                         fragmentTralogin.replace(R.id.Fram_Courses, loginFragment);
                         fragmentTralogin.commit();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
                     }
 
                 }
@@ -197,7 +207,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
 
                     } else {
                         frameLayoutVision.setVisibility(View.GONE);
@@ -211,7 +221,7 @@ public class Home_Activity extends AppCompatActivity {
                         signuptra.replace(R.id.Fram_Courses, signUp_fragment);
                         signuptra.commit();
 
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
                     }
 
 
@@ -222,7 +232,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
 
                     } else {
                         frameLayoutVision.setVisibility(View.GONE);
@@ -236,7 +246,7 @@ public class Home_Activity extends AppCompatActivity {
                         feedtra.replace(R.id.Fram_Courses, feedBackCountausFragment);
                         feedtra.commit();
 
-                        drawerLayout.closeDrawer(Gravity.START);
+                        drawerLayout.closeDrawer(Gravity.RIGHT);
                     }
 
 
@@ -298,14 +308,28 @@ public class Home_Activity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return adt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+     //   return adt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+
+        if (item.getItemId()==R.id.btnrightmenu){
+
+
+            if (drawerLayout.isDrawerOpen(Gravity.RIGHT)){
+                drawerLayout.closeDrawer(Gravity.RIGHT);
+
+            } else {
+
+                drawerLayout.openDrawer(Gravity.RIGHT);
+            }
+        }
+        return  super.onOptionsItemSelected(item);
+
     }
 
     @SuppressLint("WrongConstant")
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(Gravity.START)) {
-            drawerLayout.closeDrawer(Gravity.START);
+        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+            drawerLayout.closeDrawer(Gravity.RIGHT);
         } else {
             //ShowalertDialog();
             super.onBackPressed();
@@ -404,4 +428,17 @@ public class Home_Activity extends AppCompatActivity {
         }
     }
 
+//    @Override
+//    public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+//        super.onPostCreate(savedInstanceState, persistentState);
+//        adt.syncState();
+//    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.right_side_menudrawar,menu);
+        return true;
+    }
 }
