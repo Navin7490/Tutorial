@@ -1,48 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="@color/white"
-    android:layout_height="wrap_content">
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
 
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:cardCornerRadius="@dimen/_5sdp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/_3sdp"
-        android:layout_height="wrap_content">
+        app:cardCornerRadius="@dimen/_5sdp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <ImageView
                 android:id="@+id/Im_lessonItem"
-                android:layout_gravity="center"
-                android:src="@drawable/videicon1"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
                 android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"/>
+                android:layout_height="@dimen/_80sdp"
+                android:layout_below="@+id/framvideo"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/videicon1"
+                android:scaleType="centerCrop" />
 
 
-    <TextView
-        android:visibility="gone"
-        android:id="@+id/Tv_VideoUrl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/Tv_lessonItemdetail"
-        android:layout_alignLeft="@+id/Im_lessonItem"
-        android:layout_marginLeft="@dimen/_90sdp"
-        android:layout_width="match_parent"
-        android:textColor="@color/black"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_30sdp"
-        android:text="Basic Android for begginer"
-        android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/Tv_VideoUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/Tv_lessonItemdetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/Im_lessonItem"
+                android:layout_alignLeft="@+id/Im_lessonItem"
+                android:layout_marginLeft="@dimen/_90sdp"
+                android:layout_marginTop="-70dp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:text="Basic Android for begginer"
+                android:textColor="@color/black" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

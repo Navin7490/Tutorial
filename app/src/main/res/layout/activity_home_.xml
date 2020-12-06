@@ -137,7 +137,7 @@
 
 
     <com.google.android.material.navigation.NavigationView
-    android:layout_gravity="end"
+    android:layout_gravity="start"
     app:menu="@menu/home_menu"
     android:id="@+id/Navigation_Home"
     android:background="@color/black"

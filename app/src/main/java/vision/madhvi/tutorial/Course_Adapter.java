@@ -47,6 +47,10 @@ public class Course_Adapter extends RecyclerView.Adapter<Course_Adapter.Viewhold
         return product.size();
     }
 
+    public void clearData() {
+        product.clear();
+    }
+
     public class Viewholder extends RecyclerView.ViewHolder {
         TextView tvcoursId, tvcoursename, tvcoursedescription;
         ImageView imageView;

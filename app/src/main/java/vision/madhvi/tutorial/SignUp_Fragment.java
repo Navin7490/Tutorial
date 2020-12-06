@@ -211,6 +211,9 @@ public class SignUp_Fragment extends Fragment {
                 } else if (cpassword.isEmpty()) {
                     etcpassword.requestFocus();
                     etcpassword.setError("Enter Confirm Paasowrd");
+                } else if (imeinumber.isEmpty()) {
+                    Toast.makeText(getActivity(), "IMEI Not Found", Toast.LENGTH_SHORT).show();
+
                 } else {
 
                     if (!password.matches(cpassword)) {
@@ -323,43 +326,43 @@ public class SignUp_Fragment extends Fragment {
         requestQueue.add(stringRequestsigup);
     }
 
-    public void SendOtp(){
-
-        try {
-                    // Construct data
-                    String apiKey = "apikey=" + "eo/1x8BBlAs-re18SbJlYoNTVIxqlGk0PRx15h48iB";
-                    Random random=new Random();
-                      randomnumber=random.nextInt(999999);
-                    String message = "&message=" + "Hey "+OtpMess+" your OTP is "+randomnumber;
-                    String sender = "&sender=" + "TXTLCL";
-                    String numbers = "&numbers=" +mobile;
-
-                    // Send data
-                    HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
-                    String data = apiKey + numbers + message + sender;
-                    conn.setDoOutput(true);
-                    conn.setRequestMethod("POST");
-                    conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
-                    conn.getOutputStream().write(data.getBytes("UTF-8"));
-                    final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    final StringBuffer stringBuffer = new StringBuffer();
-                    String line;
-                    while ((line = rd.readLine()) != null) {
-                        stringBuffer.append(line);
-                    }
-                    rd.close();
-//                  toast=  Toast.makeText(getContext(), "OTP Send Successfully"+randomnumber, Toast.LENGTH_SHORT);
-//                  toast.setGravity(Gravity.CENTER,0,0);
-//                  toast.show();
-                   // return stringBuffer.toString();
-                } catch (Exception e) {
-                    //System.out.println("Error SMS "+e);
-                   // return "Error "+e;
-
-                    Toast.makeText(getContext(), "Error SMS"+e, Toast.LENGTH_SHORT).show();
-
-                }
-    }
+//    public void SendOtp(){
+//
+//        try {
+//                    // Construct data
+//                    String apiKey = "apikey=" + "eo/1x8BBlAs-re18SbJlYoNTVIxqlGk0PRx15h48iB";
+//                    Random random=new Random();
+//                      randomnumber=random.nextInt(999999);
+//                    String message = "&message=" + "Hey "+OtpMess+" your OTP is "+randomnumber;
+//                    String sender = "&sender=" + "TXTLCL";
+//                    String numbers = "&numbers=" +mobile;
+//
+//                    // Send data
+//                    HttpURLConnection conn = (HttpURLConnection) new URL("https://api.textlocal.in/send/?").openConnection();
+//                    String data = apiKey + numbers + message + sender;
+//                    conn.setDoOutput(true);
+//                    conn.setRequestMethod("POST");
+//                    conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+//                    conn.getOutputStream().write(data.getBytes("UTF-8"));
+//                    final BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//                    final StringBuffer stringBuffer = new StringBuffer();
+//                    String line;
+//                    while ((line = rd.readLine()) != null) {
+//                        stringBuffer.append(line);
+//                    }
+//                    rd.close();
+////                  toast=  Toast.makeText(getContext(), "OTP Send Successfully"+randomnumber, Toast.LENGTH_SHORT);
+////                  toast.setGravity(Gravity.CENTER,0,0);
+////                  toast.show();
+//                   // return stringBuffer.toString();
+//                } catch (Exception e) {
+//                    //System.out.println("Error SMS "+e);
+//                   // return "Error "+e;
+//
+//                    Toast.makeText(getContext(), "Error SMS"+e, Toast.LENGTH_SHORT).show();
+//
+//                }
+//    }
     // Permission Allow method start
     public void  permissionallow(){
 

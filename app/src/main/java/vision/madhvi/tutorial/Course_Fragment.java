@@ -74,6 +74,7 @@ public class Course_Fragment extends Fragment {
     ArrayList<Group_Modal> productgroup;
 
     Group_Adapter adaptergroup;
+    Course_Adapter adapter;
 
     public Course_Fragment() {
         // Required empty public constructor
@@ -153,6 +154,10 @@ public class Course_Fragment extends Fragment {
 
                     }
 
+
+
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -182,11 +187,11 @@ public class Course_Fragment extends Fragment {
                 // group= String.valueOf(spinner.getItemIdAtPosition(position+1));
 
 
+
                 final Group_Modal groupModal = (Group_Modal) parent.getItemAtPosition(position);
 
                 String gname = groupModal.getGroupname();
                 String gid = groupModal.getGroupid();
-
 
                 String VIEWCOURSES_URL = "http://103.207.169.120:8891/api/Course/" + gid;
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, VIEWCOURSES_URL, new Response.Listener<String>() {
@@ -218,7 +223,7 @@ public class Course_Fragment extends Fragment {
                                 course_modal.setCourseGroupname(groupname);
                                 course_modal.setCourseimage(image);
                                 productcourse.add(course_modal);
-                                Course_Adapter adapter = new Course_Adapter(getContext(), productcourse);
+                                adapter = new Course_Adapter(getContext(), productcourse);
                                 recyclerView.setAdapter(adapter);
 
                             }

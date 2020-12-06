@@ -113,8 +113,11 @@ public class Login_Fragment extends Fragment {
                 } else if (password.isEmpty()) {
                     etpassword.requestFocus();
                     etpassword.setError("Enter Password");
+                } else if (imeinumber.isEmpty()) {
+                    Toast.makeText(getActivity(), "IMEI Not Found", Toast.LENGTH_SHORT).show();
                 } else {
                     LoginData();
+
                 }
 
             }
@@ -229,15 +232,7 @@ public class Login_Fragment extends Fragment {
 
             }
         });
-//        {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                HashMap<String, String> param = new HashMap<>();
-//                param.put("UserName",email);
-//                param.put("Password",password);
-//                return param;
-//            }
-//        };
+
 
         RequestQueue queue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
         queue.add(stringRequest);

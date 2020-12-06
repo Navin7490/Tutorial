@@ -57,6 +57,7 @@ public class Home_Activity extends AppCompatActivity {
     Toast toast;
 
     Toolbar toolbar;
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +80,19 @@ public class Home_Activity extends AppCompatActivity {
 
         tvmarquee.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         tvmarquee.setSelected(true);
-        adt = new ActionBarDrawerToggle(this, drawerLayout,toolbar, R.string.open, R.string.close);
+        adt = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(adt);
-      //  adt.syncState();
-      //  setTitleColor(R.color.colorPrimaryDark1);
+        adt.syncState();
+        //  setTitleColor(R.color.colorPrimaryDark1);
         //setSupportActionBar(toolbar);
         myreciver = new Myreciver();
-       // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-      //  getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-      //  getSupportActionBar().setDisplayShowHomeEnabled(false);
-       // toolbar.setTitle("bjnbnvn");
+        // getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        // toolbar.setTitle("bjnbnvn");
 
-       getSupportActionBar().setTitle("                      Madhvi Vision");
-       // getSupportActionBar().setTitle(Html.fromHtml("<font color=\"yellow\">" +getString(R.string.app_name)));
+        getSupportActionBar().setTitle("Madhvi Vision");
+        // getSupportActionBar().setTitle(Html.fromHtml("<font color=\"yellow\">" +getString(R.string.app_name)));
         imageView.setVisibility(View.GONE);
         tvmarquee.setVisibility(View.GONE);
         btnviewcurses.setVisibility(View.GONE);
@@ -103,7 +104,7 @@ public class Home_Activity extends AppCompatActivity {
         frameLayoutVision.setVisibility(View.GONE);
 
         // Runtime permission call method
-         PermissionAllow();
+        PermissionAllow();
         //Runtime permission end
 
 
@@ -138,7 +139,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
 
                     } else {
                         tvcourses.setText("All COURSES");
@@ -152,7 +153,7 @@ public class Home_Activity extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.Fram_Courses, courseFragment);
                         fragmentTransaction.commit();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
                     }
 
 
@@ -162,7 +163,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
 
                     } else {
 
@@ -176,7 +177,7 @@ public class Home_Activity extends AppCompatActivity {
                         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.Fra_Vision, visionFragment);
                         fragmentTransaction.commit();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
                     }
                 }
                 if (id == R.id.MenuHome_Login) {
@@ -184,7 +185,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
 
                     } else {
 
@@ -198,7 +199,7 @@ public class Home_Activity extends AppCompatActivity {
                         FragmentTransaction fragmentTralogin = getSupportFragmentManager().beginTransaction();
                         fragmentTralogin.replace(R.id.Fram_Courses, loginFragment);
                         fragmentTralogin.commit();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
                     }
 
                 }
@@ -207,7 +208,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
 
                     } else {
                         frameLayoutVision.setVisibility(View.GONE);
@@ -221,7 +222,7 @@ public class Home_Activity extends AppCompatActivity {
                         signuptra.replace(R.id.Fram_Courses, signUp_fragment);
                         signuptra.commit();
 
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
                     }
 
 
@@ -232,7 +233,7 @@ public class Home_Activity extends AppCompatActivity {
                         toast = Toast.makeText(Home_Activity.this, "Please connect internet !", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
 
                     } else {
                         frameLayoutVision.setVisibility(View.GONE);
@@ -246,19 +247,12 @@ public class Home_Activity extends AppCompatActivity {
                         feedtra.replace(R.id.Fram_Courses, feedBackCountausFragment);
                         feedtra.commit();
 
-                        drawerLayout.closeDrawer(Gravity.RIGHT);
+                        drawerLayout.closeDrawer(Gravity.START);
                     }
-
-
                 }
-
-
-
                 return false;
             }
         });
-
-
     }
 
     // permission method start
@@ -273,8 +267,8 @@ public class Home_Activity extends AppCompatActivity {
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
                 finish();
-               toast= Toast.makeText(Home_Activity.this, "Required All Permission", Toast.LENGTH_LONG);
-               toast.setGravity(Gravity.CENTER,0,0);
+                toast = Toast.makeText(Home_Activity.this, "Required All Permission", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
 
             }
@@ -282,7 +276,8 @@ public class Home_Activity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             TedPermission.with(Home_Activity.this)
                     .setPermissionListener(permissionListener)
-                    .setPermissions(Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,
+                    .setPermissions(Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE,
                             Manifest.permission.READ_PHONE_NUMBERS)
                     .check();
         }
@@ -308,64 +303,22 @@ public class Home_Activity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-     //   return adt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+        return adt.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
 
-        if (item.getItemId()==R.id.btnrightmenu){
-
-
-            if (drawerLayout.isDrawerOpen(Gravity.RIGHT)){
-                drawerLayout.closeDrawer(Gravity.RIGHT);
-
-            } else {
-
-                drawerLayout.openDrawer(Gravity.RIGHT);
-            }
-        }
-        return  super.onOptionsItemSelected(item);
 
     }
 
     @SuppressLint("WrongConstant")
     @Override
     public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(Gravity.RIGHT)) {
-            drawerLayout.closeDrawer(Gravity.RIGHT);
+        if (drawerLayout.isDrawerOpen(Gravity.START)) {
+            drawerLayout.closeDrawer(Gravity.START);
         } else {
             //ShowalertDialog();
             super.onBackPressed();
         }
     }
 
-    //    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//       getMenuInflater().inflate(R.menu.toolbarmenu,menu);
-//
-//         MenuItem menuItem=menu.findItem(R.id.Menu_tool_search);
-//        MenuItem profile=menu.findItem(R.id.Menu_tool_profile);
-//
-//        profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem Item) {
-//                Toast.makeText(Home_Activity.this, "profile", Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//        });
-//        SearchView searchView= (SearchView) menuItem.getActionView();
-//        searchView.setQueryHint("Type here search");
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return true;
-//            }
-//        });
-//        return true;
-//    }
     public void ShowalertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Home_Activity.this);
         builder.setCancelable(false);
@@ -428,17 +381,5 @@ public class Home_Activity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-//        super.onPostCreate(savedInstanceState, persistentState);
-//        adt.syncState();
-//    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.right_side_menudrawar,menu);
-        return true;
-    }
 }
+
