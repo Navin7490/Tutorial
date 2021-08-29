@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vision.madhvi.tutorial.Profile_Activity">
+    tools:context="vision.madhvi.tutorial.ui.activity.Profile_Activity">
 
     <RelativeLayout
         android:id="@+id/layprofile"

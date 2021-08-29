@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/Layout_Sigup"
     android:layout_height="match_parent"
-    tools:context="vision.madhvi.tutorial.MainActivity">
+    tools:context="vision.madhvi.tutorial.ui.activity.MainActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_margin="@dimen/_10sdp"

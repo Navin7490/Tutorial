@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/Drawer_Home"
 
-    tools:context="vision.madhvi.tutorial.Home_Activity">
+    tools:context="vision.madhvi.tutorial.ui.activity.Home_Activity">
 
 
 <!--    <include layout="@layout/app_bar"-->

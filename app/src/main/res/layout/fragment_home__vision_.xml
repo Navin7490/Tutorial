@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="vision.madhvi.tutorial.Home_Vision_Fragment">
+    tools:context=".ui.fragment.Home_Vision_Fragment">
 
   <RelativeLayout
       android:layout_width="match_parent"

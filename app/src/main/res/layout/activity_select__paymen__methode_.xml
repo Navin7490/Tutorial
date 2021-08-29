@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
 
-    tools:context="vision.madhvi.tutorial.Select_Paymen_Methode_Activity">
+    tools:context="vision.madhvi.tutorial.ui.activity.Select_Paymen_Methode_Activity">
     <RelativeLayout
         android:id="@+id/Ralati_1"
         android:layout_width="match_parent"
