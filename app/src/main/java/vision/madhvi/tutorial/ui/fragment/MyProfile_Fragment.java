@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import vision.madhvi.tutorial.R;
@@ -152,7 +154,7 @@ public class MyProfile_Fragment extends Fragment implements LocationListener{
         btncurrentlocation=v.findViewById(R.id.Btn_PCurrentLocation);
 
 
-         loginShareprefe_modal=new LoginShareprefe_Modal(getContext());
+         loginShareprefe_modal=new LoginShareprefe_Modal(requireContext());
         contactId=loginShareprefe_modal.sharedPreLogin.getString("contactId",null);
 
         mobile=loginShareprefe_modal.sharedPreLogin.getString("Mobile",null);
@@ -169,7 +171,10 @@ public class MyProfile_Fragment extends Fragment implements LocationListener{
         address2=loginShareprefe_modal.sharedPreLogin.getString("Address2",null);
         pincode=loginShareprefe_modal.sharedPreLogin.getString("PIN",null);
 
-        Glide.with(getContext()).load(loginShareprefe_modal.sharedPreLogin.getString("image",null)).into(imageprofile);
+        Glide.with(requireContext())
+                .load(loginShareprefe_modal.sharedPreLogin.getString("image",null))
+                .placeholder(R.drawable.ic_user)
+                .into(imageprofile);
 
         tvcontactId.setText(contactId);
         tvmobile.setText(mobile);
@@ -194,7 +199,7 @@ public class MyProfile_Fragment extends Fragment implements LocationListener{
                 Intent gallary=new Intent();
                 gallary.setType("image/*");
                 gallary.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(gallary,"select image"),PICKE_IMAGE);
+                ActivityCompat.startActivityForResult(requireActivity(),Intent.createChooser(gallary,"Choose Image"),PICKE_IMAGE,null);
             }
         });
         tvdob.setOnClickListener(new View.OnClickListener() {
@@ -315,27 +320,37 @@ public class MyProfile_Fragment extends Fragment implements LocationListener{
         return v;
     }
 
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode==PICKE_IMAGE && resultCode==RESULT_OK){
-            imageuri=data.getData();
+       // if (requestCode==PICKE_IMAGE){
+            if (data != null) {
+                imageuri=data.getData();
+                Log.e("Tag",imageuri.toString());
 
-        }
-        try {
-            bitmap= MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(),imageuri);
-            imageprofile.setImageBitmap(bitmap);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                try {
+                    bitmap= MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(),imageuri);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                imageprofile.setImageURI(imageuri);
+
+            }
+
+        //}
+
     }
+
+
+
     private String ImageToString(Bitmap bitmap){
         ByteArrayOutputStream OutputStream=new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,OutputStream);
         byte[]imagebyte=OutputStream.toByteArray();
-        String encodedImage= Base64.encodeToString(imagebyte,Base64.DEFAULT);
-        return encodedImage;
+        return Base64.encodeToString(imagebyte,Base64.DEFAULT);
     }
 
     // location method

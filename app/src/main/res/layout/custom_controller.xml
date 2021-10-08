@@ -85,7 +85,7 @@
                 android:layout_marginTop="-8dp"
                 app:unplayed_color="#45424E"
                 app:buffered_color="#95989F"
-                app:played_color="#FF0000"/>
+                app:played_color="@color/colorPrimaryDark1"/>
 
         </LinearLayout>
 

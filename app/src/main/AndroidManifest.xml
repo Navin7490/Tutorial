@@ -23,8 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.ViewVideo_FreeActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".ui.activity.ViewVideo_FreeActivity"
+            android:screenOrientation="landscape" />
         <activity android:name=".ui.activity.FreeTutorial_Activity" />
         <activity android:name=".ui.activity.Payment_Activity" />
         <activity android:name=".ui.activity.Mysub_Lession_Activity" />
@@ -54,8 +55,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="MissingClass">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

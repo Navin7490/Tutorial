@@ -145,7 +145,7 @@ public class Course_Fragment extends Fragment {
                         groupModal.setGroupid(groupid);
                         groupModal.setGroupname(coursegroupname);
                         productgroup.add(groupModal);
-                        adaptergroup = new Group_Adapter(getContext(), productgroup);
+                        adaptergroup = new Group_Adapter(requireContext(), productgroup);
                         spinner.setAdapter(adaptergroup);
 
                         //   ArrayAdapter<String> adaptertt = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_item, productcoursegroup);
@@ -205,6 +205,7 @@ public class Course_Fragment extends Fragment {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject Courses = jsonArray.getJSONObject(i);
 
+
                                 courseid = Courses.getString("CourseId");
                                 cours = Courses.getString("CourseName");
                                 courseprice = Courses.getString("Price");
@@ -222,10 +223,13 @@ public class Course_Fragment extends Fragment {
                                 course_modal.setCourseGroupname(groupname);
                                 course_modal.setCourseimage(image);
                                 productcourse.add(course_modal);
-                                adapter = new Course_Adapter(getContext(), productcourse);
-                                recyclerView.setAdapter(adapter);
+
+
 
                             }
+                            adapter = new Course_Adapter(getContext(), productcourse);
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
 
 
                         } catch (JSONException e) {

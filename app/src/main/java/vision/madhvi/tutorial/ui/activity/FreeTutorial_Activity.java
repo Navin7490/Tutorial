@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -82,6 +83,7 @@ public class FreeTutorial_Activity extends AppCompatActivity {
                         modal.setFtutorialorderid(ftorderid);
 
                         product.add(modal);
+                        Log.e("Tag",ftpath);
 
                     }
                     FreeTutorial_Adapter adapter=new FreeTutorial_Adapter(getApplicationContext(),product);

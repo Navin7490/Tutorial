@@ -94,7 +94,10 @@ public class Home_User_Activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
        //  getSupportActionBar().setTitle(Html.fromHtml("<font color=\"yellow\">" +getString(R.string.app_name)));
-
+        Course_Fragment courseFragment=new Course_Fragment();
+        FragmentTransaction cfragmenttrasaction=getSupportFragmentManager().beginTransaction();
+        cfragmenttrasaction.replace(R.id.Fram_UCourses,courseFragment);
+        cfragmenttrasaction.commit();
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressLint("WrongConstant")
             @Override
@@ -155,14 +158,14 @@ public class Home_User_Activity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
-        registerReceiver(myreciver,filter);
+        //IntentFilter filter=new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        //registerReceiver(myreciver,filter);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(myreciver);
+       // unregisterReceiver(myreciver);
     }
 
     @Override
@@ -193,7 +196,10 @@ public class Home_User_Activity extends AppCompatActivity {
                 dialog.show();
                 imagepro = dialog.findViewById(R.id.Img_PDImage);
 
-                Glide.with(Home_User_Activity.this).load(loginShareprefeModal.sharedPreLogin.getString("image", null)).into(imagepro);
+                Glide.with(Home_User_Activity.this)
+                        .load(loginShareprefeModal.sharedPreLogin.getString("image", null))
+                        .placeholder(R.drawable.ic_user)
+                        .into(imagepro);
                 n = loginShareprefeModal.sharedPreLogin.getString("fullname", null);
                 pn = loginShareprefeModal.sharedPreLogin.getString("profileName", null);
 

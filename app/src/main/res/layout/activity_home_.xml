@@ -26,34 +26,42 @@
         <RelativeLayout
             android:id="@+id/Layout1"
             android:layout_width="match_parent"
-            android:background="@drawable/homescrren"
             android:layout_height="@dimen/_200sdp"
             tools:ignore="NotSibling">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/homescrren" />
+
             <TextView
                 android:id="@+id/Tv_Home_LearnAt"
-                android:textColor="@color/white"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:textSize="@dimen/_16sdp"
-                android:gravity="center"
-                android:singleLine="true"
-                android:scrollbarStyle="insideInset"
-                android:textColorHighlight="@color/white"
-                android:textStyle="italic"
-                android:scrollHorizontally="true"
-                android:layout_marginTop="@dimen/_80sdp"
-                android:text="Learn at your convenience! and learnig you can any time"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:gravity="center"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollbarStyle="insideInset"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Learn at your convenience! and learnig you can any time"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="italic" />
+
             <Button
                 android:id="@+id/Btn_Home_ViewCourse"
-                android:layout_marginTop="@dimen/_120sdp"
                 android:layout_width="match_parent"
-                android:text="view courses"
-                android:textColor="@color/white"
-                android:background="@color/colorPrimaryDark1"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_50sdp"
+                android:layout_marginTop="@dimen/_120sdp"
                 android:layout_marginRight="@dimen/_50sdp"
-                android:layout_height="wrap_content"/>
+                android:background="@color/colorPrimaryDark1"
+                android:text="view courses"
+                android:textColor="@color/white" />
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/Layout2"
